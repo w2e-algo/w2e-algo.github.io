@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Powering T&amp;L with Waste-to-Energy Systems</title>
+  <meta name="description" content="A dynamic optimisation and machine learning framework for sustainable waste-to-energy teaching and learning.">
+  <style>
+    :root {
+      --ink: #10221b;
+      --muted: #54655d;
+      --line: #d8e2dc;
+      --paper: #f7faf7;
+      --white: #ffffff;
+      --forest: #0f5132;
+      --moss: #6f8f3b;
+      --teal: #0d7f78;
+      --gold: #c58a22;
+      --clay: #a65339;
+      --sky: #dceff1;
+      --shadow: 0 18px 50px rgba(16, 34, 27, 0.14);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid rgba(216, 226, 220, 0.9);
+      background: rgba(247, 250, 247, 0.88);
+      backdrop-filter: blur(16px);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+      min-height: 68px;
+    }
+
+    .brand-logo {
+      width: 250px;
+      height: 100px;
+      border-radius: 8px;
+      object-fit: contain;
+    }
+
+    .nav-logo-right {
+      width: 250px;
+      height: 100px;
+      object-fit: contain;
+      flex: 0 0 auto;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+      font-weight: 800;
+      color: var(--forest);
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius);
+      color: var(--white);
+      background: linear-gradient(135deg, var(--forest), var(--teal));
+      font-size: 0.8rem;
+      font-weight: 900;
+    }
+
+    .brand span:last-child {
+      overflow-wrap: anywhere;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 0.94rem;
+      font-weight: 700;
+    }
+
+    .nav-links a {
+      padding: 8px 0;
+    }
+
+    .nav-links a:hover {
+      color: var(--forest);
+    }
+
+    .hero {
+      position: relative;
+      min-height: 76vh;
+      isolation: isolate;
+      color: var(--white);
+      background-image:
+        linear-gradient(90deg, rgba(10, 36, 24, 0.91) 0%, rgba(10, 36, 24, 0.74) 46%, rgba(10, 36, 24, 0.28) 100%),
+        url("pdf_images/image2.png");
+      background-position: center;
+      background-size: cover;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 96px;
+      background: linear-gradient(180deg, rgba(247, 250, 247, 0), var(--paper));
+      z-index: -1;
+    }
+
+    .hero-inner {
+      display: grid;
+      align-items: center;
+      width: min(1120px, calc(100% - 40px));
+      min-height: 76vh;
+      margin: 0 auto;
+      padding: 58px 0 96px;
+    }
+
+    .eyebrow {
+      width: fit-content;
+      margin: 0 0 18px;
+      padding: 7px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      border-radius: 999px;
+      color: #dff3e9;
+      background: rgba(255, 255, 255, 0.08);
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      max-width: 900px;
+      margin-bottom: 18px;
+      font-size: clamp(2.45rem, 7vw, 5.65rem);
+      line-height: 1.02;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      max-width: 840px;
+      margin-bottom: 32px;
+      color: rgba(255, 255, 255, 0.88);
+      font-size: clamp(1.05rem, 2vw, 1.35rem);
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      max-width: 900px;
+    }
+
+    .hero-meta span {
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 999px;
+      padding: 9px 13px;
+      background: rgba(255, 255, 255, 0.11);
+      color: #f4fff9;
+      font-size: 0.94rem;
+      font-weight: 700;
+    }
+
+    main {
+      margin-top: -32px;
+      position: relative;
+      z-index: 5;
+    }
+
+    main section {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 54px 0;
+      scroll-margin-top: 94px;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .section-heading h2 {
+      margin-bottom: 0;
+      font-size: clamp(1.65rem, 3vw, 2.35rem);
+      line-height: 1.1;
+      letter-spacing: 0;
+    }
+
+    .section-kicker {
+      max-width: 500px;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .panel,
+    .member-card,
+    .outcome-card,
+    .timeline-item {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--white);
+      box-shadow: var(--shadow);
+    }
+
+    .panel {
+      padding: clamp(22px, 4vw, 34px);
+    }
+
+    .lead {
+      margin-bottom: 26px;
+      font-size: 1.13rem;
+      color: #26372f;
+    }
+
+    .fact-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .fact {
+      border-left: 4px solid var(--teal);
+      padding: 4px 0 4px 14px;
+    }
+
+    .fact:nth-child(2) {
+      border-color: var(--moss);
+    }
+
+    .fact:nth-child(3) {
+      border-color: var(--gold);
+    }
+
+    .fact:nth-child(4) {
+      border-color: var(--clay);
+    }
+
+    .fact dt {
+      margin-bottom: 3px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .fact dd {
+      margin: 0;
+      font-weight: 750;
+    }
+
+    .focus-list {
+      display: grid;
+      gap: 14px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .focus-list li {
+      display: grid;
+      grid-template-columns: 12px 1fr;
+      gap: 12px;
+      align-items: start;
+      color: #26372f;
+    }
+
+    .focus-list li::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      margin-top: 8px;
+      border-radius: 50%;
+      background: var(--teal);
+    }
+
+    .member-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .member-card {
+      display: grid;
+      grid-template-columns: 92px 1fr;
+      gap: 18px;
+      align-items: center;
+      padding: 18px;
+    }
+
+    .member-card img {
+      width: 92px;
+      height: 92px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--sky);
+    }
+
+    .member-card h3 {
+      margin-bottom: 4px;
+      font-size: 1.2rem;
+    }
+
+    .member-card p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .timeline {
+      position: relative;
+      display: grid;
+      gap: 16px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      top: 20px;
+      bottom: 20px;
+      left: 19px;
+      width: 2px;
+      background: var(--line);
+    }
+
+    .timeline-item {
+      position: relative;
+      display: grid;
+      grid-template-columns: 88px 1fr;
+      gap: 18px;
+      padding: 18px 18px 18px 62px;
+      box-shadow: none;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      top: 21px;
+      left: 12px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--white);
+      border: 5px solid var(--forest);
+    }
+
+    .date {
+      color: var(--forest);
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .timeline-item h3 {
+      margin-bottom: 4px;
+      font-size: 1.04rem;
+    }
+
+    .timeline-item p {
+      margin-bottom: 0;
+      color: var(--muted);
+    }
+
+    .outcomes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .outcome-card {
+      padding: 22px;
+      box-shadow: none;
+    }
+
+    .outcome-card h3 {
+      margin-bottom: 10px;
+      color: var(--forest);
+      font-size: 1.1rem;
+    }
+
+    .outcome-card p {
+      margin-bottom: 0;
+      color: var(--muted);
+    }
+
+    .sdg-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .sdg-strip span {
+      border-radius: var(--radius);
+      padding: 10px 12px;
+      color: var(--white);
+      font-weight: 900;
+      font-size: 0.86rem;
+    }
+
+    .sdg-strip span:nth-child(1) {
+      background: #4c9f38;
+    }
+
+    .sdg-strip span:nth-child(2) {
+      background: #fcc30b;
+      color: #1c221f;
+    }
+
+    .sdg-strip span:nth-child(3) {
+      background: #fd6925;
+    }
+
+    .sdg-strip span:nth-child(4) {
+      background: #bf8b2e;
+    }
+
+    .sdg-strip span:nth-child(5) {
+      background: #3f7e44;
+    }
+
+    .poster {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--white);
+      box-shadow: var(--shadow);
+    }
+
+    .poster img {
+      width: 100%;
+      height: auto;
+    }
+
+    footer {
+      margin-top: 30px;
+      padding: 30px 20px;
+      color: var(--muted);
+      text-align: center;
+      background: #edf4ef;
+      border-top: 1px solid var(--line);
+    }
+
+    footer strong {
+      color: var(--forest);
+    }
+
+    @media (max-width: 860px) {
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        justify-content: center;
+        min-height: 92px;
+        gap: 6px;
+      }
+
+      .nav-links {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 4px;
+      }
+
+      .hero,
+      .hero-inner {
+        min-height: 72vh;
+      }
+
+      .section-heading {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .overview-grid,
+      .outcomes-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .nav,
+      main section,
+      .hero-inner {
+        width: min(100% - 28px, 1120px);
+      }
+
+      .hero {
+        background-position: 64% center;
+      }
+
+      .hero-inner {
+        padding-top: 42px;
+        padding-bottom: 78px;
+      }
+
+      .hero-meta span {
+        width: 100%;
+      }
+
+      main {
+        margin-top: -22px;
+      }
+
+      main section {
+        padding: 40px 0;
+      }
+
+      .fact-grid,
+      .member-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .member-card {
+        grid-template-columns: 74px 1fr;
+      }
+
+      .member-card img {
+        width: 74px;
+        height: 74px;
+      }
+
+      .timeline::before {
+        left: 14px;
+      }
+
+      .timeline-item {
+        grid-template-columns: 1fr;
+        gap: 4px;
+        padding-left: 50px;
+      }
+
+      .timeline-item::before {
+        left: 7px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary navigation">
+      <a class="brand" href="#top" aria-label="The Green Algorithms home">
+        <img class="brand-logo" src="pdf_images/curtin-logo.jpg" alt="curtin logo">
+        <span class="brand-mark">T1</span>
+        <span>The Green Algorithms</span>
+      </a>
+      <div class="nav-links" aria-label="Page sections">
+        <a href="#overview">Project</a>
+        <a href="#team">Team</a>
+        <a href="#timeline">Timeline</a>
+        <a href="#outcomes">Outcomes</a>
+      </div>
+      <img class="nav-logo-right" src="pdf_images/sdgs_priority.png" alt="sdgs">
+    </nav>
+  </header>
+
+  <section class="hero" id="top" aria-label="Project introduction">
+    <div class="hero-inner">
+      <div>
+        <p class="eyebrow">Team 1 · Data, Insight, Impact</p>
+        <h1>Powering T&amp;L with Waste-to-Energy Systems</h1>
+        <p class="subtitle">A dynamic optimisation and machine learning framework for sustainability education, combining synthetic data, predictive modelling, and optimisation to solve real-world energy and resource challenges.</p>
+        <div class="hero-meta" aria-label="Project tags">
+          <span>Waste-to-energy systems</span>
+          <span>Machine learning</span>
+          <span>Dynamic optimisation</span>
+          <span>Curriculum integration</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section id="overview" aria-labelledby="overview-title">
+      <div class="section-heading">
+        <h2 id="overview-title">Project Basic Information</h2>
+        <p class="section-kicker">The project turns biogas hub design into an applied teaching and learning framework for sustainable systems modelling.</p>
+      </div>
+
+      <div class="overview-grid">
+        <article class="panel">
+          <p class="lead">The framework supports decisions about regional biogas hub location, feedstock allocation, feedstock blending, transport logistics, resource use, energy pricing, and emissions reduction under uncertainty.</p>
+          <dl class="fact-grid">
+            <div class="fact">
+              <dt>Institution</dt>
+              <dd>Curtin University</dd>
+            </div>
+            <div class="fact">
+              <dt>School</dt>
+              <dd>Electrical Engineering, Computing &amp; Mathematical Sciences</dd>
+            </div>
+            <div class="fact">
+              <dt>Core Methods</dt>
+              <dd>Synthetic data, machine learning, optimisation, scenario analysis</dd>
+            </div>
+            <div class="fact">
+              <dt>Application Area</dt>
+              <dd>Biogas hubs, organic waste, renewable energy, emissions reduction</dd>
+            </div>
+          </dl>
+          <div class="sdg-strip" aria-label="Priority sustainable development goals">
+            <span>SDG 3</span>
+            <span>SDG 7</span>
+            <span>SDG 9</span>
+            <span>SDG 12</span>
+            <span>SDG 13</span>
+          </div>
+        </article>
+
+        <aside class="panel" aria-label="Framework focus">
+          <h3>Framework Focus</h3>
+          <ul class="focus-list">
+            <li>Generate realistic data for robust waste-to-energy experimentation.</li>
+            <li>Predict biogas yield, resource demand, digestate output, and market conditions.</li>
+            <li>Optimise hub locations, feedstock allocation, blending, transport, and operating inputs.</li>
+            <li>Explore uncertainty from feedstock supply, energy prices, carbon value, logistics, and performance risk.</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section id="team" aria-labelledby="team-title">
+      <div class="section-heading">
+        <h2 id="team-title">Team Members</h2>
+        <p class="section-kicker">Team 1 brings together AI, data science, modelling, optimisation, and digital sustainability capabilities.</p>
+      </div>
+
+      <div class="member-grid">
+        <article class="member-card">
+          <img src="pdf_images/Image5.jpg" alt="Portrait of Sam Wi">
+          <div>
+            <h3>Sam Wiwatanapataphee</h3>
+          </div>
+        </article>
+        <article class="member-card">
+          <img src="pdf_images/Image6.jpg" alt="Portrait of Ying Li">
+          <div>
+            <h3>Ying Li</h3>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="timeline" aria-labelledby="timeline-title">
+      <div class="section-heading">
+        <h2 id="timeline-title">Timeline</h2>
+        <p class="section-kicker">The work moves from discovery and data engineering through model development, teaching design, and showcase delivery.</p>
+      </div>
+
+      <div class="timeline">
+        <article class="timeline-item">
+          <div class="date">12 May</div>
+          <div>
+            <h3>Phase 1 · Data Collection and Exploration</h3>
+            <p>Context review, industry analysis, and project scoping.</p>
+          </div>
+        </article>
+        <article class="timeline-item">
+          <div class="date">1 June</div>
+          <div>
+            <h3>Phase 2 · Data Engineering</h3>
+            <p>Synthetic data generation framework for scalable experimentation.</p>
+          </div>
+        </article>
+        <article class="timeline-item">
+          <div class="date">1 July</div>
+          <div>
+            <h3>Phase 3 · Machine Learning Framework</h3>
+            <p>Predictive modelling for biogas yield, resource demand, and Case Study 1.</p>
+          </div>
+        </article>
+        <article class="timeline-item">
+          <div class="date">1 Aug</div>
+          <div>
+            <h3>Phase 4 · Notebook Design</h3>
+            <p>Teaching notebooks and guided learning materials.</p>
+          </div>
+        </article>
+        <article class="timeline-item">
+          <div class="date">1 Sep</div>
+          <div>
+            <h3>Phase 5 · Optimisation Framework</h3>
+            <p>Hub design, feedstock allocation, transport optimisation, and Case Study 2.</p>
+          </div>
+        </article>
+        <article class="timeline-item">
+          <div class="date">1 Oct</div>
+          <div>
+            <h3>Phase 6 · Dynamic Dashboard Design</h3>
+            <p>Interactive dashboard concepts for model outputs, trade-offs, and scenarios.</p>
+          </div>
+        </article>
+        <article class="timeline-item">
+          <div class="date">27 Oct</div>
+          <div>
+            <h3>Final Showcase and Recognition Event</h3>
+            <p>Presentation of project outputs and sustainability education outcomes.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- <section id="outcomes" aria-labelledby="outcomes-title">
+      <div class="section-heading">
+        <h2 id="outcomes-title">Outcomes</h2>
+        <p class="section-kicker">The expected outputs support active learning, project-based assessment, and cross-disciplinary sustainability education.</p>
+      </div>
+
+      <div class="outcomes-grid">
+        <article class="outcome-card">
+          <h3>Biogas Optimisation Case Study</h3>
+          <p>A practical case study where students analyse regional waste-to-energy systems and evaluate cost, emissions, logistics, and resource trade-offs.</p>
+        </article>
+        <article class="outcome-card">
+          <h3>Computational Learning Tools</h3>
+          <p>Simplified Excel, Python, notebook, and dashboard resources for techno-economic analysis, machine learning, and optimisation exercises.</p>
+        </article>
+        <article class="outcome-card">
+          <h3>Project-Based Assessment</h3>
+          <p>Assessment activities where students design a regional biogas hub, compare centralised and decentralised systems, and test decisions under uncertainty.</p>
+        </article>
+      </div>
+    </section> -->
+
+    <section aria-labelledby="poster-title">
+      <div class="section-heading">
+        <h2 id="poster-title">Project Poster</h2>
+        <p class="section-kicker">The showcase poster summarises the framework, curriculum integration, priority SDGs, and delivery phases.</p>
+      </div>
+      <figure class="poster">
+        <img src="pdf_images/Image7.jpg" alt="Project poster for Powering T&L with Waste-to-Energy Systems">
+      </figure>
+    </section>
+  </main>
+
+  <footer>
+    <strong>Data-driven. Sustainability-focused. Education-powered.</strong>
+    <div>Building a smarter, greener future through innovation and collaboration.</div>
+  </footer>
+</body>
+</html>
