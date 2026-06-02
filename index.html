@@ -68,17 +68,20 @@
     }
 
     .brand-logo {
-      width: 250px;
-      height: 100px;
-      border-radius: 8px;
+      width: clamp(110px, 16vw, 190px);
+      height: auto;
+      max-height: 56px;
       object-fit: contain;
+      flex: 0 1 auto;
     }
 
     .nav-logo-right {
-      width: 250px;
-      height: 100px;
+      width: clamp(380px, 50%, 450px);
+      height: auto;
+      margin-top: 20px;
+      max-height: 180px;
       object-fit: contain;
-      flex: 0 0 auto;
+      flex: 0 1 auto;
     }
 
     .brand {
@@ -591,8 +594,8 @@
     <nav class="nav" aria-label="Primary navigation">
       <a class="brand" href="#top" aria-label="The Green Algorithms home">
         <img class="brand-logo" src="pdf_images/curtin-logo.jpg" alt="curtin logo">
-        <span class="brand-mark">T1</span>
-        <span>The Green Algorithms</span>
+        <!-- <span class="brand-mark">T1</span> -->
+        <!-- <span>The Green Algorithms</span> -->
       </a>
       <div class="nav-links" aria-label="Page sections">
         <a href="#overview">Project</a>
@@ -600,7 +603,6 @@
         <a href="#timeline">Timeline</a>
         <a href="#outcomes">Outcomes</a>
       </div>
-      <img class="nav-logo-right" src="pdf_images/sdgs_priority.png" alt="sdgs">
     </nav>
   </header>
 
@@ -616,6 +618,7 @@
           <span>Dynamic optimisation</span>
           <span>Curriculum integration</span>
         </div>
+            <img class="nav-logo-right" src="pdf_images/sdgs_priority.png" alt="sdgs">
       </div>
     </div>
   </section>
@@ -671,7 +674,7 @@
 
     <section id="team" aria-labelledby="team-title">
       <div class="section-heading">
-        <h2 id="team-title">Team Members</h2>
+        <h2 id="team-title">Team</h2>
         <p class="section-kicker">Team 1 brings together AI, data science, modelling, optimisation, and digital sustainability capabilities.</p>
       </div>
 
@@ -679,13 +682,29 @@
         <article class="member-card">
           <img src="pdf_images/Image5.jpg" alt="Portrait of Sam Wi">
           <div>
-            <h3>Sam Wiwatanapataphee</h3>
+            <h3>Dr Sam Wiwatanapataphee</h3>
+            <p>Project Investigator</p>
           </div>
         </article>
         <article class="member-card">
           <img src="pdf_images/Image6.jpg" alt="Portrait of Ying Li">
           <div>
-            <h3>Ying Li</h3>
+            <h3>Dr Ying Li</h3>
+            <p>Project Investigator</p>
+          </div>
+        </article>
+        <article class="member-card">
+          <img src="pdf_images/fabiana-tessele-profile.png" alt="Portrait of Dr Fabiana Tessele">
+          <div>
+            <h3>Dr Fabiana Tessele</h3>
+            <p>Project Mentor</p>
+          </div>
+        </article>
+        <article class="member-card">
+          <img src="pdf_images/chris-buhlmann-profile.png" alt="Portrait of Chris Buhlmann">
+          <div>
+            <h3>Chris Buhlmann</h3>
+            <p>Project Mentor</p>
           </div>
         </article>
       </div>
@@ -778,7 +797,7 @@
         <p class="section-kicker">The showcase poster summarises the framework, curriculum integration, priority SDGs, and delivery phases.</p>
       </div>
       <figure class="poster">
-        <img src="pdf_images/Image7.jpg" alt="Project poster for Powering T&L with Waste-to-Energy Systems">
+        <img src="pdf_images/Image7.png" alt="Project poster for Powering T&L with Waste-to-Energy Systems">
       </figure>
     </section>
   </main>
