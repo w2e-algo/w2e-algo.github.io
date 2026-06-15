@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project Progress | TEA Conversion to Synthetic Framework</title>
+  <meta name="description" content="Progress update for TEA spreadsheet conversion and synthetic data generation roadmap.">
+  <style>
+    :root {
+      --bg: #f5f6ef;
+      --paper: #ffffff;
+      --ink: #1c2320;
+      --muted: #53635b;
+      --line: #dbe2dc;
+      --forest: #1d5a3b;
+      --teal: #197a78;
+      --sand: #d7b669;
+      --radius: 14px;
+      --shadow: 0 20px 48px rgba(15, 33, 25, 0.12);
+      --hero-glow: radial-gradient(circle at 75% 18%, rgba(25, 122, 120, 0.26), transparent 42%), radial-gradient(circle at 14% 88%, rgba(176, 81, 44, 0.18), transparent 44%);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Space Grotesk", "Avenir Next", "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: linear-gradient(180deg, #f8faf6 0%, var(--bg) 100%);
+      line-height: 1.5;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(10px);
+      background: rgba(248, 250, 246, 0.9);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .topbar-inner,
+    .hero-inner,
+    main {
+      width: min(1080px, calc(100% - 36px));
+      margin: 0 auto;
+    }
+
+    .topbar-inner {
+      min-height: 66px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      font-weight: 800;
+      letter-spacing: 0.01em;
+      color: var(--forest);
+    }
+
+    .top-links {
+      display: flex;
+      gap: 16px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .hero {
+      position: relative;
+      padding: 62px 0 36px;
+      overflow: hidden;
+      background: linear-gradient(140deg, rgba(29, 90, 59, 0.94) 0%, rgba(25, 122, 120, 0.9) 56%, rgba(11, 63, 57, 0.95) 100%);
+      color: #f5fff9;
+      isolation: isolate;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: var(--hero-glow);
+      z-index: -1;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 7px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      background: rgba(255, 255, 255, 0.09);
+    }
+
+    h1 {
+      font-size: clamp(2rem, 6vw, 4.3rem);
+      line-height: 1.03;
+      margin-bottom: 16px;
+      max-width: 920px;
+      letter-spacing: 0.01em;
+    }
+
+    .hero-lead {
+      max-width: 850px;
+      margin-bottom: 28px;
+      color: rgba(245, 255, 249, 0.9);
+      font-size: clamp(1rem, 2vw, 1.25rem);
+    }
+
+    .hero-cards {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 16px;
+    }
+
+    .hero-card {
+      border: 1px solid rgba(255, 255, 255, 0.26);
+      border-radius: var(--radius);
+      padding: 16px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .hero-card strong {
+      display: block;
+      font-size: 2.2rem;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .progress-track {
+      height: 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.25);
+      overflow: hidden;
+      margin-top: 10px;
+    }
+
+    .progress-value {
+      height: 100%;
+      width: 45%;
+      background: linear-gradient(90deg, #f4d277, #e8a244);
+      animation: fill 1.4s ease-out;
+    }
+
+    main {
+      padding: 38px 0 70px;
+      display: grid;
+      gap: 18px;
+    }
+
+    section {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px;
+      animation: rise 0.55s ease both;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .section-kicker {
+      color: var(--muted);
+      max-width: 62ch;
+      margin-bottom: 0;
+      font-size: 0.95rem;
+    }
+
+    .timeline-wrap {
+      position: relative;
+      overflow-x: auto;
+      padding: 10px 0 16px;
+    }
+
+    .timeline {
+      position: relative;
+      min-width: 980px;
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 14px;
+      padding-top: 22px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 10px;
+      height: 3px;
+      background: linear-gradient(90deg, rgba(29, 90, 59, 0.26), rgba(25, 122, 120, 0.24));
+      border-radius: 999px;
+    }
+
+    .phase {
+      position: relative;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px;
+      background: #fbfdf9;
+      min-height: 170px;
+    }
+
+    .phase::before {
+      content: "";
+      position: absolute;
+      top: -18px;
+      left: 12px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #b8c8bf;
+      border: 2px solid #f8faf6;
+      box-shadow: 0 0 0 1px var(--line);
+    }
+
+    .phase.done {
+      border-color: rgba(29, 90, 59, 0.34);
+      background: linear-gradient(180deg, #eef8f2, #e8f4ec);
+    }
+
+    .phase.done::before {
+      background: var(--forest);
+    }
+
+    .phase.current {
+      border-color: rgba(215, 182, 105, 0.68);
+      background: linear-gradient(180deg, #fff8ea, #fff2d9);
+    }
+
+    .phase.current::before {
+      background: var(--sand);
+    }
+
+    .pill {
+      display: inline-block;
+      margin-bottom: 8px;
+      border-radius: 999px;
+      padding: 3px 8px;
+      font-size: 0.76rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .pill.done {
+      background: rgba(29, 90, 59, 0.12);
+      color: var(--forest);
+    }
+
+    .pill.next {
+      background: rgba(215, 182, 105, 0.22);
+      color: #7b5d1d;
+    }
+
+    .phase h3 {
+      margin-bottom: 6px;
+      font-size: 0.98rem;
+      line-height: 1.25;
+    }
+
+    .phase p {
+      margin-bottom: 0;
+      color: #304039;
+      font-size: 0.92rem;
+    }
+
+    .phase-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .cards,
+    .source-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .card,
+    .source {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 14px;
+      background: #fbfdf9;
+    }
+
+    .card h3,
+    .source h3 {
+      margin-bottom: 8px;
+      font-size: 1rem;
+    }
+
+    .card ul {
+      margin: 0;
+      padding-left: 18px;
+      color: #304039;
+    }
+
+    .card li + li {
+      margin-top: 5px;
+    }
+
+    @keyframes fill {
+      from { width: 0; }
+      to { width: 45%; }
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 900px) {
+      .hero-cards,
+      .section-head {
+        grid-template-columns: 1fr;
+        flex-direction: column;
+        align-items: start;
+      }
+
+      .phase-grid,
+      .cards,
+      .source-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .top-links {
+        font-size: 0.88rem;
+        gap: 10px;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .topbar-inner {
+        flex-direction: column;
+        justify-content: center;
+        padding: 10px 0;
+      }
+
+      .top-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .hero {
+        padding-top: 34px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">TEA Conversion Progress</div>
+      <nav class="top-links" aria-label="Progress navigation">
+        <a href="index.html">Main Page</a>
+        <a href="#status">Status</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" aria-label="Progress summary">
+    <div class="hero-inner">
+      <p class="eyebrow">Update · 16 Jun 2026</p>
+      <h1>Phase 2: Data Engineering</h1>
+      <p class="hero-lead">Spreadsheet audit and extraction, core TEA model conversion to Python, public data exploration.</p>
+      <div class="hero-cards">
+        <article class="hero-card">
+          <strong>45%</strong>
+          <span>Most-likely completion toward the main goal (synthetic framework).</span>
+          <div class="progress-track" role="img" aria-label="Progress bar showing 45 percent complete">
+            <div class="progress-value"></div>
+          </div>
+        </article>
+        <article class="hero-card">
+          <strong>Current Focus</strong>
+          <span>Reproducible data pipelines and synthetic data generation framework.</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section id="status" aria-labelledby="status-title">
+      <div class="section-head">
+        <h2 id="status-title">Project Timeline</h2>
+      </div>
+
+      <div class="timeline-wrap" aria-label="Horizontal timeline container">
+        <div class="timeline">
+          <article class="phase done">
+            <span class="pill done">Completed</span>
+            <h3>Phase 1: Data Collection and Exploration</h3>
+            <p>Context review, industry analysis, and project scoping.</p>
+          </article>
+          <article class="phase current">
+            <span class="pill next">45% Completed</span>
+            <h3>Phase 2: Data Engineering</h3>
+            <p>Synthetic data generation framework for scalable experimentation.</p>
+          </article>
+          <article class="phase">
+            <span class="pill next">Next</span>
+            <h3>Phase 3: Machine Learning Framework</h3>
+            <p>Predictive modelling for biogas yield, resource demand, and Case Study 1.</p>
+          </article>
+          <article class="phase">
+            <span class="pill next">Next</span>
+            <h3>Phase 4: Notebook Design</h3>
+            <p>Teaching notebooks and guided learning materials.</p>
+          </article>
+          <article class="phase">
+            <span class="pill next">Next</span>
+            <h3>Phase 5: Optimisation Framework</h3>
+            <p>Hub design, feedstock allocation, transport optimisation, and Case Study 2.</p>
+          </article>
+          <article class="phase">
+            <span class="pill next">Next</span>
+            <h3>Phase 6: Dynamic Dashboard Design</h3>
+            <p>Interactive dashboard concepts for model outputs, trade-offs, and scenarios.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="engineering-progress" aria-labelledby="engineering-progress-title">
+      <div class="section-head">
+        <h2 id="engineering-progress-title">Data Engineering Progress Map</h2>
+        <p class="section-kicker">Core model engineering is complete. The synthetic framework is the next major subsystem.</p>
+      </div>
+      <div class="phase-grid">
+        <article class="phase done">
+          <span class="pill done">Completed</span>
+          <h3>Task 1</h3>
+          <p>Spreadsheet audit and extraction. Facility, CAPEX, OPEX, financials, emissions, and carbon-credit logic.</p>
+        </article>
+        <article class="phase done">
+          <span class="pill done">Completed</span>
+          <h3>Task 2</h3>
+          <p>Recreate deterministic sensitivity analysis functionality in Python.</p>
+        </article>
+        <article class="phase current">
+          <span class="pill next">80% completed</span>
+          <h3>Task 3</h3>
+          <p>Public data exploration. Define parameter schema and bounds.</p>
+        </article>
+        <article class="phase">
+          <span class="pill next">Next</span>
+          <h3>Task 4</h3>
+          <p>Reproducible sampling engine development and integration.</p>
+        </article>
+        <article class="phase">
+          <span class="pill next">Next</span>
+          <h3>Task 5</h3>
+          <p>Dataset and pipeline output.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="gaps" aria-labelledby="gaps-title">
+      <div class="section-head">
+        <h2 id="gaps-title">What Is Done vs What Is Missing</h2>
+        <p class="section-kicker">This is the key reason the project is not yet at end-goal readiness.</p>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <h3>Implemented now</h3>
+          <ul>
+            <li>Typed and bounded input extraction from TEA workbook.</li>
+            <li>Scenario calculations from facility through emissions and financials.</li>
+            <li>Deterministic sensitivity over core economic and operational drivers.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Required for synthetic framework</h3>
+          <ul>
+            <li>Parameter distributions and sampling policy design.</li>
+            <li>Dependency and correlation constraints between generated parameters.</li>
+            <li>Batch synthetic scenario generation with reproducible seeds.</li>
+            <li>Dataset export interfaces for ML and optimisation model pipelines.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="data-strategy" aria-labelledby="data-title">
+      <div class="section-head">
+        <h2 id="data-title">Data Source Strategy Pivot</h2>
+        <p class="section-kicker">Why the team is moving from workbook-centered reporting to reproducible tabular datasets.</p>
+      </div>
+      <div class="source-grid">
+        <article class="source">
+          <h3>Role of TEA workbook</h3>
+          <p>
+            Use as a <strong>logic and calibration reference</strong>: assumptions, formulas, and scenario structure.
+            Valuable for audit and benchmarking, but difficult as a reproducible live-data source.
+          </p>
+        </article>
+        <article class="source">
+          <h3>Role of curated dataset</h3>
+          <p>
+            Use as the <strong>operational experimentation source</strong> (for example dataset.csv): reproducible, versionable,
+            and suitable for sensitivity studies, machine learning training, and optimisation workflows.
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
