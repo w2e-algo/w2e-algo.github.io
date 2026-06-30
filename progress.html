@@ -149,8 +149,8 @@
 
     .progress-value {
       height: 100%;
-      width: 45%;
-      background: linear-gradient(90deg, #f4d277, #e8a244);
+      width: 100%;
+      background: linear-gradient(90deg, #8faca0, #0eb624);
       animation: fill 1.4s ease-out;
     }
 
@@ -323,7 +323,7 @@
 
     @keyframes fill {
       from { width: 0; }
-      to { width: 45%; }
+      to { width: 100%; }
     }
 
     @keyframes rise {
@@ -382,20 +382,20 @@
 
   <section class="hero" aria-label="Progress summary">
     <div class="hero-inner">
-      <p class="eyebrow">Update · 16 Jun 2026</p>
-      <h1>Phase 2: Data Engineering</h1>
-      <p class="hero-lead">Spreadsheet audit and extraction, core TEA model conversion to Python, public data exploration.</p>
+      <p class="eyebrow">Update · 30 Jun 2026</p>
+      <h1>Phase 2: Data Engineering — Complete</h1>
+      <p class="hero-lead">Synthetic data generation framework is finished. Moving to Phase 3: Machine Learning Framework.</p>
       <div class="hero-cards">
         <article class="hero-card">
-          <strong>45%</strong>
-          <span>Most-likely completion toward the main goal (synthetic framework).</span>
-          <div class="progress-track" role="img" aria-label="Progress bar showing 45 percent complete">
+          <strong>100%</strong>
+          <span>Most-likely completion toward the main goal (ML + optimisation framework).</span>
+          <div class="progress-track" role="img" aria-label="Progress bar showing 100 percent complete">
             <div class="progress-value"></div>
           </div>
         </article>
         <article class="hero-card">
-          <strong>Current Focus</strong>
-          <span>Reproducible data pipelines and synthetic data generation framework.</span>
+          <strong>Next Focus</strong>
+          <span>Predictive modelling for biogas yield, resource demand, and Case Study 1.</span>
         </article>
       </div>
     </div>
@@ -414,12 +414,12 @@
             <h3>Phase 1: Data Collection and Exploration</h3>
             <p>Context review, industry analysis, and project scoping.</p>
           </article>
-          <article class="phase current">
-            <span class="pill next">45% Completed</span>
+          <article class="phase done">
+            <span class="pill done">Completed</span>
             <h3>Phase 2: Data Engineering</h3>
             <p>Synthetic data generation framework for scalable experimentation.</p>
           </article>
-          <article class="phase">
+          <article class="phase current">
             <span class="pill next">Next</span>
             <h3>Phase 3: Machine Learning Framework</h3>
             <p>Predictive modelling for biogas yield, resource demand, and Case Study 1.</p>
@@ -446,7 +446,7 @@
     <section id="engineering-progress" aria-labelledby="engineering-progress-title">
       <div class="section-head">
         <h2 id="engineering-progress-title">Data Engineering Progress Map</h2>
-        <p class="section-kicker">Core model engineering is complete. The synthetic framework is the next major subsystem.</p>
+        <p class="section-kicker">All data engineering tasks complete. Synthetic framework is ready for ML and optimisation pipelines.</p>
       </div>
       <div class="phase-grid">
         <article class="phase done">
@@ -459,18 +459,18 @@
           <h3>Task 2</h3>
           <p>Recreate deterministic sensitivity analysis functionality in Python.</p>
         </article>
-        <article class="phase current">
-          <span class="pill next">80% completed</span>
+        <article class="phase done">
+          <span class="pill done">Completed</span>
           <h3>Task 3</h3>
           <p>Public data exploration. Define parameter schema and bounds.</p>
         </article>
-        <article class="phase">
-          <span class="pill next">Next</span>
+        <article class="phase done">
+          <span class="pill done">Completed</span>
           <h3>Task 4</h3>
           <p>Reproducible sampling engine development and integration.</p>
         </article>
-        <article class="phase">
-          <span class="pill next">Next</span>
+        <article class="phase done">
+          <span class="pill done">Completed</span>
           <h3>Task 5</h3>
           <p>Dataset and pipeline output.</p>
         </article>
@@ -479,25 +479,29 @@
 
     <section id="gaps" aria-labelledby="gaps-title">
       <div class="section-head">
-        <h2 id="gaps-title">What Is Done vs What Is Missing</h2>
-        <p class="section-kicker">This is the key reason the project is not yet at end-goal readiness.</p>
+        <h2 id="gaps-title">What Is Done vs What Is Next</h2>
+        <p class="section-kicker">Data engineering phase is complete. The project now moves to predictive modelling.</p>
       </div>
       <div class="cards">
         <article class="card">
-          <h3>Implemented now</h3>
+          <h3>Implemented (Phase 2 complete)</h3>
           <ul>
             <li>Typed and bounded input extraction from TEA workbook.</li>
             <li>Scenario calculations from facility through emissions and financials.</li>
             <li>Deterministic sensitivity over core economic and operational drivers.</li>
-          </ul>
-        </article>
-        <article class="card">
-          <h3>Required for synthetic framework</h3>
-          <ul>
             <li>Parameter distributions and sampling policy design.</li>
             <li>Dependency and correlation constraints between generated parameters.</li>
             <li>Batch synthetic scenario generation with reproducible seeds.</li>
             <li>Dataset export interfaces for ML and optimisation model pipelines.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Required for ML framework (Phase 3)</h3>
+          <ul>
+            <li>Biogas yield prediction model using synthetic dataset.</li>
+            <li>Resource demand forecasting pipeline.</li>
+            <li>Case Study 1 model development and validation.</li>
+            <li>Model evaluation, benchmarking, and documentation.</li>
           </ul>
         </article>
       </div>
