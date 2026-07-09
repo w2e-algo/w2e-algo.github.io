@@ -3,8 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Project Progress | TEA Conversion to Synthetic Framework</title>
-  <meta name="description" content="Progress update for TEA spreadsheet conversion and synthetic data generation roadmap.">
+  <title>Project Progress | Phase 1/2 Synthetic Data Release</title>
+  <meta name="description" content="Status update for the Phase 1/2 public synthetic data release and planned next phases.">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+   <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true });
+    </script>
   <style>
     :root {
       --bg: #f5f6ef;
@@ -19,6 +25,14 @@
       --shadow: 0 20px 48px rgba(15, 33, 25, 0.12);
       --hero-glow: radial-gradient(circle at 75% 18%, rgba(25, 122, 120, 0.26), transparent 42%), radial-gradient(circle at 14% 88%, rgba(176, 81, 44, 0.18), transparent 44%);
     }
+
+    code {
+      --bs-box-shadow: none; /* Optional: clear default shadows */
+      background-color: var(--bs-gray-100); /* Uses Bootstrap's gray variable */
+      padding: 0.2rem 0.4rem;
+      border-radius: var(--bs-border-radius);
+    }
+
 
     * { box-sizing: border-box; }
 
@@ -102,6 +116,11 @@
       text-transform: uppercase;
       margin-bottom: 16px;
       background: rgba(255, 255, 255, 0.09);
+    }
+
+    a {
+      color: teal;
+      text-decoration: underline;
     }
 
     h1 {
@@ -287,13 +306,19 @@
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 12px;
-      margin-top: 8px;
+      padding-top: 22px;
     }
 
     .cards,
-    .source-grid {
+    .source-grid2 {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .source-grid3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 12px;
     }
 
@@ -320,6 +345,18 @@
     .card li + li {
       margin-top: 5px;
     }
+
+    .accordion {
+      /* Active text color */
+      --bs-accordion-active-color: #000000; 
+      
+      /* Active background color */
+      --bs-accordion-active-bg: rgba(29, 90, 59, 0.12); 
+      
+      /* Optional: Removes the default blue focus outline */
+      --bs-accordion-btn-focus-box-shadow: none; 
+    }
+
 
     @keyframes fill {
       from { width: 0; }
@@ -372,7 +409,7 @@
 <body>
   <header class="topbar">
     <div class="topbar-inner">
-      <div class="brand">TEA Conversion Progress</div>
+      <div class="brand">Biogas Hub Progress</div>
       <nav class="top-links" aria-label="Progress navigation">
         <a href="index.html">Main Page</a>
         <a href="#status">Status</a>
@@ -382,20 +419,20 @@
 
   <section class="hero" aria-label="Progress summary">
     <div class="hero-inner">
-      <p class="eyebrow">Update · 30 Jun 2026</p>
-      <h1>Phase 2: Data Engineering — Complete</h1>
-      <p class="hero-lead">Synthetic data generation framework is finished. Moving to Phase 3: Machine Learning Framework.</p>
+      <p class="eyebrow">Update · 08 Jul 2026</p>
+      <h1>Phase 2: Synthetic Data Framework Complete</h1>
+      <p class="hero-lead">Synthetic data generation, validation, and release documentation are complete. The project now moves to planned Phase 3 machine learning and later optimisation work.</p>
       <div class="hero-cards">
         <article class="hero-card">
           <strong>100%</strong>
-          <span>Most-likely completion toward the main goal (ML + optimisation framework).</span>
+          <span>Phase 2 completion: public synthetic data framework delivered and validated.</span>
           <div class="progress-track" role="img" aria-label="Progress bar showing 100 percent complete">
             <div class="progress-value"></div>
           </div>
         </article>
         <article class="hero-card">
-          <strong>Next Focus</strong>
-          <span>Predictive modelling for biogas yield, resource demand, and Case Study 1.</span>
+          <strong>Planned Next Focus</strong>
+          <span>Phase 3 predictive modelling and downstream Phase 4/5 teaching notebook and optimisation scaffolding.</span>
         </article>
       </div>
     </div>
@@ -405,6 +442,7 @@
     <section id="status" aria-labelledby="status-title">
       <div class="section-head">
         <h2 id="status-title">Project Timeline</h2>
+        <p class="section-kicker">All Phase 1/2 release tasks are complete. Public synthetic generation and validation are ready for planned ML and optimisation phases.</p>
       </div>
 
       <div class="timeline-wrap" aria-label="Horizontal timeline container">
@@ -417,118 +455,513 @@
           <article class="phase done">
             <span class="pill done">Completed</span>
             <h3>Phase 2: Data Engineering</h3>
-            <p>Synthetic data generation framework for scalable experimentation.</p>
+            <p>Public synthetic data package release with linked tables, CLI, validation checks, and release docs.</p>
           </article>
           <article class="phase current">
-            <span class="pill next">Next</span>
+            <span class="pill next">Ongoing</span>
             <h3>Phase 3: Machine Learning Framework</h3>
-            <p>Predictive modelling for biogas yield, resource demand, and Case Study 1.</p>
+            <p>Predictive modelling for biogas yield and resource demand using the released synthetic scenario tables.</p>
           </article>
-          <article class="phase">
-            <span class="pill next">Next</span>
+          <article class="phase current">
+            <span class="pill next">Ongoing</span>
             <h3>Phase 4: Notebook Design</h3>
-            <p>Teaching notebooks and guided learning materials.</p>
+            <p>Teaching notebooks and guided learning materials for validation, uncertainty, and model interpretation.</p>
           </article>
           <article class="phase">
-            <span class="pill next">Next</span>
+            <span class="pill next">Planned</span>
             <h3>Phase 5: Optimisation Framework</h3>
-            <p>Hub design, feedstock allocation, transport optimisation, and Case Study 2.</p>
+            <p>Hub design, feedstock allocation, logistics optimisation, and integration smoke tests for case study workflows.</p>
           </article>
           <article class="phase">
-            <span class="pill next">Next</span>
+            <span class="pill next">Planned</span>
             <h3>Phase 6: Dynamic Dashboard Design</h3>
             <p>Interactive dashboard concepts for model outputs, trade-offs, and scenarios.</p>
           </article>
         </div>
       </div>
-    </section>
 
-    <section id="engineering-progress" aria-labelledby="engineering-progress-title">
-      <div class="section-head">
-        <h2 id="engineering-progress-title">Data Engineering Progress Map</h2>
-        <p class="section-kicker">All data engineering tasks complete. Synthetic framework is ready for ML and optimisation pipelines.</p>
-      </div>
-      <div class="phase-grid">
+    <div class="accordion" id="accordionExample">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <b>Phase 1: Data Collection and Exploration Progress Map (100%)</b>
+          </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
+          <div class="accordion-body">
+            <div class="timeline" style="grid-template-columns: repeat(5, minmax(0, 1fr));">
         <article class="phase done">
           <span class="pill done">Completed</span>
           <h3>Task 1</h3>
-          <p>Spreadsheet audit and extraction. Facility, CAPEX, OPEX, financials, emissions, and carbon-credit logic.</p>
+          <p>Contextual analysis and literature review of relevant studies and data sources. Establish the project operating model, decision questions, course integration needs, and technical architecture.</p>
         </article>
         <article class="phase done">
           <span class="pill done">Completed</span>
           <h3>Task 2</h3>
-          <p>Recreate deterministic sensitivity analysis functionality in Python.</p>
+          <p>Catalogue all TEA workbook sheets, input cells, assumptions, formulas, scenarios, NPV outputs, and sensitivity-analysis outputs. Extract these into machine-readable tables.</p>
         </article>
         <article class="phase done">
           <span class="pill done">Completed</span>
           <h3>Task 3</h3>
-          <p>Public data exploration. Define parameter schema and bounds.</p>
+          <p>Recreate the functionalities of the TEA workbook. Implement a first TEA benchmark calculation in Python to reproduce selected workbook outputs.</p>
         </article>
         <article class="phase done">
           <span class="pill done">Completed</span>
           <h3>Task 4</h3>
-          <p>Reproducible sampling engine development and integration.</p>
+          <p>Audit public dataset: missingness, duplicates, outliers, unit variants, substrate names, pretreatment labels, reactor types, temperature, retention time, and yield units.</p>
         </article>
         <article class="phase done">
           <span class="pill done">Completed</span>
           <h3>Task 5</h3>
-          <p>Dataset and pipeline output.</p>
+          <p>Build a unit-conversion layer for methane yield, for example mapping mL/g VS, L/kg VS, m3/kg VS, and Nm3/kg VS to a common canonical unit where scientifically valid.</p>
         </article>
       </div>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwo">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            <b>Phase 2: Data Engineering Framework Progress Map (100%)</b>
+          </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample" style="">
+          <div class="accordion-body">
+            <div class="timeline" style="grid-template-columns: repeat(5, minmax(0, 1fr));">
+        <article class="phase done">
+          <span class="pill done">Completed</span>
+          <h3>Task 1</h3>
+          <p>Defined schema, table relationships, and constraints for linked synthetic scenario data.</p>
+        </article>
+        <article class="phase done">
+          <span class="pill done">Completed</span>
+          <h3>Task 2</h3>
+          <p>Implemented public CLI workflow: <strong>biogas-hub generate</strong> and <strong>biogas-hub validate</strong>.</p>
+        </article>
+        <article class="phase done">
+          <span class="pill done">Completed</span>
+          <h3>Task 3</h3>
+          <p>Delivered linked synthetic outputs: methane, feedstock, facility, logistics, market, scenarios, and metadata.</p>
+        </article>
+        <article class="phase done">
+          <span class="pill done">Completed</span>
+          <h3>Task 4</h3>
+          <p>Added validation checks for schema, missingness, bounds, cross-table links, plausibility, and confidentiality.</p>
+        </article>
+        <article class="phase done">
+          <span class="pill done">Completed</span>
+          <h3>Task 5</h3>
+          <p>Published notebook, tests, release documentation, and checklist-backed public packaging workflow.</p>
+        </article>
+      </div>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingThree">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            <b>Phase 3: Machine Learning Framework Progress Map (30%)</b>
+          </button>
+        </h2>
+        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample" style="">
+          <div class="accordion-body">
+            <div class="timeline" style="grid-template-columns: repeat(5, minmax(0, 1fr));">
+        <article class="phase current">
+          <span class="pill next">Ongoing</span>
+          <h3>Task 1</h3>
+          <p>Establish baseline models: global mean, grouped mean by substrate/pretreatment, linear regression, and simple decision trees.</p>
+        </article>
+        <article class="phase current">
+          <span class="pill next">Ongoing</span>
+          <h3>Task 2</h3>
+          <p>Engineer features from substrate taxonomy, pretreatment, temperature, retention time, reactor type, feedstock composition proxies, and TEA scenario inputs.</p>
+        </article>
+        <article class="phase">
+          <span class="pill next">Planned</span>
+          <h3>Task 3</h3>
+          <p>Train benchmark models: random forest, gradient boosting, regularised regression, and optional Gaussian process or Bayesian models where dataset size permits.</p>
+        </article>
+        <article class="phase">
+          <span class="pill next">Planned</span>
+          <h3>Task 4</h3>
+          <p>Evaluate models using both predictive and decision-aware metrics. Evaluate impact on optimisation decision and regret under scenario testing.</p>
+        </article>
+        <article class="phase">
+          <span class="pill next">Planned</span>
+          <h3>Task 5</h3>
+          <p>Implement explainability: feature importance, partial dependence, SHAP or equivalent, and model cards for teaching.</p>
+        </article>
+      </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingFour">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+            <b>Phase 4: Notebook Design Progress Map (50%)</b>
+          </button>
+        </h2>
+        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample" style="">
+          <div class="accordion-body">
+            <div class="timeline" style="grid-template-columns: repeat(5, minmax(0, 1fr));">
+        <article class="phase done">
+          <span class="pill done">Completed</span>
+          <h3>Task 1</h3>
+          <p>Synthetic data generation and validation. </p>
+        </article>
+        <article class="phase done">
+          <span class="pill done">Completed</span>
+          <h3>Task 2</h3>
+          <p>Data analysis of synthetic datasets and validation results.</p>
+        </article>
+        <article class="phase current">
+          <span class="pill next">Ongoing</span>
+          <h3>Task 3</h3>
+          <p>Machine learning model development and training.</p>
+        </article>
+        <article class="phase">
+          <span class="pill next">Planned</span>
+          <h3>Task 4</h3>
+          <p>Optimisation framework integration and scenario testing.</p>
+        </article>
+        <article class="phase">
+          <span class="pill next">Planned</span>
+          <h3>Task 5</h3>
+          <p>Connect all components into one repeatable workflow and validate end-to-end performance.</p>
+        </article>
+      </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
     </section>
+
+    <section id="data-progress" aria-labelledby="data-progress-title">
+      <div class="section-head">
+        <h3 id="data-progress-title">Phase 1: Data Collection and Exploration</h3>
+      </div>
+      <div>
+
+      <h4>Data Assets</h4>
+
+      <table class="table table-striped table-bordered">
+        <tr>
+          <th>Asset</th>
+          <th>Role in project</th>
+          <th>Initial use</th>
+          <th>Key risks and actions</th>
+        </tr>
+        <tr>
+          <td><code>TEA_Spreadsheet.xlsm</code></td>
+          <td>Site-specific techno-economic assessment workbook for a red-meat processing biogas/anaerobic digestion facility</td>
+          <td>Calibrate economic parameters, resource prices, CAPEX assumptions, scenario outputs, NPV logic, sensitivity cases, and site-level operating assumptions</td>
+          <td>Macros and spreadsheet formulas may be opaque. Extract input/output tables, define a reproducible Python reference model, and keep the workbook as a benchmark rather than the production engine.</td>
+        </tr>
+        <tr>
+          <td><code>dataset.xlsx</code></td>
+          <td>Literature dataset of methane yield observations across substrates, reactor types, pretreatments, temperature, time, and units</td>
+          <td>Build methane-yield priors, feature taxonomy, unit-conversion pipeline, baseline ML models, and synthetic generator calibration</td>
+          <td>Mixed units, missing values, categorical inconsistency, and possible outliers. Prioritise unit harmonisation and data-quality flags before modelling.</td>
+        </tr>
+      </table>
+
+      <h4><code>TEA_Spreadsheet.xlsm</code></h4>
+
+      The spreadsheet core objective is to provide a Techno-economic assessment (TEA) model for a biogas/anaerobic digestion facility for a red-meat processing site. The TEA workbook contains sheets for assumptions, resource prices, engine factors, CAPEX, biogas data, site-specific scenario information, facility calculations, NPV scenarios, summary outputs, sensitivity analysis, and BMP references.
+      <br>
+      <br>
+      Since the TEA workbook is confidential the data extraction functionality is ommited from the public release. Instead, the TEA workbook will be used as a reference for logic and calibration, while the curated dataset will serve as the operational experimentation source for reproducible, versionable, and course-safe synthetic tables.
+      <br>
+      <br>
+      <h4><code>dataset.xlsx</code></h4>
+       The dataset has 1,375 rows and 15 columns, including methane yield, substrate, inoculum, reactor type, temperature, retention time, pretreatment, and units. The dataset is a curated collection of literature values for methane yield under various experimental conditions. The dataset is used to build priors for methane yield, feature taxonomy, unit-conversion pipeline, baseline ML models, and synthetic generator calibration.
+       Profiling surfaced the issues below, which has to be addressed before any modelling or synthetic generation can be done:
+
+
+      <table class="table table-striped table-bordered">
+        <tr>
+          <th>Issue</th>
+          <th>Evidence in the data</th>
+          <th>Consequence for the pipeline</th>
+        </tr>
+        <tr>
+          <td><b>No control/treatment pairing</b></td>
+          <td>The paper computes effect sizes (Hedges' g) from control vs. treated pairs, but the spreadsheet has no pairing key and no untreated-control rows.</td>
+          <td> We model <b>absolute yield</b>, not effect size. The pairing structure can't be recovered, so synthesizing effect sizes is out of scope.</td>
+        </tr>
+        <tr>
+          <td><b>~45 unit spellings</b></td>
+          <td><code>mL/g VS</code>, <code>L/Kg VS</code>, <code>Nm³/kg VS</code>, <code>m³/t VS</code>, <code>mL/g COD</code>… mixing volume basis (mL/L/m³) and denominator chemistry (VS/COD/OM).</td>
+          <td>A unit normalizer is mandatory <em>before</em> anything else. Mixing COD- and VS-based yields would make the target physically meaningless.</td>
+        </tr>
+        <tr>
+          <td><b>Free-text in numeric cells</b></td>
+          <td><code>temp_c</code>='32-34', <code>stirring_rpm</code>='200-300 rpm. 15 min on…', yields stored as Excel <strong>datetimes</strong> (<code>2020-07-13</code>).</td> 
+          <td>Robust parsing (range→midpoint, datetime rejection) is required; naïve <code>to_numeric</code> silently drops 4–1048 values per column.</td> 
+        </tr>
+        <tr>
+          <td><b>High-cardinality categoricals</b></td>
+          <td>185 substrate spellings, 172 inoculum, 256 pretreatment descriptions, with case/typo duplicates (<code>Wheat straw</code>/<code>wheat straw</code>, <code>Chemica+Physical</code>).</td>
+          <td>Canonicalization + rare-category collapsing, or the categorical model drowns in singletons.</td>
+        </tr>
+        <tr>
+          <td><b>Heavy-tailed target</b></td>
+          <td>Raw yield spans 0.013 → 2,816,505 (unit errors). After normalization, 96.9% fall in the physical 10–1,200 mL/gVS band.</td>
+          <td>Hard domain bounds + rejection sampling; the tail is data error, not signal.</td>
+        </tr>
+        <tr>
+          <td><b>Severe missingness</b></td>
+          <td><code>stirring_rpm</code> 76% missing, <code>reactor_type</code> 14%, <code>time_days</code> 8%.</td>
+          <td>Generator must preserve missingness patterns, not impute them away.</td>
+        </tr>
+      </table>
+
+    After cleaning and domain filtering: <b>1,283 usable rows</b>, target median <b>225 mL/gVS</b> (matches the paper's ~220 reference value).
+      </div>
+      
+    </section>    
+
+
+
+
+    <section id="engineering-progress" aria-labelledby="engineering-progress-title">
+      <div class="section-head">
+        <h3 id="engineering-progress-title">Phase 2: Data Engineering Framework </h3>
+      </div>
+      The public release of this phase can be found at <a href="https://github.com/w2e-algo/biogas-hub-synthetic" target="_blank">Biogas Hub Synthetic Data</a>.
+      <br>
+      <br>
+      <h4>Synthetic Methods and Justification</h4>
+
+      Three generator families with a <b>train-on-synthetic / test-on-real (TSTR)</b> protocol are benchmarked. A <code>HistGradientBoosting</code> regressor is trained on synthetic data and scored on a held-out real test set, then compared to train-on-real (TRTR).
+      <br><br>
+
+      <table class="table table-striped table-bordered">
+        <tr>
+          <th>Generator</th>
+          <th>Target KS ↓</th>
+          <th>TRTR R²</th>
+          <th><b>TSTR R²</b></th>
+          <th>Utility ratio</th>
+          <th>Privacy ratio</th>
+        </tr>
+        <tr>
+          <td>GaussianCopula (SDV)</td>
+          <td>0.05</td>
+          <td>0.69</td>
+          <td><b>0.01</b></td>
+          <td>0.01</td>
+          <td>43.7</td>
+        </tr>
+        <tr>
+          <td>CTGAN (60 ep)</td>
+          <td>0.33</td>
+          <td>0.69</td>
+          <td><b>−0.58</b></td>
+          <td>—</td>
+          <td>23.3</td>
+        </tr>
+        <tr>
+          <td>CTGAN (400 ep, 256×256)</td>
+          <td>0.17</td>
+          <td>0.69</td>
+          <td><b>−0.27</b></td>
+          <td>—</td>
+          <td>23.0</td>
+        </tr>
+        <tr>
+          <td><b>ConditionalJitter (recommended)</b></td>
+          <td><b>0.019</b></td>
+          <td>0.69</td>
+          <td><b>0.81</b></td>
+          <td><b>1.17</b></td>
+          <td>2.97</td>
+        </tr>
+      </table>
+
+
+    <b>The off-the-shelf generators fail</b>. The copula reproduces every column's <i>marginal</i> distribution almost perfectly (target KS 0.05) yet yields a model with <b>zero predictive power</b> (TSTR R² 0.01). The reason is structural: in this dataset the signal lives almost entirely in the <b>conditional</b> relationship <code>substrate → yield</code>. 185 substrate categories each pin the target to a narrow band; an unconditional generator that gets each marginal right but scrambles the joint destroys exactly the information the regressor needs.
+    <br><br>
+    The fix is a <b>structure-aware, group-conditional generator</b> that resamples within each substrate group and adds calibrated noise — preserving the conditional means while injecting controllable variance. It reaches <b>TSTR R² 0.81 > TRTR 0.69</b>: a model trained purely on its output generalizes to real data <i>better</i> than one trained on the small real set, because the synthetic set smooths sampling noise within each substrate group. Privacy ratio 2.97 confirms it isn't memorizing (synthetic rows sit ~3× farther from real rows than real rows sit from each other).
+    <br><br>
+    <b>Takeaway for the design:</b> for tabular scientific data dominated by a high-cardinality conditional driver, conditional/structure-aware generation beats deep unconditional generators (CTGAN/TVAE) regardless of how long you train them.
+    <br><br>
+    <h4>Data Generation Pipeline</h4>
+
+    <pre><code>
+      ┌─────────────────────────────┐
+      │ 1. configs/course_safe.yml  │ public and internal YAML config 
+      └──────────────┬──────────────┘ for synthetic generation
+                     │
+                     ▼
+      ┌─────────────────────────────┐
+      │ 2. CLI: generate            │ unified CLI for generation and validation
+      │ • validate mode             │
+      │ • apply CLI overrides       │
+      └──────────────┬──────────────┘
+                     │
+                     ▼
+      ┌─────────────────────────────────────────┐
+      │ 3. generate_course_safe_dataset()       │ generate multi csv synthetic dataset
+      └──┬────────────────────────────────────┬─┘
+         │                                    │ • public-safe rule-based bounded 
+         │                                    ▼   stochastic sampling
+         │ • clean dataset.xlsx          ┌─────────────────────────┐
+         │ • domain filler               │ TEA Parameter Sampler   │
+         │ • ConditionalJitterGenerator  │ • feedstock             │
+         ▼                               │ • facility              │
+      ┌─────────────────────┐            │ • logistics             │
+      │ Methane Yield       │            │ • market                │
+      │ • scenario_id keyed │            │ • scenarios             │
+      └──────────┬──────────┘            └──────────┬──────────────┘
+                 │                                  │
+                 └──────────────┬───────────────────┘
+                                ▼
+                ┌───────────────────────────────────┐
+                │ 4. write_course_safe_dataset()    │ write synthetic dataset to disk
+                └───────────────┬───────────────────┘
+                                ▼
+                        data/synthetic/*.csv
+              • methane_yield        • feedstock_sources
+              • facility_parameters  • logistics
+              • market_assumptions   • scenarios       
+              • scenario_metadata
+                                │
+                                ▼
+                    ┌──────────────────────────┐
+                    │ validation_summary()     │
+                    │ • schema                 │
+                    │ • constraints            │
+                    │ • missing values         │
+                    │ • privacy/precision      │
+                    └───────────┬──────────────┘
+                                ▼
+                    validation_summary.json
+    </code></pre>
+
+ 
+    <h4>Synthetic Data Relationships</h4>
+
+    The public release is a linked relational-style synthetic dataset. Every public table uses <code>scenario_id</code> as the primary join key. The feedstock and facility tables also expose <code>feedstock_source_id</code> and <code>facility_candidate_id</code> so the logistics and scenario tables can join without needing confidential TEA extracts.
+    <br>
+    <br>
+    <pre><code>
+                    ┌────────────────────┐
+                    │ methane_yield.csv  │
+                    └─────────┬──────────┘
+                              │
+                 ┌────────────┴─────────────┐
+                 ▼                          ▼
+        ┌─────────────────┐        ┌────────────────────────┐
+        │  scenarios.csv  │        │  scenario_metadata.csv │
+        └──────────┬──────┘        └────────────────────────┘
+                   │
+      ┌────────────┼──────────────┐
+      ▼            ▼              ▼
+┌───────────┐ ┌──────────────┐ ┌───────────────┐
+│feedstock_ │ │facility_     │ │market_        │
+│sources.csv│ │parameters.csv│ │assumptions.csv│
+└────┬──────┘ └────┬─────────┘ └───────────────┘
+     │             │
+     └──────┬──────┘
+            ▼
+    ┌────────────────┐
+    │ logistics.csv  │
+    └────────────────┘
+    </code></pre>
+
+    <code>scenario_id</code> is the canonical public identifier for a single synthetic scenario. It links methane-yield assumptions, feedstock availability, facility parameters, logistics assumptions, market assumptions, scenario summaries, and release metadata.
+    <br><br>
+    <h4>Synthetic Data Description</h4>
+    <br>
+    <table class="table table-striped table-bordered">
+      <tr>
+        <th>CSV file</th>
+        <th>What it contains</th>
+        <th>Primary join keys</th>
+        <th>Main use in workflow</th>
+      </tr>
+      <tr>
+        <td><code>methane_yield.csv</code></td>
+        <td>Core methane-yield assumptions and process context (feedstock, pretreatment, reactor, temperature, retention time, yield uncertainty).</td>
+        <td><code>scenario_id</code></td>
+        <td>Starting table for scenario-level joins and methane-performance analysis.</td>
+      </tr>
+      <tr>
+        <td><code>feedstock_sources.csv</code></td>
+        <td>Feedstock availability and quality descriptors (quantity, seasonality, moisture, volatile solids, contamination risk, gate fee).</td>
+        <td><code>scenario_id</code>, <code>feedstock_source_id</code></td>
+        <td>Supply-side inputs for logistics and facility matching.</td>
+      </tr>
+      <tr>
+        <td><code>facility_parameters.csv</code></td>
+        <td>Facility design and economics (capacity, CAPEX/OPEX, utilities, CHP efficiencies, discount rate, project life).</td>
+        <td><code>scenario_id</code>, <code>facility_candidate_id</code></td>
+        <td>Facility assumptions for techno-economic and optimisation-ready scenarios.</td>
+      </tr>
+      <tr>
+        <td><code>logistics.csv</code></td>
+        <td>Transport linkage between feedstock sources and facility candidates (distance, costs, emissions, collection radius).</td>
+        <td><code>scenario_id</code>, <code>feedstock_source_id</code>, <code>facility_candidate_id</code></td>
+        <td>Route-level logistics constraints and cost/emissions calculations.</td>
+      </tr>
+      <tr>
+        <td><code>market_assumptions.csv</code></td>
+        <td>Market-side assumptions (electricity/heat/carbon prices, certificate value, volatility flag).</td>
+        <td><code>scenario_id</code></td>
+        <td>Revenue and sensitivity inputs for downstream modelling.</td>
+      </tr>
+      <tr>
+        <td><code>scenarios.csv</code></td>
+        <td>Scenario-level consolidated view (scenario type, feedstock and facility references, throughput, distance, expected energy).</td>
+        <td><code>scenario_id</code>, <code>feedstock_source_id</code>, <code>facility_candidate_id</code></td>
+        <td>Compact table for ML experiments, uncertainty analysis, and optimisation smoke tests.</td>
+      </tr>
+      <tr>
+        <td><code>scenario_metadata.csv</code></td>
+        <td>Generation metadata and release flags (seed, timestamp, mode, course-safe marker, validation status).</td>
+        <td><code>scenario_id</code></td>
+        <td>Governance and traceability; <code>validation_status</code> changes from <code>pending</code> to <code>validated</code> after successful validation.</td>
+      </tr>
+    </table>
+
+    </section>
+
+
 
     <section id="gaps" aria-labelledby="gaps-title">
       <div class="section-head">
         <h2 id="gaps-title">What Is Done vs What Is Next</h2>
-        <p class="section-kicker">Data engineering phase is complete. The project now moves to predictive modelling.</p>
+        <p class="section-kicker">Phase 1/2 MVP release is complete. Predictive modelling and optimisation remain planned phases.</p>
       </div>
       <div class="cards">
         <article class="card">
-          <h3>Implemented (Phase 2 complete)</h3>
+          <h3>Implemented (Phase 1/2 public release complete)</h3>
           <ul>
-            <li>Typed and bounded input extraction from TEA workbook.</li>
-            <li>Scenario calculations from facility through emissions and financials.</li>
-            <li>Deterministic sensitivity over core economic and operational drivers.</li>
-            <li>Parameter distributions and sampling policy design.</li>
-            <li>Dependency and correlation constraints between generated parameters.</li>
-            <li>Batch synthetic scenario generation with reproducible seeds.</li>
-            <li>Dataset export interfaces for ML and optimisation model pipelines.</li>
+            <li>Unified public CLI commands for synthetic generation and validation.</li>
+            <li>Linked relational-style synthetic tables keyed by scenario_id for downstream joins.</li>
+            <li>Course-safe configuration and reproducible row/seed runtime overrides.</li>
+            <li>Validation reporting in Markdown and JSON with metadata status transitions.</li>
+            <li>Confidentiality and release safeguards that avoid dependence on internal TEA extracts.</li>
+            <li>Public validation notebook operating only on generated CSV outputs.</li>
+            <li>Release test coverage for schema, constraints, CLI, units, and confidentiality guards.</li>
           </ul>
         </article>
         <article class="card">
-          <h3>Required for ML framework (Phase 3)</h3>
+          <h3>Planned next work (Phase 3 onward)</h3>
           <ul>
-            <li>Biogas yield prediction model using synthetic dataset.</li>
-            <li>Resource demand forecasting pipeline.</li>
-            <li>Case Study 1 model development and validation.</li>
-            <li>Model evaluation, benchmarking, and documentation.</li>
+            <li>Biogas yield prediction model using the released synthetic dataset.</li>
+            <li>Resource demand forecasting pipeline and uncertainty experiments.</li>
+            <li>Case Study 1 model development, evaluation, and benchmarking.</li>
+            <li>Phase 4/5 notebook and optimisation framework integration work.</li>
           </ul>
         </article>
       </div>
     </section>
 
-    <section id="data-strategy" aria-labelledby="data-title">
-      <div class="section-head">
-        <h2 id="data-title">Data Source Strategy Pivot</h2>
-        <p class="section-kicker">Why the team is moving from workbook-centered reporting to reproducible tabular datasets.</p>
-      </div>
-      <div class="source-grid">
-        <article class="source">
-          <h3>Role of TEA workbook</h3>
-          <p>
-            Use as a <strong>logic and calibration reference</strong>: assumptions, formulas, and scenario structure.
-            Valuable for audit and benchmarking, but difficult as a reproducible live-data source.
-          </p>
-        </article>
-        <article class="source">
-          <h3>Role of curated dataset</h3>
-          <p>
-            Use as the <strong>operational experimentation source</strong> (for example dataset.csv): reproducible, versionable,
-            and suitable for sensitivity studies, machine learning training, and optimisation workflows.
-          </p>
-        </article>
-      </div>
-    </section>
   </main>
 </body>
 </html>
