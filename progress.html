@@ -89,6 +89,23 @@
       font-weight: 700;
     }
 
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 0.94rem;
+      font-weight: 700;
+    }
+
+    .nav-links a {
+      padding: 8px 0;
+    }
+
+    .nav-links a:hover {
+      color: var(--forest);
+    }
+
     .hero {
       position: relative;
       padding: 62px 0 36px;
@@ -118,7 +135,7 @@
       background: rgba(255, 255, 255, 0.09);
     }
 
-    a {
+    a.link {
       color: teal;
       text-decoration: underline;
     }
@@ -412,7 +429,9 @@
       <div class="brand">Biogas Hub Progress</div>
       <nav class="top-links" aria-label="Progress navigation">
         <a href="index.html">Main Page</a>
-        <a href="#status">Status</a>
+        <a href="#status">Timeline</a>
+        <a href="#data-progress">Phase 1</a>
+        <a href="#engineering-progress">Phase 2</a>
       </nav>
     </div>
   </header>
@@ -731,7 +750,7 @@
       <div class="section-head">
         <h3 id="engineering-progress-title">Phase 2: Data Engineering Framework </h3>
       </div>
-      The public release of this phase can be found at <a href="https://github.com/w2e-algo/biogas-hub-synthetic" target="_blank">Biogas Hub Synthetic Data</a>.
+      The public release of this phase can be found at <a class="link"href="https://github.com/w2e-algo/biogas-hub-synthetic" target="_blank">Biogas Hub Synthetic Data</a>.
       <br>
       <br>
       <h4>Synthetic Methods and Justification</h4>
@@ -849,28 +868,28 @@
     <br>
     <br>
     <pre><code>
-                    ┌────────────────────┐
-                    │ methane_yield.csv  │
-                    └─────────┬──────────┘
-                              │
-                 ┌────────────┴─────────────┐
-                 ▼                          ▼
-        ┌─────────────────┐        ┌────────────────────────┐
-        │  scenarios.csv  │        │  scenario_metadata.csv │
-        └──────────┬──────┘        └────────────────────────┘
-                   │
-      ┌────────────┼──────────────┐
-      ▼            ▼              ▼
-┌───────────┐ ┌──────────────┐ ┌───────────────┐
-│feedstock_ │ │facility_     │ │market_        │
-│sources.csv│ │parameters.csv│ │assumptions.csv│
-└────┬──────┘ └────┬─────────┘ └───────────────┘
-     │             │
-     └──────┬──────┘
-            ▼
-    ┌────────────────┐
-    │ logistics.csv  │
-    └────────────────┘
+                          ┌────────────────────┐
+                          │ methane_yield.csv  │
+                          └─────────┬──────────┘
+                                    │
+                      ┌────────────┴─────────────┐
+                      ▼                          ▼
+              ┌─────────────────┐        ┌────────────────────────┐
+              │  scenarios.csv  │        │  scenario_metadata.csv │
+              └──────────┬──────┘        └────────────────────────┘
+                        │
+            ┌────────────┼──────────────┐
+            ▼            ▼              ▼
+      ┌───────────┐ ┌──────────────┐ ┌───────────────┐
+      │feedstock_ │ │facility_     │ │market_        │
+      │sources.csv│ │parameters.csv│ │assumptions.csv│
+      └────┬──────┘ └────┬─────────┘ └───────────────┘
+          │             │
+          └──────┬──────┘
+                  ▼
+          ┌────────────────┐
+          │ logistics.csv  │
+          └────────────────┘
     </code></pre>
 
     <code>scenario_id</code> is the canonical public identifier for a single synthetic scenario. It links methane-yield assumptions, feedstock availability, facility parameters, logistics assumptions, market assumptions, scenario summaries, and release metadata.
