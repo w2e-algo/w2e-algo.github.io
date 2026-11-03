@@ -68,6 +68,7 @@
     }
 
     .topbar-inner {
+      position: relative;
       min-height: 66px;
       display: flex;
       align-items: center;
@@ -87,6 +88,89 @@
       color: var(--muted);
       font-size: 0.95rem;
       font-weight: 700;
+    }
+
+    .mobile-phase-nav {
+      display: none;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .mobile-phase-nav > summary {
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .mobile-phase-nav > summary::-webkit-details-marker,
+    .mobile-phase-item > summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .mobile-phase-nav > summary::after {
+      content: "＋";
+      margin-left: 8px;
+    }
+
+    .mobile-phase-nav[open] > summary::after {
+      content: "−";
+    }
+
+    .mobile-phase-nav-panel {
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      z-index: 11;
+      width: min(360px, calc(100vw - 36px));
+      max-height: min(70vh, 560px);
+      overflow-y: auto;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .mobile-phase-nav-panel > a,
+    .mobile-phase-item a {
+      display: block;
+      padding: 9px 10px;
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .mobile-phase-nav-panel > a:hover,
+    .mobile-phase-item a:hover {
+      color: var(--forest);
+      background: #f2f7f3;
+    }
+
+    .mobile-phase-item {
+      border-top: 1px solid var(--line);
+    }
+
+    .mobile-phase-item > summary {
+      padding: 10px;
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .mobile-phase-item > summary::after {
+      content: "＋";
+      float: right;
+    }
+
+    .mobile-phase-item[open] > summary::after {
+      content: "−";
+    }
+
+    .mobile-phase-item > a {
+      padding-left: 20px;
+      font-size: 0.92rem;
+      font-weight: 500;
     }
 
     .nav-links {
@@ -1147,6 +1231,779 @@
       font-weight: 600;
     }
 
+    /* =========================================
+   PHASE 6: CURRICULUM EVALUATION
+========================================= */
+
+#evaluation-progress {
+  --eval-primary: #006b8b;
+  --eval-dark: #104d66;
+  --eval-green: #21865b;
+  --eval-purple: #7b438e;
+  --eval-text: #183047;
+  --eval-muted: #617184;
+  --eval-border: #e0e8ef;
+
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+
+/* =========================================
+   INTRODUCTION
+========================================= */
+
+.eval-intro {
+  max-width: 900px;
+  margin-bottom: 50px;
+
+  color: var(--eval-muted);
+  line-height: 1.8;
+}
+
+
+/* =========================================
+   SECTION HEADINGS
+========================================= */
+
+.eval-section-heading {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.eval-eyebrow {
+  display: block;
+
+  color: var(--eval-primary);
+
+  font-size: 12px;
+  font-weight: 800;
+
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+
+  margin-bottom: 10px;
+}
+
+.eval-section-heading h3 {
+  font-size: clamp(22px, 3vw, 28px);
+  color: var(--eval-text);
+
+  margin: 0 0 12px;
+}
+
+.eval-section-heading p {
+  max-width: 720px;
+  margin: 0 auto;
+
+  color: var(--eval-muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+
+/* =========================================
+   CURRICULUM OUTCOME CARDS
+========================================= */
+
+.eval-outcomes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  gap: 20px;
+  margin-bottom: 75px;
+}
+
+.eval-outcome-card {
+  background: #f8fafc;
+
+  border: 1px solid var(--eval-border);
+  border-radius: 14px;
+
+  padding: 30px 24px;
+  text-align: center;
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.eval-outcome-card:hover {
+  transform: translateY(-5px);
+
+  box-shadow:
+    0 12px 30px rgba(20, 40, 60, 0.07);
+}
+
+.eval-outcome-icon {
+  width: 65px;
+  height: 65px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 0 auto 20px;
+
+  background: #e5f3f0;
+  border-radius: 16px;
+
+  font-size: 30px;
+}
+
+.eval-outcome-card h4 {
+  margin: 0 0 12px;
+
+  font-size: 17px;
+  color: var(--eval-text);
+}
+
+.eval-outcome-card p {
+  margin: 0;
+
+  font-size: 13px;
+  line-height: 1.75;
+
+  color: var(--eval-muted);
+}
+
+
+/* =========================================
+   TESTIMONIAL SECTION
+========================================= */
+
+.eval-testimonials-section {
+  margin-bottom: 75px;
+}
+
+.eval-testimonial-container {
+  max-width: 900px;
+  margin: 0 auto;
+
+  background: linear-gradient(
+    135deg,
+    #f0f7fa 0%,
+    #f8fbfc 100%
+  );
+
+  border: 1px solid #dceaf0;
+  border-radius: 18px;
+
+  padding: 35px 40px;
+}
+
+.eval-testimonial-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 20px;
+}
+
+.eval-quote-icon {
+  font-size: 55px;
+  line-height: 1;
+
+  color: var(--eval-primary);
+  opacity: 0.55;
+}
+
+.eval-feedback-badge {
+  padding: 8px 14px;
+
+  border-radius: 20px;
+
+  background: #dff0e9;
+  color: #1b7452;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.eval-testimonial-content {
+  min-height: 190px;
+}
+
+.eval-testimonial-content blockquote {
+  margin: 0 0 30px;
+  padding: 0;
+
+  border: none;
+
+  font-size: clamp(17px, 2.2vw, 21px);
+  font-weight: 500;
+  line-height: 1.75;
+
+  color: var(--eval-text);
+}
+
+.eval-testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.eval-avatar {
+  width: 48px;
+  height: 48px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #b8dded;
+  color: white;
+
+  font-size: 1.8rem;
+}
+
+.eval-testimonial-author strong {
+  display: block;
+
+  font-size: 14px;
+  color: var(--eval-text);
+
+  margin-bottom: 4px;
+}
+
+.eval-testimonial-author span {
+  display: block;
+
+  font-size: 12px;
+  color: var(--eval-muted);
+}
+
+
+/* =========================================
+   CAROUSEL CONTROLS
+========================================= */
+
+.eval-testimonial-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 15px;
+
+  padding-top: 22px;
+  margin-top: 25px;
+
+  border-top: 1px solid #dce7ec;
+}
+
+.eval-dots {
+  display: flex;
+  gap: 9px;
+}
+
+.eval-dot {
+  width: 10px;
+  height: 10px;
+
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+
+  background: #bdcbd3;
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    width 0.2s ease;
+}
+
+.eval-dot.active {
+  width: 28px;
+  border-radius: 10px;
+
+  background: var(--eval-primary);
+}
+
+.eval-carousel-controls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.eval-carousel-btn {
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: white;
+
+  border: 1px solid #d5e1e8;
+  border-radius: 50%;
+
+  color: var(--eval-dark);
+
+  font-size: 19px;
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.eval-carousel-btn:hover {
+  background: var(--eval-primary);
+  color: white;
+}
+
+.eval-carousel-count {
+  font-size: 12px;
+  font-weight: 700;
+
+  color: var(--eval-muted);
+  white-space: nowrap;
+}
+
+.eval-carousel-btn:focus-visible,
+.eval-dot:focus-visible {
+  outline: 3px solid var(--eval-primary);
+  outline-offset: 3px;
+}
+
+
+/* =========================================
+   KEY EVALUATION INSIGHTS
+========================================= */
+
+.eval-insights-section {
+  margin-bottom: 75px;
+}
+
+.eval-insights-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.eval-insight-card {
+  border-radius: 15px;
+  padding: 28px;
+
+  border: 1px solid var(--eval-border);
+}
+
+.eval-insight-card.positive {
+  background: #f0f8f3;
+  border-color: #d7e9dd;
+}
+
+.eval-insight-card.improvement {
+  background: #f2f5fa;
+  border-color: #dce5ef;
+}
+
+.eval-insight-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  margin-bottom: 25px;
+}
+
+.eval-insight-icon {
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.positive .eval-insight-icon {
+  background: #d8eddf;
+  color: #21865b;
+}
+
+.improvement .eval-insight-icon {
+  background: #e0e8f5;
+  color: #4774a7;
+}
+
+.eval-insight-header h4 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.eval-insight-item {
+  padding: 0 0 17px;
+  margin-bottom: 17px;
+
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+.eval-insight-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.eval-insight-item strong {
+  display: block;
+
+  font-size: 14px;
+  margin-bottom: 7px;
+}
+
+.eval-insight-item p {
+  margin: 0;
+
+  font-size: 13px;
+  line-height: 1.7;
+
+  color: var(--eval-muted);
+}
+
+
+/* =========================================
+   FUTURE DIRECTIONS
+========================================= */
+
+.eval-future-section {
+  margin-bottom: 20px;
+}
+
+.eval-future-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  gap: 20px;
+}
+
+.eval-future-card {
+  position: relative;
+
+  padding: 28px 24px;
+
+  background: white;
+
+  border: 1px solid var(--eval-border);
+  border-radius: 14px;
+
+  overflow: hidden;
+}
+
+.eval-future-number {
+  position: absolute;
+
+  top: 18px;
+  right: 20px;
+
+  font-size: 35px;
+  font-weight: 800;
+
+  color: #e4ebf0;
+}
+
+.eval-future-icon {
+  width: 55px;
+  height: 55px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 20px;
+
+  border-radius: 12px;
+  background: #e9f3f6;
+
+  font-size: 26px;
+}
+
+.eval-future-card h4 {
+  margin: 0 0 12px;
+
+  font-size: 17px;
+  color: var(--eval-text);
+}
+
+.eval-future-card p {
+  margin: 0;
+
+  font-size: 13px;
+  line-height: 1.75;
+
+  color: var(--eval-muted);
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 850px) {
+
+  .eval-outcomes,
+  .eval-future-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .eval-insights-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+@media (max-width: 600px) {
+
+  .eval-outcomes,
+  .eval-future-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .eval-testimonial-container {
+    padding: 25px 20px;
+  }
+
+  .eval-testimonial-content {
+    min-height: 0;
+  }
+
+  .eval-testimonial-footer {
+    flex-wrap: wrap;
+  }
+
+  .eval-insight-card {
+    padding: 24px 20px;
+  }
+
+  .eval-feedback-badge {
+    font-size: 11px;
+  }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .eval-outcome-card,
+  .eval-dot,
+  .eval-carousel-btn {
+    transition: none;
+  }
+
+}
+
+/* =========================================
+   SUSTAINING IMPACT & KNOWLEDGE SHARING
+========================================= */
+
+.eval-impact-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 30px;
+}
+
+/* BASE CARD */
+
+.eval-impact-card {
+  --impact-color: #087b9b;
+  --impact-bg: #edf5f8;
+
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+
+  padding: 25px 22px;
+
+  background: var(--impact-bg);
+
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-top: 4px solid var(--impact-color);
+  border-radius: 14px;
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.eval-impact-card:hover {
+  transform: translateY(-5px);
+
+  box-shadow:
+    0 12px 28px rgba(20, 40, 60, 0.09);
+}
+
+/* COLOUR THEMES */
+
+.eval-impact-card.learning {
+  --impact-color: #006b8b;
+  --impact-bg: #edf5f8;
+}
+
+.eval-impact-card.prototypes {
+  --impact-color: #21823b;
+  --impact-bg: #edf6ef;
+}
+
+.eval-impact-card.knowledge {
+  --impact-color: #7b329b;
+  --impact-bg: #f4eef8;
+}
+
+.eval-impact-card.showcase {
+  --impact-color: #c65317;
+  --impact-bg: #fcf0e9;
+}
+
+/* HEADER */
+
+.eval-impact-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 20px;
+}
+
+.eval-impact-number {
+  width: 44px;
+  height: 44px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: var(--impact-color);
+  color: white;
+
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.eval-impact-icon {
+  font-size: 29px;
+}
+
+/* TITLE */
+
+.eval-impact-card h4 {
+  margin: 0 0 12px;
+
+  font-size: 19px;
+  line-height: 1.3;
+
+  color: var(--impact-color);
+}
+
+/* DESCRIPTION */
+
+.eval-impact-description {
+  margin: 0 0 24px;
+
+  font-size: 13px;
+  line-height: 1.7;
+
+  color: #526477;
+}
+
+/* DETAILS */
+
+.eval-impact-details {
+  margin-top: auto;
+  padding-top: 20px;
+
+  border-top: 1px solid rgba(0, 0, 0, 0.09);
+}
+
+.eval-impact-group {
+  margin-bottom: 18px;
+}
+
+.eval-impact-group:last-child {
+  margin-bottom: 0;
+}
+
+.eval-impact-label {
+  display: block;
+
+  margin-bottom: 9px;
+
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.1px;
+
+  color: var(--impact-color);
+}
+
+.eval-impact-group p {
+  margin: 0;
+
+  font-size: 12px;
+  line-height: 1.65;
+
+  color: #405569;
+}
+
+.eval-impact-group ul {
+  margin: 0;
+  padding-left: 17px;
+}
+
+.eval-impact-group li {
+  margin-bottom: 7px;
+
+  font-size: 12px;
+  line-height: 1.5;
+
+  color: #405569;
+}
+
+.eval-impact-group li::marker {
+  color: var(--impact-color);
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 1100px) {
+
+  .eval-impact-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+}
+
+@media (max-width: 600px) {
+
+  .eval-impact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .eval-impact-card {
+    padding: 24px;
+  }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .eval-impact-card {
+    transition: none;
+  }
+
+}
+
     @keyframes fill {
       from { width: 0; }
       to { width: 100%; }
@@ -1158,6 +2015,14 @@
     }
 
     @media (max-width: 900px) {
+      .top-links {
+        display: none;
+      }
+
+      .mobile-phase-nav {
+        display: block;
+      }
+
       .hero-cards,
       .section-head {
         grid-template-columns: 1fr;
@@ -1169,11 +2034,6 @@
       .cards,
       .source-grid {
         grid-template-columns: 1fr;
-      }
-
-      .top-links {
-        font-size: 0.88rem;
-        gap: 10px;
       }
 
       .ml-pipeline {
@@ -1199,14 +2059,9 @@
 
     @media (max-width: 620px) {
       .topbar-inner {
-        flex-direction: column;
-        justify-content: center;
+        flex-direction: row;
+        justify-content: space-between;
         padding: 10px 0;
-      }
-
-      .top-links {
-        flex-wrap: wrap;
-        justify-content: center;
       }
 
       .hero {
@@ -1296,6 +2151,37 @@
         <a href="#optimisation-progress">Phase 5</a>
         <a href="#evaluation-progress">Phase 6</a>
       </nav>
+      <details class="mobile-phase-nav">
+        <summary>Navigate</summary>
+        <nav class="mobile-phase-nav-panel" aria-label="Progress navigation">
+          <a href="index.html">Main Page</a>
+          <a href="#timeline">Project Timeline</a>
+          <details class="mobile-phase-item">
+            <summary>Phase 1</summary>
+            <a href="#data-progress">Data Collection and Exploration</a>
+          </details>
+          <details class="mobile-phase-item">
+            <summary>Phase 2</summary>
+            <a href="#engineering-progress">Data Engineering</a>
+          </details>
+          <details class="mobile-phase-item">
+            <summary>Phase 3</summary>
+            <a href="#ml-progress">Machine Learning Framework</a>
+          </details>
+          <details class="mobile-phase-item">
+            <summary>Phase 4</summary>
+            <a href="#assignments-progress">Assignments &amp; Projects Design</a>
+          </details>
+          <details class="mobile-phase-item">
+            <summary>Phase 5</summary>
+            <a href="#optimisation-progress">Optimisation Framework</a>
+          </details>
+          <details class="mobile-phase-item">
+            <summary>Phase 6</summary>
+            <a href="#evaluation-progress">Evaluation of Curriculum Integration</a>
+          </details>
+        </nav>
+      </details>
     </div>
   </header>
 
@@ -2332,45 +3218,478 @@ and produces collection performance reports.
 
     </section>
 
-    <section id="evaluation-progress" aria-labelledby="evaluation-progress-title">
-      <div class="section-head">
-        <h2 id="evaluation-progress-title">Phase 6: Evaluation of Curriculum Integration</h2>
+    <section id="evaluation-progress"
+         aria-labelledby="evaluation-progress-title">
+
+  <div class="section-head">
+    <h2 id="evaluation-progress-title">
+      Phase 6: Evaluation of Curriculum Integration
+    </h2>
+  </div>
+
+  <p class="eval-intro">
+    Evaluating the integration of industry-informed sustainability
+    challenges into teaching and learning through feedback from
+    academic staff across campuses, with a focus on educational
+    relevance, student learning opportunities, and continuous
+    curriculum improvement.
+  </p>
+
+
+  <!-- =========================================
+       1. CURRICULUM INTEGRATION OUTCOMES
+  ========================================== -->
+
+  <div class="eval-section-heading">
+    <span class="eval-eyebrow">EDUCATIONAL OBJECTIVES</span>
+    <h3>Curriculum Integration Outcomes</h3>
+    <p>
+      Connecting disciplinary knowledge with authentic
+      sustainability challenges and industry applications.
+    </p>
+  </div>
+
+  <div class="eval-outcomes">
+
+    <article class="eval-outcome-card">
+      <div class="eval-outcome-icon">🌱</div>
+
+      <h4>Sustainability Awareness</h4>
+
+      <p>
+        Introducing students to renewable energy,
+        organic waste management, and environmental
+        sustainability challenges in the red meat industry.
+      </p>
+    </article>
+
+    <article class="eval-outcome-card">
+      <div class="eval-outcome-icon">🧠</div>
+
+      <h4>Applied Problem-Solving</h4>
+
+      <p>
+        Applying computing, machine learning, and
+        optimisation concepts to realistic
+        industry-informed problems.
+      </p>
+    </article>
+
+    <article class="eval-outcome-card">
+      <div class="eval-outcome-icon">🤝</div>
+
+      <h4>Industry-Informed Learning</h4>
+
+      <p>
+        Bridging theoretical knowledge and practical
+        applications through authentic datasets
+        and industry-relevant scenarios.
+      </p>
+    </article>
+
+  </div>
+
+
+  <!-- =========================================
+       2. TEACHING STAFF TESTIMONIALS
+  ========================================== -->
+
+  <div class="eval-testimonials-section">
+
+    <div class="eval-section-heading">
+      <span class="eval-eyebrow">CROSS-CAMPUS FEEDBACK</span>
+      <h3>Voices from Our Teaching Community</h3>
+
+      <p>
+        Feedback from teaching staff across Curtin's
+        global campuses highlights the value of
+        authentic, industry-informed assignments.
+      </p>
+    </div>
+
+
+    <div class="eval-testimonial-container">
+
+      <div class="eval-testimonial-top">
+
+        <span class="eval-quote-icon" aria-hidden="true">
+          ❝
+        </span>
+
+        <span class="eval-feedback-badge" id="evalFeedbackBadge">
+          Real-World Learning
+        </span>
+
       </div>
-      <p>Collecting feedback across campuses from staffs and students to assess the effectiveness of curriculum integration and identify areas for improvement.</p>
-      <div class="cards">
-        <article class="card">
-          <span class="testimonial-avatar" aria-hidden="true">&nbsp;👱‍♂️</span>
-          <blockquote>
-            “This is indeed a good initiative since students are experiencing a real-world development scenario.”
-          </blockquote>
-          <p><cite>Lecturer, COMP1002/5008, Curtin Mauritius</cite></p>
-        </article>
 
-        <article class="card">
-          <span class="testimonial-avatar" aria-hidden="true">&nbsp;👩‍🦱</span>
-          <blockquote>
-            “I like the idea of restricting them for a standard, actual data set so that students get exposed to work around proper data. It changes the monotonous nature of previous semester assessments.”
-          </blockquote>
-          <p><cite>Lecturer, COMP1002/5008, Curtin Colombo</cite></p>
-        </article>
 
-        <article class="card">
-          <span class="testimonial-avatar" aria-hidden="true">&nbsp;👩‍🦰</span>
-          <blockquote>
-            “Incorporating a real-world scenario and dataset is an interesting approach, as it makes the assignment more practical and relevant to the students,”
-          </blockquote>
-          <p><cite>Lecturer, COMP1002/5008, Curtin Malaysia</cite></p>
-        </article>
+      <div class="eval-testimonial-content"
+           id="evalTestimonialContent"
+           aria-live="polite"
+           aria-atomic="true">
 
-        <article class="card">
-          <span class="testimonial-avatar" aria-hidden="true">&nbsp;👨🏼</span>
-          <blockquote>
-            “The design and framing are excellent. The anaerobic digestion scenario at the Western Australian meat-processing facility offers an authentic, high-impact context for sustainability, clearly demonstrating how AI applies to real-world environmental engineering and resource recovery.”
-          </blockquote>
-          <p><cite>Lecturer, COMP6009, Curtin Dubai</cite></p>
-        </article>
+        <blockquote id="evalQuote">
+          This is indeed a good initiative since students
+          are experiencing a real-world development scenario.
+        </blockquote>
+
+        <div class="eval-testimonial-author">
+
+          <div class="eval-avatar" id="evalAvatar">
+            MU
+          </div>
+
+          <div>
+            <strong id="evalCampus">
+              Curtin Mauritius
+            </strong>
+
+            <span id="evalRole">
+              Lecturer · COMP1002/5008
+            </span>
+          </div>
+
+        </div>
+
       </div>
-    </section>
+
+
+      <div class="eval-testimonial-footer">
+
+        <div class="eval-dots"
+             id="evalDots"
+             aria-label="Select testimonial">
+        </div>
+
+        <div class="eval-carousel-controls">
+
+          <button type="button"
+                  id="evalPrev"
+                  class="eval-carousel-btn"
+                  aria-label="Previous testimonial">
+            ←
+          </button>
+
+          <span class="eval-carousel-count" id="evalCount">
+            01 / 04
+          </span>
+
+          <button type="button"
+                  id="evalNext"
+                  class="eval-carousel-btn"
+                  aria-label="Next testimonial">
+            →
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================================
+       3. KEY EVALUATION INSIGHTS
+  ========================================== -->
+
+  <div class="eval-insights-section">
+
+    <div class="eval-section-heading">
+      <span class="eval-eyebrow">REFLECTION & EVALUATION</span>
+      <h3>Key Evaluation Insights</h3>
+
+      <p>
+        Emerging themes from academic staff feedback
+        and opportunities for further evaluation.
+      </p>
+    </div>
+
+
+    <div class="eval-insights-grid">
+
+      <!-- Positive feedback -->
+
+      <article class="eval-insight-card positive">
+
+        <div class="eval-insight-header">
+          <span class="eval-insight-icon">✓</span>
+          <h4>What Worked Well</h4>
+        </div>
+
+        <div class="eval-insight-items">
+
+          <div class="eval-insight-item">
+            <strong>Authentic Industry Context</strong>
+            <p>
+              Teaching staff valued the integration
+              of real-world sustainability scenarios
+              into technical assignments.
+            </p>
+          </div>
+
+          <div class="eval-insight-item">
+            <strong>Practical Data Applications</strong>
+            <p>
+              Working with structured, realistic datasets
+              was viewed as a valuable alternative to
+              conventional assessment scenarios.
+            </p>
+          </div>
+
+          <div class="eval-insight-item">
+            <strong>Cross-Campus Relevance</strong>
+            <p>
+              Positive feedback from multiple campuses
+              suggests the assignment contexts are
+              relevant across different teaching locations.
+            </p>
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <!-- Improvement opportunities -->
+
+      <article class="eval-insight-card improvement">
+
+        <div class="eval-insight-header">
+          <span class="eval-insight-icon">↗</span>
+          <h4>Opportunities for Improvement</h4>
+        </div>
+
+        <div class="eval-insight-items">
+
+          <div class="eval-insight-item">
+            <strong>Evaluate Student Learning</strong>
+            <p>
+              Gather student feedback and assessment
+              evidence to better understand learning
+              outcomes and sustainability awareness.
+            </p>
+          </div>
+
+          <div class="eval-insight-item">
+            <strong>Refine Teaching Resources</strong>
+            <p>
+              Review assignment clarity, workload,
+              and supporting materials to improve
+              accessibility across student cohorts.
+            </p>
+          </div>
+
+          <div class="eval-insight-item">
+            <strong>Strengthen Evaluation</strong>
+            <p>
+              Develop consistent feedback mechanisms
+              across campuses to support future
+              curriculum improvements.
+            </p>
+          </div>
+
+        </div>
+
+      </article>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================================
+     4. SUSTAINING IMPACT & KNOWLEDGE SHARING
+========================================== -->
+
+<div class="eval-future-section">
+
+  <div class="eval-section-heading">
+    <span class="eval-eyebrow">LONG-TERM IMPACT</span>
+
+    <h3>Sustaining Impact & Knowledge Sharing</h3>
+
+    <p>
+      Creating lasting value through reusable teaching resources,
+      open research tools, knowledge exchange, and
+      industry-connected student engagement.
+    </p>
+  </div>
+
+
+  <div class="eval-impact-grid">
+
+    <!-- PATHWAY 1 -->
+
+    <article class="eval-impact-card learning">
+
+      <div class="eval-impact-header">
+        <span class="eval-impact-number">01</span>
+        <span class="eval-impact-icon">📚</span>
+      </div>
+
+      <h4>Learning Materials</h4>
+
+      <p class="eval-impact-description">
+        Embedding industry-informed sustainability challenges
+        into reusable teaching and assessment resources.
+      </p>
+
+      <div class="eval-impact-details">
+
+        <div class="eval-impact-group">
+          <span class="eval-impact-label">WHO BENEFITS</span>
+
+          <p>
+            Students, academics, and unit coordinators
+          </p>
+        </div>
+
+        <div class="eval-impact-group">
+          <span class="eval-impact-label">SHARED THROUGH</span>
+
+          <ul>
+            <li>Case studies</li>
+            <li>Teaching materials</li>
+            <li>Unit assessments</li>
+          </ul>
+        </div>
+
+      </div>
+
+    </article>
+
+
+    <!-- PATHWAY 2 -->
+
+    <article class="eval-impact-card prototypes">
+
+      <div class="eval-impact-header">
+        <span class="eval-impact-number">02</span>
+        <span class="eval-impact-icon">💻</span>
+      </div>
+
+      <h4>Prototypes & Code</h4>
+
+      <p class="eval-impact-description">
+        Supporting reproducible research and further
+        development through accessible computational
+        frameworks and prototype tools.
+      </p>
+
+      <div class="eval-impact-details">
+
+        <div class="eval-impact-group">
+          <span class="eval-impact-label">WHO BENEFITS</span>
+
+          <p>
+            Students, researchers, and the wider community
+          </p>
+        </div>
+
+        <div class="eval-impact-group">
+          <span class="eval-impact-label">SHARED THROUGH</span>
+
+          <ul>
+            <li>Open GitHub repository</li>
+            <li>Curtin project website</li>
+          </ul>
+        </div>
+
+      </div>
+
+    </article>
+
+
+    <!-- PATHWAY 3 -->
+
+    <article class="eval-impact-card knowledge">
+
+      <div class="eval-impact-header">
+        <span class="eval-impact-number">03</span>
+        <span class="eval-impact-icon">🎓</span>
+      </div>
+
+      <h4>Knowledge Sharing</h4>
+
+      <p class="eval-impact-description">
+        Sharing project experiences, educational
+        practices, and research insights across
+        disciplines and campuses.
+      </p>
+
+      <div class="eval-impact-details">
+
+        <div class="eval-impact-group">
+          <span class="eval-impact-label">WHO BENEFITS</span>
+
+          <p>
+            School of EECMS and all Curtin campuses
+          </p>
+        </div>
+
+        <div class="eval-impact-group">
+          <span class="eval-impact-label">SHARED THROUGH</span>
+
+          <ul>
+            <li>Discipline meetings</li>
+            <li>Digital Technologies & Analytics Forum #4</li>
+            <li>WA Teaching & Learning Forum 2027</li>
+          </ul>
+        </div>
+
+      </div>
+
+    </article>
+
+
+    <!-- PATHWAY 4 -->
+
+    <article class="eval-impact-card showcase">
+
+      <div class="eval-impact-header">
+        <span class="eval-impact-number">04</span>
+        <span class="eval-impact-icon">🚀</span>
+      </div>
+
+      <h4>Showcase & Hackathon</h4>
+
+      <p class="eval-impact-description">
+        Promoting student innovation and sustainability
+        through interdisciplinary activities and
+        engagement with industry partners.
+      </p>
+
+      <div class="eval-impact-details">
+
+        <div class="eval-impact-group">
+          <span class="eval-impact-label">WHO BENEFITS</span>
+
+          <p>
+            Students, Curtin community, and industry partners
+          </p>
+        </div>
+
+        <div class="eval-impact-group">
+          <span class="eval-impact-label">SHARED THROUGH</span>
+
+          <ul>
+            <li>ComSSA and FSE intranet</li>
+            <li>News, LinkedIn, and posters</li>
+            <li>Curtin Assessment 2030</li>
+          </ul>
+        </div>
+
+      </div>
+
+    </article>
+
+  </div>
+
+</div>
+
+</section>
 
   </main>
 
@@ -3079,6 +4398,198 @@ optNext.addEventListener("click", () => {
 ========================================= */
 
 renderOptStage(0);
+
+/* =========================================
+   PHASE 6: TESTIMONIAL DATA
+========================================= */
+
+const evaluationTestimonials = [
+
+  {
+    quote:
+      "This is indeed a good initiative since students are " +
+      "experiencing a real-world development scenario.",
+
+    campus: "Curtin Mauritius",
+    role: "Lecturer · COMP1002/5008",
+    initials: "👱‍♂️",
+    category: "Real-World Learning"
+  },
+
+  {
+    quote:
+      "I like the idea of restricting them for a standard, " +
+      "actual data set so that students get exposed to work " +
+      "around proper data. It changes the monotonous nature " +
+      "of previous semester assessments.",
+
+    campus: "Curtin Colombo",
+    role: "Lecturer · COMP1002/5008",
+    initials: "👩‍🦱",
+    category: "Authentic Datasets"
+  },
+
+  {
+    quote:
+      "Incorporating a real-world scenario and dataset is " +
+      "an interesting approach, as it makes the assignment " +
+      "more practical and relevant to the students,",
+
+    campus: "Curtin Malaysia",
+    role: "Lecturer · COMP1002/5008",
+    initials: "👩‍🦰",
+    category: "Practical Relevance"
+  },
+
+  {
+    quote:
+      "The design and framing are excellent. The anaerobic " +
+      "digestion scenario at the Western Australian " +
+      "meat-processing facility offers an authentic, " +
+      "high-impact context for sustainability, clearly " +
+      "demonstrating how AI applies to real-world " +
+      "environmental engineering and resource recovery.",
+
+    campus: "Curtin Dubai",
+    role: "Lecturer · COMP6009",
+    initials: "👨🏼",
+    category: "Sustainability & AI"
+  }
+
+];
+
+
+/* =========================================
+   ELEMENT REFERENCES
+========================================= */
+
+const evalSection =
+  document.getElementById("evaluation-progress");
+
+const evalQuote =
+  evalSection.querySelector("#evalQuote");
+
+const evalCampus =
+  evalSection.querySelector("#evalCampus");
+
+const evalRole =
+  evalSection.querySelector("#evalRole");
+
+const evalAvatar =
+  evalSection.querySelector("#evalAvatar");
+
+const evalBadge =
+  evalSection.querySelector("#evalFeedbackBadge");
+
+const evalDots =
+  evalSection.querySelector("#evalDots");
+
+const evalCount =
+  evalSection.querySelector("#evalCount");
+
+const evalPrev =
+  evalSection.querySelector("#evalPrev");
+
+const evalNext =
+  evalSection.querySelector("#evalNext");
+
+let currentEvalIndex = 0;
+
+
+/* =========================================
+   CREATE CAROUSEL INDICATORS
+========================================= */
+
+evaluationTestimonials.forEach((testimonial, index) => {
+
+  const dot = document.createElement("button");
+
+  dot.type = "button";
+  dot.className = "eval-dot";
+
+  dot.setAttribute(
+    "aria-label",
+    `Show testimonial from ${testimonial.campus}`
+  );
+
+  dot.addEventListener("click", () => {
+    renderEvaluationTestimonial(index);
+  });
+
+  evalDots.appendChild(dot);
+
+});
+
+
+/* =========================================
+   RENDER TESTIMONIAL
+========================================= */
+
+function renderEvaluationTestimonial(index) {
+
+  const total = evaluationTestimonials.length;
+
+  currentEvalIndex = (index + total) % total;
+
+  const testimonial =
+    evaluationTestimonials[currentEvalIndex];
+
+  evalQuote.textContent = `“${testimonial.quote}”`;
+
+  evalCampus.textContent = testimonial.campus;
+
+  evalRole.textContent = testimonial.role;
+
+  evalAvatar.textContent = testimonial.initials;
+
+  evalBadge.textContent = testimonial.category;
+
+  evalCount.textContent =
+    `${String(currentEvalIndex + 1).padStart(2, "0")} / ` +
+    `${String(total).padStart(2, "0")}`;
+
+  /* Update active indicator */
+
+  const dots = evalDots.querySelectorAll(".eval-dot");
+
+  dots.forEach((dot, dotIndex) => {
+
+    const active = dotIndex === currentEvalIndex;
+
+    dot.classList.toggle("active", active);
+
+    dot.setAttribute(
+      "aria-current",
+      active ? "true" : "false"
+    );
+
+  });
+
+}
+
+
+/* =========================================
+   NAVIGATION
+========================================= */
+
+evalPrev.addEventListener("click", () => {
+
+  renderEvaluationTestimonial(currentEvalIndex - 1);
+
+});
+
+evalNext.addEventListener("click", () => {
+
+  renderEvaluationTestimonial(currentEvalIndex + 1);
+
+});
+
+
+/* =========================================
+   INITIALISE
+========================================= */
+
+renderEvaluationTestimonial(0);
 
 
 </script>
