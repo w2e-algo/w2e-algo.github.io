@@ -1,2155 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Project Progress | Phase 1/2 Synthetic Data Release</title>
-  <meta name="description" content="Status update for the Phase 1/2 public synthetic data release and planned next phases.">
+  <title>Project Outcomes | IERP Sustainability Project</title>
+  <meta name="description"
+    content="Project outcomes across six phases: data collection, data engineering, machine learning, assignments, optimisation, and curriculum integration.">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-   <script type="module">
-        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
-        mermaid.initialize({ startOnLoad: true });
-    </script>
-  <style>
-    :root {
-      --bg: #f5f6ef;
-      --paper: #ffffff;
-      --ink: #1c2320;
-      --muted: #53635b;
-      --line: #dbe2dc;
-      --forest: #1d5a3b;
-      --teal: #197a78;
-      --sand: #d7b669;
-      --radius: 14px;
-      --shadow: 0 20px 48px rgba(15, 33, 25, 0.12);
-      --hero-glow: radial-gradient(circle at 75% 18%, rgba(25, 122, 120, 0.26), transparent 42%), radial-gradient(circle at 14% 88%, rgba(176, 81, 44, 0.18), transparent 44%);
-    }
-
-    code {
-      --bs-box-shadow: none; /* Optional: clear default shadows */
-      background-color: var(--bs-gray-100); /* Uses Bootstrap's gray variable */
-      padding: 0.2rem 0.4rem;
-      border-radius: var(--bs-border-radius);
-    }
-
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      font-family: "Space Grotesk", "Avenir Next", "Segoe UI", sans-serif;
-      color: var(--ink);
-      background: linear-gradient(180deg, #f8faf6 0%, var(--bg) 100%);
-      line-height: 1.5;
-    }
-
-    h1, h2, h3, p { margin-top: 0; }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      backdrop-filter: blur(10px);
-      background: rgba(248, 250, 246, 0.9);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .topbar-inner,
-    .hero-inner,
-    main {
-      width: min(1080px, calc(100% - 36px));
-      margin: 0 auto;
-    }
-
-    .topbar-inner {
-      position: relative;
-      min-height: 66px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-    }
-
-    .brand {
-      font-weight: 800;
-      letter-spacing: 0.01em;
-      color: var(--forest);
-    }
-
-    .top-links {
-      display: flex;
-      gap: 16px;
-      color: var(--muted);
-      font-size: 0.95rem;
-      font-weight: 700;
-    }
-
-    .mobile-phase-nav {
-      display: none;
-      color: var(--muted);
-      font-weight: 700;
-    }
-
-    .mobile-phase-nav > summary {
-      padding: 8px 12px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: var(--paper);
-      cursor: pointer;
-      list-style: none;
-    }
-
-    .mobile-phase-nav > summary::-webkit-details-marker,
-    .mobile-phase-item > summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .mobile-phase-nav > summary::after {
-      content: "＋";
-      margin-left: 8px;
-    }
-
-    .mobile-phase-nav[open] > summary::after {
-      content: "−";
-    }
-
-    .mobile-phase-nav-panel {
-      position: absolute;
-      top: calc(100% + 10px);
-      right: 0;
-      z-index: 11;
-      width: min(360px, calc(100vw - 36px));
-      max-height: min(70vh, 560px);
-      overflow-y: auto;
-      padding: 10px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: var(--paper);
-      box-shadow: var(--shadow);
-    }
-
-    .mobile-phase-nav-panel > a,
-    .mobile-phase-item a {
-      display: block;
-      padding: 9px 10px;
-      color: var(--muted);
-      text-decoration: none;
-    }
-
-    .mobile-phase-nav-panel > a:hover,
-    .mobile-phase-item a:hover {
-      color: var(--forest);
-      background: #f2f7f3;
-    }
-
-    .mobile-phase-item {
-      border-top: 1px solid var(--line);
-    }
-
-    .mobile-phase-item > summary {
-      padding: 10px;
-      cursor: pointer;
-      list-style: none;
-    }
-
-    .mobile-phase-item > summary::after {
-      content: "＋";
-      float: right;
-    }
-
-    .mobile-phase-item[open] > summary::after {
-      content: "−";
-    }
-
-    .mobile-phase-item > a {
-      padding-left: 20px;
-      font-size: 0.92rem;
-      font-weight: 500;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      color: var(--muted);
-      font-size: 0.94rem;
-      font-weight: 700;
-    }
-
-    .nav-links a {
-      padding: 8px 0;
-    }
-
-    .nav-links a:hover {
-      color: var(--forest);
-    }
-
-    .hero {
-      position: relative;
-      padding: 62px 0 36px;
-      overflow: hidden;
-      background: linear-gradient(140deg, rgba(29, 90, 59, 0.94) 0%, rgba(25, 122, 120, 0.9) 56%, rgba(11, 63, 57, 0.95) 100%);
-      color: #f5fff9;
-      isolation: isolate;
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: var(--hero-glow);
-      z-index: -1;
-    }
-
-    .eyebrow {
-      display: inline-block;
-      padding: 7px 12px;
-      border: 1px solid rgba(255, 255, 255, 0.34);
-      border-radius: 999px;
-      font-size: 0.8rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-      background: rgba(255, 255, 255, 0.09);
-    }
-
-    a.link {
-      color: teal;
-      text-decoration: underline;
-    }
-
-    h1 {
-      font-size: clamp(2rem, 6vw, 4.3rem);
-      line-height: 1.03;
-      margin-bottom: 16px;
-      max-width: 920px;
-      letter-spacing: 0.01em;
-    }
-
-    .hero-lead {
-      max-width: 850px;
-      margin-bottom: 28px;
-      color: rgba(245, 255, 249, 0.9);
-      font-size: clamp(1rem, 2vw, 1.25rem);
-    }
-
-    .hero-cards {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 16px;
-    }
-
-    .hero-card {
-      border: 1px solid rgba(255, 255, 255, 0.26);
-      border-radius: var(--radius);
-      padding: 16px;
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    .hero-card strong {
-      display: block;
-      font-size: 2.2rem;
-      line-height: 1;
-      margin-bottom: 6px;
-    }
-
-    .progress-track {
-      height: 12px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.25);
-      overflow: hidden;
-      margin-top: 10px;
-    }
-
-    .progress-value {
-      height: 100%;
-      width: 100%;
-      background: linear-gradient(90deg, #8faca0, #0eb624);
-      animation: fill 1.4s ease-out;
-    }
-
-    main {
-      padding: 38px 0 70px;
-      display: grid;
-      gap: 18px;
-    }
-
-    section {
-      background: var(--paper);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 22px;
-      animation: rise 0.55s ease both;
-    }
-
-    .section-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 14px;
-      margin-bottom: 14px;
-    }
-
-    .section-kicker {
-      color: var(--muted);
-      max-width: 62ch;
-      margin-bottom: 0;
-      font-size: 0.95rem;
-    }
-
-    .timeline-wrap {
-      position: relative;
-      overflow-x: auto;
-      padding: 10px 0 16px;
-    }
-
-    .timeline {
-      position: relative;
-      min-width: 980px;
-      display: grid;
-      grid-template-columns: repeat(6, minmax(0, 1fr));
-      gap: 14px;
-      padding-top: 22px;
-    }
-
-    .timeline::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 10px;
-      height: 3px;
-      background: linear-gradient(90deg, rgba(29, 90, 59, 0.26), rgba(25, 122, 120, 0.24));
-      border-radius: 999px;
-    }
-
-    .phase {
-      position: relative;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 12px;
-      background: #fbfdf9;
-      min-height: 170px;
-    }
-
-    .phase::before {
-      content: "";
-      position: absolute;
-      top: -18px;
-      left: 12px;
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: #b8c8bf;
-      border: 2px solid #f8faf6;
-      box-shadow: 0 0 0 1px var(--line);
-    }
-
-    .phase.done {
-      border-color: rgba(29, 90, 59, 0.34);
-      background: linear-gradient(180deg, #eef8f2, #e8f4ec);
-    }
-
-    .phase.done::before {
-      background: var(--forest);
-    }
-
-    .phase.current {
-      border-color: rgba(215, 182, 105, 0.68);
-      background: linear-gradient(180deg, #fff8ea, #fff2d9);
-    }
-
-    .phase.current::before {
-      background: var(--sand);
-    }
-
-    .pill {
-      display: inline-block;
-      margin-bottom: 8px;
-      border-radius: 999px;
-      padding: 3px 8px;
-      font-size: 0.76rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-
-    .pill.done {
-      background: rgba(29, 90, 59, 0.12);
-      color: var(--forest);
-    }
-
-    .pill.next {
-      background: rgba(215, 182, 105, 0.22);
-      color: #7b5d1d;
-    }
-
-    .phase h3 {
-      margin-bottom: 6px;
-      font-size: 0.98rem;
-      line-height: 1.25;
-    }
-
-    .phase p {
-      margin-bottom: 0;
-      color: #304039;
-      font-size: 0.92rem;
-    }
-
-    .phase-grid {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 12px;
-      padding-top: 22px;
-    }
-
-    .cards,
-    .source-grid2 {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .source-grid3 {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .card,
-    .source {
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 14px;
-      background: #fbfdf9;
-    }
-
-    .testimonial-avatar {
-      display: block;
-      width: 100px;
-      height: 100px;
-      margin-left: auto;
-      margin-right: auto;
-      border-radius: 50%;
-      background: rgba(29, 90, 59, 0.1);
-      font-size: 4rem;
-    }
-
-    .card h3,
-    .source h3 {
-      margin-bottom: 8px;
-      font-size: 1rem;
-    }
-
-    .card ul {
-      margin: 0;
-      padding-left: 18px;
-      color: #304039;
-    }
-
-    .card li + li {
-      margin-top: 5px;
-    }
-
-    .accordion {
-      /* Active text color */
-      --bs-accordion-active-color: #000000; 
-      
-      /* Active background color */
-      --bs-accordion-active-bg: rgba(29, 90, 59, 0.12); 
-      
-      /* Optional: Removes the default blue focus outline */
-      --bs-accordion-btn-focus-box-shadow: none; 
-    }
-
-    /* =========================================
-    MACHINE LEARNING FRAMEWORK
-    ========================================= */
-
-    .ml-section {
-      --ml-text: #183047;
-      --ml-muted: #617184;
-      --ml-border: #dfe7ef;
-      --ml-accent: #087f8c;
-
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 60px 24px;
-
-      font-family: Inter, Arial, sans-serif;
-      color: var(--ml-text);
-    }
-
-    /* HEADER */
-
-    .ml-header {
-      text-align: center;
-      margin-bottom: 45px;
-    }
-
-    .ml-eyebrow {
-      color: var(--ml-accent);
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-
-    .ml-header h2 {
-      font-size: clamp(26px, 4vw, 38px);
-      margin: 12px 0;
-    }
-
-    .ml-header p {
-      max-width: 720px;
-      margin: auto;
-      color: var(--ml-muted);
-      line-height: 1.7;
-    }
-
-    /* =========================================
-      PIPELINE
-    ========================================= */
-
-    .ml-pipeline {
-      display: grid;
-      grid-template-columns: repeat(6, minmax(0, 1fr));
-      gap: 12px;
-      position: relative;
-      margin-bottom: 28px;
-    }
-
-    .ml-stage {
-      position: relative;
-
-      min-width: 0;
-      min-height: 155px;
-
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-
-      padding: 18px 10px;
-
-      border: 2px solid transparent;
-      border-radius: 14px;
-
-      background: var(--stage-bg);
-
-      color: var(--ml-text);
-      text-align: center;
-
-      cursor: pointer;
-
-      transition:
-        transform 0.25s ease,
-        border-color 0.25s ease,
-        box-shadow 0.25s ease;
-    }
-
-    .ml-stage:hover {
-      transform: translateY(-5px);
-    }
-
-    .ml-stage.active {
-      border-color: var(--stage-color);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.09);
-    }
-
-    .ml-stage:focus-visible {
-      outline: 3px solid var(--ml-accent);
-      outline-offset: 3px;
-    }
-
-    /* Stage number */
-
-    .ml-number {
-      font-size: 12px;
-      font-weight: 800;
-      color: var(--stage-color);
-      margin-bottom: 10px;
-    }
-
-    /* Icon */
-
-    .ml-icon {
-      width: 42px;
-      height: 42px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      margin-bottom: 12px;
-
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.65);
-
-      font-size: 25px;
-    }
-
-    /* Stage title */
-
-    .ml-stage-title {
-      font-size: 14px;
-      font-weight: 700;
-      line-height: 1.35;
-    }
-
-    /* Connecting arrows */
-
-    .ml-stage:not(:last-child)::after {
-      content: "→";
-
-      position: absolute;
-      right: -14px;
-      top: 50%;
-      transform: translateY(-50%);
-
-      font-size: 19px;
-      font-weight: bold;
-      color: #8190a0;
-
-      z-index: 2;
-      pointer-events: none;
-    }
-
-    /* Stage colours */
-
-    .ml-stage[data-stage="0"] {
-      --stage-bg: #e3efff;
-      --stage-color: #2878c7;
-    }
-
-    .ml-stage[data-stage="1"] {
-      --stage-bg: #e2f3e5;
-      --stage-color: #31934b;
-    }
-
-    .ml-stage[data-stage="2"] {
-      --stage-bg: #fff0dc;
-      --stage-color: #c8871d;
-    }
-
-    .ml-stage[data-stage="3"] {
-      --stage-bg: #e9e9fa;
-      --stage-color: #6b63bd;
-    }
-
-    .ml-stage[data-stage="4"] {
-      --stage-bg: #ffe5e5;
-      --stage-color: #cf6262;
-    }
-
-    .ml-stage[data-stage="5"] {
-      --stage-bg: #efe5f7;
-      --stage-color: #9864bd;
-    }
-
-    /* =========================================
-      DETAIL PANEL
-    ========================================= */
-
-    .ml-detail {
-      background: #ffffff;
-
-      border: 1px solid var(--ml-border);
-      border-radius: 18px;
-
-      padding: 32px;
-
-      box-shadow: 0 12px 35px rgba(20, 40, 60, 0.05);
-
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* Coloured top border */
-
-    .ml-detail::before {
-      content: "";
-
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-
-      height: 5px;
-      background: var(--detail-color, #2878c7);
-    }
-
-    .ml-detail-header {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-
-      margin-bottom: 20px;
-    }
-
-    .ml-detail-icon {
-      width: 58px;
-      height: 58px;
-
-      flex-shrink: 0;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      border-radius: 14px;
-      background: var(--detail-bg, #e3efff);
-
-      font-size: 30px;
-    }
-
-    .ml-detail-label {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--ml-accent);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .ml-detail-title {
-      font-size: 25px;
-      margin: 5px 0 0;
-    }
-
-    .ml-description {
-      color: #526477;
-      line-height: 1.8;
-      margin-bottom: 25px;
-    }
-
-    /* =========================================
-      INFORMATION CARDS
-    ========================================= */
-
-    .ml-info-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .ml-info-card {
-      padding: 20px;
-
-      border: 1px solid var(--ml-border);
-      border-radius: 12px;
-
-      background: #f8fafc;
-    }
-
-    .ml-info-card h4 {
-      margin: 0 0 10px;
-      font-size: 15px;
-    }
-
-    .ml-info-card p {
-      margin: 0;
-
-      font-size: 13px;
-      color: var(--ml-muted);
-      line-height: 1.65;
-    }
-
-    /* =========================================
-      FOOTER NAVIGATION
-    ========================================= */
-
-    .ml-navigation {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      gap: 16px;
-      margin-top: 28px;
-    }
-
-    .ml-progress {
-      font-size: 13px;
-      color: var(--ml-muted);
-    }
-
-    .ml-nav-buttons {
-      display: flex;
-      gap: 10px;
-    }
-
-    .ml-nav-btn {
-      padding: 11px 20px;
-
-      border: 1px solid var(--ml-border);
-      border-radius: 9px;
-
-      background: white;
-      color: var(--ml-text);
-
-      font-size: 13px;
-      font-weight: 600;
-
-      cursor: pointer;
-    }
-
-    .ml-nav-btn.primary {
-      background: var(--ml-accent);
-      color: white;
-      border-color: var(--ml-accent);
-    }
-
-    .ml-nav-btn:hover:not(:disabled) {
-      filter: brightness(0.94);
-    }
-
-    .ml-nav-btn:disabled {
-      opacity: 0.35;
-      cursor: not-allowed;
-    }
-
-    .ml-nav-btn:focus-visible {
-      outline: 3px solid var(--ml-accent);
-      outline-offset: 3px;
-    }
-
-    /* PHASE 4 */
-
-    #assignments-progress {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .phase-intro {
-      max-width: 850px;
-      line-height: 1.7;
-      color: #526477;
-      margin-bottom: 35px;
-    }
-
-    /* DASHBOARD */
-
-    .engagement-dashboard {
-      display: grid;
-      grid-template-columns: 280px minmax(0, 1fr);
-      gap: 24px;
-      margin-bottom: 65px;
-    }
-
-    .engagement-summary {
-      background: #104d66;
-      color: white;
-      border-radius: 14px;
-      padding: 35px 22px;
-
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .engagement-total {
-      text-align: center;
-    }
-
-    .engagement-number {
-      display: block;
-      font-size: 65px;
-      font-weight: 800;
-    }
-
-    .engagement-label {
-      font-size: 13px;
-      font-weight: 700;
-      color: #80e2b9;
-    }
-
-    .engagement-stats {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
-      margin-top: 35px;
-      text-align: center;
-    }
-
-    .engagement-stats strong {
-      display: block;
-      font-size: 26px;
-    }
-
-    .engagement-stats span {
-      display: block;
-      font-size: 11px;
-      margin-top: 5px;
-    }
-
-    .engagement-breakdown h3 {
-      color: #006e8b;
-      font-size: 16px;
-      margin: 0 0 12px;
-    }
-
-    .engagement-unit {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-
-      background: #eaf2f5;
-      padding: 15px;
-      border-radius: 12px;
-
-      margin-bottom: 12px;
-    }
-
-    .engagement-unit.green {
-      background: #edf5ed;
-    }
-
-    .unit-count {
-      width: 62px;
-      height: 62px;
-      flex-shrink: 0;
-
-      border-radius: 50%;
-      background: #087b9b;
-      color: white;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      font-size: 20px;
-      font-weight: 800;
-    }
-
-    .green .unit-count {
-      background: #21823b;
-    }
-
-    .engagement-unit h4 {
-      margin: 0 0 4px;
-      font-size: 16px;
-    }
-
-    .engagement-unit p {
-      margin: 0 0 6px;
-      font-size: 14px;
-    }
-
-    .engagement-unit small {
-      color: #617184;
-    }
-
-    .engagement-breakdown .project-heading {
-      color: #7b258b;
-      margin-top: 22px;
-    }
-
-    .project-engagement {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 10px;
-    }
-
-    .project-engagement > div {
-      background: #f3eaf5;
-      border-radius: 10px;
-      padding: 14px 10px;
-      text-align: center;
-    }
-
-    .project-engagement strong {
-      display: block;
-      font-size: 25px;
-      color: #7b258b;
-    }
-
-    .project-engagement span {
-      display: block;
-      font-size: 12px;
-      margin-top: 6px;
-    }
-
-    /* ASSIGNMENT SHOWCASE */
-
-    .showcase-heading {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-
-    .showcase-heading h3 {
-      font-size: 26px;
-      margin-bottom: 10px;
-    }
-
-    .showcase-heading p {
-      color: #617184;
-      line-height: 1.7;
-    }
-
-    .assignment-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 25px;
-    }
-
-    .assignment-card {
-      border: 1px solid #e0e8ef;
-      border-radius: 16px;
-      overflow: hidden;
-      background: white;
-
-      transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease;
-    }
-
-    .assignment-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.08);
-    }
-
-    .assignment-preview {
-      height: 280px;
-      background: #f1f5f9;
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      overflow: hidden;
-    }
-
-    .assignment-preview img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-
-    .assignment-content {
-      padding: 25px;
-    }
-
-    .assignment-code {
-      display: inline-block;
-      color: #087b9b;
-      font-weight: 700;
-      font-size: 12px;
-      margin-bottom: 10px;
-    }
-
-    .assignment-content h4 {
-      font-size: 20px;
-      margin: 0 0 12px;
-      line-height: 1.4;
-    }
-
-    .assignment-content p {
-      color: #617184;
-      font-size: 14px;
-      line-height: 1.7;
-    }
-
-    .assignment-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin: 20px 0;
-    }
-
-    .assignment-meta span {
-      background: #edf4f7;
-      padding: 7px 12px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 600;
-    }
-
-    .assignment-button {
-      background: #087b9b;
-      color: white;
-
-      border: none;
-      border-radius: 8px;
-
-      padding: 12px 20px;
-      font-weight: 600;
-
-      cursor: pointer;
-    }
-
-    .assignment-button:hover {
-      background: #075f78;
-    }
-
-    /* PDF MODAL */
-
-    .assignment-modal {
-      width: min(95%, 1000px);
-      max-width: 1000px;
-      height: 85vh;
-
-      padding: 0;
-      border: none;
-      border-radius: 14px;
-
-      overflow: hidden;
-    }
-
-    .assignment-modal[open] {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .assignment-modal::backdrop {
-      background: rgba(0, 0, 0, 0.65);
-    }
-
-    .modal-header,
-    .modal-footer {
-      padding: 15px 20px;
-
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      background: white;
-    }
-
-    .modal-header button {
-      border: none;
-      background: transparent;
-      font-size: 22px;
-      cursor: pointer;
-    }
-
-    .assignment-modal iframe {
-      width: 100%;
-      flex: 1;
-      min-height: 0;
-      border: none;
-    }
-
-    .modal-footer a {
-      color: #087b9b;
-      font-weight: 600;
-      text-decoration: none;
-    }
-
-
-    /* =========================================
-      ANIMATION
-    ========================================= */
-
-    .ml-fade {
-      animation: mlFade 0.35s ease;
-    }
-
-    @keyframes mlFade {
-      from {
-        opacity: 0;
-        transform: translateY(8px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* =========================================
-      PHASE 5: OPTIMISATION FRAMEWORK
-    ========================================= */
-
-    .optimisation-pipeline .ml-stage[data-opt-stage="0"] {
-      --stage-bg: #e3efff;
-      --stage-color: #2878c7;
-    }
-
-    .optimisation-pipeline .ml-stage[data-opt-stage="1"] {
-      --stage-bg: #e2f3e5;
-      --stage-color: #31934b;
-    }
-
-    .optimisation-pipeline .ml-stage[data-opt-stage="2"] {
-      --stage-bg: #fff0dc;
-      --stage-color: #c8871d;
-    }
-
-    .optimisation-pipeline .ml-stage[data-opt-stage="3"] {
-      --stage-bg: #e9e9fa;
-      --stage-color: #6b63bd;
-    }
-
-    .optimisation-pipeline .ml-stage[data-opt-stage="4"] {
-      --stage-bg: #ffe5e5;
-      --stage-color: #cf6262;
-    }
-
-    .optimisation-pipeline .ml-stage[data-opt-stage="5"] {
-      --stage-bg: #efe5f7;
-      --stage-color: #9864bd;
-    }
-
-    /* More compact than Phase 3 */
-
-    .opt-detail {
-      padding: 26px 30px;
-    }
-
-    .opt-detail .ml-detail-header {
-      margin-bottom: 12px;
-    }
-
-    .opt-detail .ml-description {
-      margin-bottom: 18px;
-    }
-
-    /* Key concept tags */
-
-    .opt-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .opt-tag {
-      padding: 8px 14px;
-
-      background: #f0f5f8;
-      border: 1px solid #e0e8ef;
-      border-radius: 20px;
-
-      color: #31516b;
-
-      font-size: 12px;
-      font-weight: 600;
-    }
-
-    /* =========================================
-   PHASE 6: CURRICULUM EVALUATION
-========================================= */
-
-#evaluation-progress {
-  --eval-primary: #006b8b;
-  --eval-dark: #104d66;
-  --eval-green: #21865b;
-  --eval-purple: #7b438e;
-  --eval-text: #183047;
-  --eval-muted: #617184;
-  --eval-border: #e0e8ef;
-
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-
-/* =========================================
-   INTRODUCTION
-========================================= */
-
-.eval-intro {
-  max-width: 900px;
-  margin-bottom: 50px;
-
-  color: var(--eval-muted);
-  line-height: 1.8;
-}
-
-
-/* =========================================
-   SECTION HEADINGS
-========================================= */
-
-.eval-section-heading {
-  text-align: center;
-  margin-bottom: 28px;
-}
-
-.eval-eyebrow {
-  display: block;
-
-  color: var(--eval-primary);
-
-  font-size: 12px;
-  font-weight: 800;
-
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-
-  margin-bottom: 10px;
-}
-
-.eval-section-heading h3 {
-  font-size: clamp(22px, 3vw, 28px);
-  color: var(--eval-text);
-
-  margin: 0 0 12px;
-}
-
-.eval-section-heading p {
-  max-width: 720px;
-  margin: 0 auto;
-
-  color: var(--eval-muted);
-  font-size: 14px;
-  line-height: 1.7;
-}
-
-
-/* =========================================
-   CURRICULUM OUTCOME CARDS
-========================================= */
-
-.eval-outcomes {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-
-  gap: 20px;
-  margin-bottom: 75px;
-}
-
-.eval-outcome-card {
-  background: #f8fafc;
-
-  border: 1px solid var(--eval-border);
-  border-radius: 14px;
-
-  padding: 30px 24px;
-  text-align: center;
-
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
-}
-
-.eval-outcome-card:hover {
-  transform: translateY(-5px);
-
-  box-shadow:
-    0 12px 30px rgba(20, 40, 60, 0.07);
-}
-
-.eval-outcome-icon {
-  width: 65px;
-  height: 65px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  margin: 0 auto 20px;
-
-  background: #e5f3f0;
-  border-radius: 16px;
-
-  font-size: 30px;
-}
-
-.eval-outcome-card h4 {
-  margin: 0 0 12px;
-
-  font-size: 17px;
-  color: var(--eval-text);
-}
-
-.eval-outcome-card p {
-  margin: 0;
-
-  font-size: 13px;
-  line-height: 1.75;
-
-  color: var(--eval-muted);
-}
-
-
-/* =========================================
-   TESTIMONIAL SECTION
-========================================= */
-
-.eval-testimonials-section {
-  margin-bottom: 75px;
-}
-
-.eval-testimonial-container {
-  max-width: 900px;
-  margin: 0 auto;
-
-  background: linear-gradient(
-    135deg,
-    #f0f7fa 0%,
-    #f8fbfc 100%
-  );
-
-  border: 1px solid #dceaf0;
-  border-radius: 18px;
-
-  padding: 35px 40px;
-}
-
-.eval-testimonial-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  margin-bottom: 20px;
-}
-
-.eval-quote-icon {
-  font-size: 55px;
-  line-height: 1;
-
-  color: var(--eval-primary);
-  opacity: 0.55;
-}
-
-.eval-feedback-badge {
-  padding: 8px 14px;
-
-  border-radius: 20px;
-
-  background: #dff0e9;
-  color: #1b7452;
-
-  font-size: 12px;
-  font-weight: 700;
-}
-
-.eval-testimonial-content {
-  min-height: 190px;
-}
-
-.eval-testimonial-content blockquote {
-  margin: 0 0 30px;
-  padding: 0;
-
-  border: none;
-
-  font-size: clamp(17px, 2.2vw, 21px);
-  font-weight: 500;
-  line-height: 1.75;
-
-  color: var(--eval-text);
-}
-
-.eval-testimonial-author {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.eval-avatar {
-  width: 48px;
-  height: 48px;
-
-  flex-shrink: 0;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 50%;
-
-  background: #b8dded;
-  color: white;
-
-  font-size: 1.8rem;
-}
-
-.eval-testimonial-author strong {
-  display: block;
-
-  font-size: 14px;
-  color: var(--eval-text);
-
-  margin-bottom: 4px;
-}
-
-.eval-testimonial-author span {
-  display: block;
-
-  font-size: 12px;
-  color: var(--eval-muted);
-}
-
-
-/* =========================================
-   CAROUSEL CONTROLS
-========================================= */
-
-.eval-testimonial-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  gap: 15px;
-
-  padding-top: 22px;
-  margin-top: 25px;
-
-  border-top: 1px solid #dce7ec;
-}
-
-.eval-dots {
-  display: flex;
-  gap: 9px;
-}
-
-.eval-dot {
-  width: 10px;
-  height: 10px;
-
-  padding: 0;
-  border: none;
-  border-radius: 50%;
-
-  background: #bdcbd3;
-  cursor: pointer;
-
-  transition:
-    background 0.2s ease,
-    width 0.2s ease;
-}
-
-.eval-dot.active {
-  width: 28px;
-  border-radius: 10px;
-
-  background: var(--eval-primary);
-}
-
-.eval-carousel-controls {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.eval-carousel-btn {
-  width: 40px;
-  height: 40px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background: white;
-
-  border: 1px solid #d5e1e8;
-  border-radius: 50%;
-
-  color: var(--eval-dark);
-
-  font-size: 19px;
-  cursor: pointer;
-
-  transition:
-    background 0.2s ease,
-    color 0.2s ease;
-}
-
-.eval-carousel-btn:hover {
-  background: var(--eval-primary);
-  color: white;
-}
-
-.eval-carousel-count {
-  font-size: 12px;
-  font-weight: 700;
-
-  color: var(--eval-muted);
-  white-space: nowrap;
-}
-
-.eval-carousel-btn:focus-visible,
-.eval-dot:focus-visible {
-  outline: 3px solid var(--eval-primary);
-  outline-offset: 3px;
-}
-
-
-/* =========================================
-   KEY EVALUATION INSIGHTS
-========================================= */
-
-.eval-insights-section {
-  margin-bottom: 75px;
-}
-
-.eval-insights-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 22px;
-}
-
-.eval-insight-card {
-  border-radius: 15px;
-  padding: 28px;
-
-  border: 1px solid var(--eval-border);
-}
-
-.eval-insight-card.positive {
-  background: #f0f8f3;
-  border-color: #d7e9dd;
-}
-
-.eval-insight-card.improvement {
-  background: #f2f5fa;
-  border-color: #dce5ef;
-}
-
-.eval-insight-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-
-  margin-bottom: 25px;
-}
-
-.eval-insight-icon {
-  width: 38px;
-  height: 38px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 10px;
-
-  font-size: 22px;
-  font-weight: bold;
-}
-
-.positive .eval-insight-icon {
-  background: #d8eddf;
-  color: #21865b;
-}
-
-.improvement .eval-insight-icon {
-  background: #e0e8f5;
-  color: #4774a7;
-}
-
-.eval-insight-header h4 {
-  margin: 0;
-  font-size: 18px;
-}
-
-.eval-insight-item {
-  padding: 0 0 17px;
-  margin-bottom: 17px;
-
-  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
-}
-
-.eval-insight-item:last-child {
-  border-bottom: none;
-  margin-bottom: 0;
-  padding-bottom: 0;
-}
-
-.eval-insight-item strong {
-  display: block;
-
-  font-size: 14px;
-  margin-bottom: 7px;
-}
-
-.eval-insight-item p {
-  margin: 0;
-
-  font-size: 13px;
-  line-height: 1.7;
-
-  color: var(--eval-muted);
-}
-
-
-/* =========================================
-   FUTURE DIRECTIONS
-========================================= */
-
-.eval-future-section {
-  margin-bottom: 20px;
-}
-
-.eval-future-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-
-  gap: 20px;
-}
-
-.eval-future-card {
-  position: relative;
-
-  padding: 28px 24px;
-
-  background: white;
-
-  border: 1px solid var(--eval-border);
-  border-radius: 14px;
-
-  overflow: hidden;
-}
-
-.eval-future-number {
-  position: absolute;
-
-  top: 18px;
-  right: 20px;
-
-  font-size: 35px;
-  font-weight: 800;
-
-  color: #e4ebf0;
-}
-
-.eval-future-icon {
-  width: 55px;
-  height: 55px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  margin-bottom: 20px;
-
-  border-radius: 12px;
-  background: #e9f3f6;
-
-  font-size: 26px;
-}
-
-.eval-future-card h4 {
-  margin: 0 0 12px;
-
-  font-size: 17px;
-  color: var(--eval-text);
-}
-
-.eval-future-card p {
-  margin: 0;
-
-  font-size: 13px;
-  line-height: 1.75;
-
-  color: var(--eval-muted);
-}
-
-
-/* =========================================
-   RESPONSIVE
-========================================= */
-
-@media (max-width: 850px) {
-
-  .eval-outcomes,
-  .eval-future-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .eval-insights-grid {
-    grid-template-columns: 1fr;
-  }
-
-}
-
-@media (max-width: 600px) {
-
-  .eval-outcomes,
-  .eval-future-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .eval-testimonial-container {
-    padding: 25px 20px;
-  }
-
-  .eval-testimonial-content {
-    min-height: 0;
-  }
-
-  .eval-testimonial-footer {
-    flex-wrap: wrap;
-  }
-
-  .eval-insight-card {
-    padding: 24px 20px;
-  }
-
-  .eval-feedback-badge {
-    font-size: 11px;
-  }
-
-}
-
-@media (prefers-reduced-motion: reduce) {
-
-  .eval-outcome-card,
-  .eval-dot,
-  .eval-carousel-btn {
-    transition: none;
-  }
-
-}
-
-/* =========================================
-   SUSTAINING IMPACT & KNOWLEDGE SHARING
-========================================= */
-
-.eval-impact-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 18px;
-  margin-top: 30px;
-}
-
-/* BASE CARD */
-
-.eval-impact-card {
-  --impact-color: #087b9b;
-  --impact-bg: #edf5f8;
-
-  display: flex;
-  flex-direction: column;
-
-  min-width: 0;
-
-  padding: 25px 22px;
-
-  background: var(--impact-bg);
-
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  border-top: 4px solid var(--impact-color);
-  border-radius: 14px;
-
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
-}
-
-.eval-impact-card:hover {
-  transform: translateY(-5px);
-
-  box-shadow:
-    0 12px 28px rgba(20, 40, 60, 0.09);
-}
-
-/* COLOUR THEMES */
-
-.eval-impact-card.learning {
-  --impact-color: #006b8b;
-  --impact-bg: #edf5f8;
-}
-
-.eval-impact-card.prototypes {
-  --impact-color: #21823b;
-  --impact-bg: #edf6ef;
-}
-
-.eval-impact-card.knowledge {
-  --impact-color: #7b329b;
-  --impact-bg: #f4eef8;
-}
-
-.eval-impact-card.showcase {
-  --impact-color: #c65317;
-  --impact-bg: #fcf0e9;
-}
-
-/* HEADER */
-
-.eval-impact-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  margin-bottom: 20px;
-}
-
-.eval-impact-number {
-  width: 44px;
-  height: 44px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 50%;
-
-  background: var(--impact-color);
-  color: white;
-
-  font-size: 18px;
-  font-weight: 800;
-}
-
-.eval-impact-icon {
-  font-size: 29px;
-}
-
-/* TITLE */
-
-.eval-impact-card h4 {
-  margin: 0 0 12px;
-
-  font-size: 19px;
-  line-height: 1.3;
-
-  color: var(--impact-color);
-}
-
-/* DESCRIPTION */
-
-.eval-impact-description {
-  margin: 0 0 24px;
-
-  font-size: 13px;
-  line-height: 1.7;
-
-  color: #526477;
-}
-
-/* DETAILS */
-
-.eval-impact-details {
-  margin-top: auto;
-  padding-top: 20px;
-
-  border-top: 1px solid rgba(0, 0, 0, 0.09);
-}
-
-.eval-impact-group {
-  margin-bottom: 18px;
-}
-
-.eval-impact-group:last-child {
-  margin-bottom: 0;
-}
-
-.eval-impact-label {
-  display: block;
-
-  margin-bottom: 9px;
-
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 1.1px;
-
-  color: var(--impact-color);
-}
-
-.eval-impact-group p {
-  margin: 0;
-
-  font-size: 12px;
-  line-height: 1.65;
-
-  color: #405569;
-}
-
-.eval-impact-group ul {
-  margin: 0;
-  padding-left: 17px;
-}
-
-.eval-impact-group li {
-  margin-bottom: 7px;
-
-  font-size: 12px;
-  line-height: 1.5;
-
-  color: #405569;
-}
-
-.eval-impact-group li::marker {
-  color: var(--impact-color);
-}
-
-/* =========================================
-   RESPONSIVE
-========================================= */
-
-@media (max-width: 1100px) {
-
-  .eval-impact-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-}
-
-@media (max-width: 600px) {
-
-  .eval-impact-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .eval-impact-card {
-    padding: 24px;
-  }
-
-}
-
-@media (prefers-reduced-motion: reduce) {
-
-  .eval-impact-card {
-    transition: none;
-  }
-
-}
-
-    @keyframes fill {
-      from { width: 0; }
-      to { width: 100%; }
-    }
-
-    @keyframes rise {
-      from { opacity: 0; transform: translateY(12px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @media (max-width: 900px) {
-      .top-links {
-        display: none;
-      }
-
-      .mobile-phase-nav {
-        display: block;
-      }
-
-      .hero-cards,
-      .section-head {
-        grid-template-columns: 1fr;
-        flex-direction: column;
-        align-items: start;
-      }
-
-      .phase-grid,
-      .cards,
-      .source-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .ml-pipeline {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
-
-      .ml-stage:nth-child(3)::after {
-        display: none;
-      }
-
-      .ml-info-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-      
-      .engagement-dashboard {
-        grid-template-columns: 1fr;
-      }
-
-      .assignment-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 620px) {
-      .topbar-inner {
-        flex-direction: row;
-        justify-content: space-between;
-        padding: 10px 0;
-      }
-
-      .hero {
-        padding-top: 34px;
-      }
-
-      .ml-section {
-        padding: 40px 16px;
-      }
-
-      .ml-pipeline {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .ml-stage {
-        min-height: 130px;
-      }
-
-      .ml-stage:nth-child(2)::after,
-      .ml-stage:nth-child(4)::after {
-        display: none;
-      }
-
-      .ml-stage:nth-child(3)::after {
-        display: block;
-      }
-
-      .ml-info-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .ml-detail {
-        padding: 24px 18px;
-      }
-
-      .ml-detail-title {
-        font-size: 21px;
-      }
-
-      .ml-navigation {
-        flex-wrap: wrap;
-      }
-
-      .project-engagement {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .engagement-stats {
-        gap: 6px;
-      }
-
-      .assignment-preview {
-        height: 230px;
-      }
-
-      .opt-detail {
-        padding: 22px 18px;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .ml-stage {
-        transition: none;
-      }
-
-      .ml-fade {
-        animation: none;
-      }
-
-      .assignment-card {
-        transition: none;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="assets/css/site.css">
+  <link rel="stylesheet" href="assets/css/progress.css">
 </head>
-<body>
+
+<body class="progress-page">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   <header class="topbar">
     <div class="topbar-inner">
       <div class="brand">Powering T&amp;L with Waste-to-Energy Systems</div>
       <nav class="top-links" aria-label="Progress navigation">
         <a href="index.html">Main Page</a>
         <a href="#timeline">Timeline</a>
-        <a href="#data-progress">Phase 1</a>
-        <a href="#engineering-progress">Phase 2</a>
-        <a href="#ml-progress">Phase 3</a>
-        <a href="#assignments-progress">Phase 4</a>
-        <a href="#optimisation-progress">Phase 5</a>
-        <a href="#evaluation-progress">Phase 6</a>
+        <details class="phase-dropdown">
+          <summary>Phases</summary>
+          <div class="phase-dropdown-panel">
+            <a href="#data-progress">Phase 1: Data Collection and Exploration</a>
+            <a href="#engineering-progress">Phase 2: Data Engineering</a>
+            <a href="#ml-progress">Phase 3: Machine Learning Framework</a>
+            <a href="#assignments-progress">Phase 4: Assignments &amp; Projects Design</a>
+            <a href="#optimisation-progress">Phase 5: Optimisation Framework</a>
+            <a href="#evaluation-progress">Phase 6: Evaluation of Curriculum Integration</a>
+          </div>
+        </details>
       </nav>
       <details class="mobile-phase-nav">
         <summary>Navigate</summary>
@@ -2206,16 +87,16 @@
     </div>
   </section>
 
-  
 
-  <main>
+
+  <main id="main-content" tabindex="-1">
 
     <section id="status" aria-labelledby="status-title">
       <div class="section-head">
         <h2 id="status-title">Project Timeline</h2>
       </div>
 
-      <div class="timeline-wrap" aria-label="Horizontal timeline container">
+      <div id="timeline" class="timeline-wrap" role="region" tabindex="0" aria-label="Project timeline (scroll horizontally)">
         <div class="timeline">
           <article class="phase done">
             <span class="pill done">Completed</span>
@@ -2225,139 +106,185 @@
           <article class="phase done">
             <span class="pill done">Completed</span>
             <h3>Phase 2: Data Engineering</h3>
-            <p>Development and release of a synthetic data generation framework, including linked datasets, validation tools, and documentation.</p>
+            <p>Development and release of a synthetic data generation framework, including linked datasets, validation
+              tools, and documentation.</p>
           </article>
           <article class="phase done">
             <span class="pill done">Completed</span>
             <h3>Phase 3: Machine Learning Framework</h3>
-            <p>Development of predictive models for biogas yield and resource demand, alongside the design of student projects.</p>
+            <p>Development of predictive models for biogas yield and resource demand, alongside the design of student
+              projects.</p>
           </article>
           <article class="phase done">
             <span class="pill done">Completed</span>
             <h3>Phase 4: Assignments & Projects Design</h3>
-            <p>Development and implementation of industry-informed assignments and projects using the developed frameworks.</p>
+            <p>Development and implementation of industry-informed assignments and projects using the developed
+              frameworks.</p>
           </article>
           <article class="phase done">
             <span class="pill done">Completed</span>
             <h3>Phase 5: Optimisation Framework</h3>
-            <p>Development of optimisation models for resource allocation and process efficiency, alongside the design of student projects.</p>
+            <p>Development of optimisation models for resource allocation and process efficiency, alongside the design
+              of student projects.</p>
           </article>
           <article class="phase done">
             <span class="pill done">Completed</span>
             <h3>Phase 6: Evaluation of Curriculum Integration</h3>
-            <p>Evaluation of curriculum integration, student learning outcomes, and opportunities for future improvements.</p>
+            <p>Evaluation of curriculum integration, student learning outcomes, and opportunities for future
+              improvements.</p>
           </article>
         </div>
       </div>
     </section>
     <section id="data-progress" aria-labelledby="data-progress-title">
       <div class="section-head">
-        <h3 id="data-progress-title">Phase 1: Data Collection and Exploration</h3>
+        <h2 id="data-progress-title">Phase 1: Data Collection and Exploration</h2>
       </div>
       <div>
 
-      <h4>Data Assets</h4>
+          <div class="showcase-heading">
 
-      <table class="table table-striped table-bordered">
-        <tr>
-          <th>Asset</th>
-          <th>Role in project</th>
-          <th>Initial use</th>
-          <th>Key risks and actions</th>
-        </tr>
-        <tr>
-          <td><code>TEA_Spreadsheet.xlsm</code></td>
-          <td>Site-specific techno-economic assessment workbook for a red-meat processing biogas/anaerobic digestion facility</td>
-          <td>Calibrate economic parameters, resource prices, CAPEX assumptions, scenario outputs, NPV logic, sensitivity cases, and site-level operating assumptions</td>
-          <td>Macros and spreadsheet formulas may be opaque. Extract input/output tables, define a reproducible Python reference model, and keep the workbook as a benchmark rather than the production engine.</td>
-        </tr>
-        <tr>
-          <td><code>dataset.xlsx</code></td>
-          <td>Literature dataset of methane yield observations across substrates, reactor types, pretreatments, temperature, time, and units</td>
-          <td>Build methane-yield priors, feature taxonomy, unit-conversion pipeline, baseline ML models, and synthetic generator calibration</td>
-          <td>Mixed units, missing values, categorical inconsistency, and possible outliers. Prioritise unit harmonisation and data-quality flags before modelling.</td>
-        </tr>
-      </table>
+          <h3>Data Assets</h3>
 
-      <h4><code>TEA_Spreadsheet.xlsm</code></h4>
+          <p>
+            Explore the various data assets used in the project, including their roles, initial uses, and associated risks.
+          </p>
 
-      The spreadsheet core objective is to provide a Techno-economic assessment (TEA) model for a biogas/anaerobic digestion facility for a red-meat processing site. The TEA workbook contains sheets for assumptions, resource prices, engine factors, CAPEX, biogas data, site-specific scenario information, facility calculations, NPV scenarios, summary outputs, sensitivity analysis, and BMP references.
-      <br>
-      <br>
-      Since the TEA workbook is confidential the data extraction functionality is ommited from the public release. Instead, the TEA workbook will be used as a reference for logic and calibration, while the curated dataset will serve as the operational experimentation source for reproducible, versionable, and course-safe synthetic tables.
-      <br>
-      <br>
-      <h4><code>dataset.xlsx</code></h4>
-       The dataset has 1,375 rows and 15 columns, including methane yield, substrate, inoculum, reactor type, temperature, retention time, pretreatment, and units. The dataset is a curated collection of literature values for methane yield under various experimental conditions. The dataset is used to build priors for methane yield, feature taxonomy, unit-conversion pipeline, baseline ML models, and synthetic generator calibration.
-       Profiling surfaced the issues below, which has to be addressed before any modelling or synthetic generation can be done:
+        </div>
 
+        <div class="table-scroll" role="region" tabindex="0" aria-label="Data assets (scroll horizontally)">
+<table class="table table-striped table-bordered">
+          <tr>
+            <th scope="col">Asset</th>
+            <th scope="col">Role in project</th>
+            <th scope="col">Initial use</th>
+            <th scope="col">Key risks and actions</th>
+          </tr>
+          <tr>
+            <td><code>TEA_Spreadsheet.xlsm</code></td>
+            <td>Site-specific techno-economic assessment workbook for a red-meat processing biogas/anaerobic digestion
+              facility</td>
+            <td>Calibrate economic parameters, resource prices, CAPEX assumptions, scenario outputs, NPV logic,
+              sensitivity cases, and site-level operating assumptions</td>
+            <td>Macros and spreadsheet formulas may be opaque. Extract input/output tables, define a reproducible Python
+              reference model, and keep the workbook as a benchmark rather than the production engine.</td>
+          </tr>
+          <tr>
+            <td><code>dataset.xlsx</code></td>
+            <td>Literature dataset of methane yield observations across substrates, reactor types, pretreatments,
+              temperature, time, and units</td>
+            <td>Build methane-yield priors, feature taxonomy, unit-conversion pipeline, baseline ML models, and
+              synthetic generator calibration</td>
+            <td>Mixed units, missing values, categorical inconsistency, and possible outliers. Prioritise unit
+              harmonisation and data-quality flags before modelling.</td>
+          </tr>
+        </table>
+</div>
 
-      <table class="table table-striped table-bordered">
-        <tr>
-          <th>Issue</th>
-          <th>Evidence in the data</th>
-          <th>Consequence for the pipeline</th>
-        </tr>
-        <tr>
-          <td><b>No control/treatment pairing</b></td>
-          <td>The paper computes effect sizes (Hedges' g) from control vs. treated pairs, but the spreadsheet has no pairing key and no untreated-control rows.</td>
-          <td> We model <b>absolute yield</b>, not effect size. The pairing structure can't be recovered, so synthesizing effect sizes is out of scope.</td>
-        </tr>
-        <tr>
-          <td><b>~45 unit spellings</b></td>
-          <td><code>mL/g VS</code>, <code>L/Kg VS</code>, <code>Nm³/kg VS</code>, <code>m³/t VS</code>, <code>mL/g COD</code>… mixing volume basis (mL/L/m³) and denominator chemistry (VS/COD/OM).</td>
-          <td>A unit normalizer is mandatory <em>before</em> anything else. Mixing COD- and VS-based yields would make the target physically meaningless.</td>
-        </tr>
-        <tr>
-          <td><b>Free-text in numeric cells</b></td>
-          <td><code>temp_c</code>='32-34', <code>stirring_rpm</code>='200-300 rpm. 15 min on…', yields stored as Excel <strong>datetimes</strong> (<code>2020-07-13</code>).</td> 
-          <td>Robust parsing (range→midpoint, datetime rejection) is required; naïve <code>to_numeric</code> silently drops 4–1048 values per column.</td> 
-        </tr>
-        <tr>
-          <td><b>High-cardinality categoricals</b></td>
-          <td>185 substrate spellings, 172 inoculum, 256 pretreatment descriptions, with case/typo duplicates (<code>Wheat straw</code>/<code>wheat straw</code>, <code>Chemica+Physical</code>).</td>
-          <td>Canonicalization + rare-category collapsing, or the categorical model drowns in singletons.</td>
-        </tr>
-        <tr>
-          <td><b>Heavy-tailed target</b></td>
-          <td>Raw yield spans 0.013 → 2,816,505 (unit errors). After normalization, 96.9% fall in the physical 10–1,200 mL/gVS band.</td>
-          <td>Hard domain bounds + rejection sampling; the tail is data error, not signal.</td>
-        </tr>
-        <tr>
-          <td><b>Severe missingness</b></td>
-          <td><code>stirring_rpm</code> 76% missing, <code>reactor_type</code> 14%, <code>time_days</code> 8%.</td>
-          <td>Generator must preserve missingness patterns, not impute them away.</td>
-        </tr>
-      </table>
+        <h3><code>TEA_Spreadsheet.xlsm</code></h3>
 
-    After cleaning and domain filtering: <b>1,283 usable rows</b>, target median <b>225 mL/gVS</b> (matches the paper's ~220 reference value).
+        <p>The spreadsheet core objective is to provide a Techno-economic assessment (TEA) model for a biogas/anaerobic
+        digestion facility for a red-meat processing site. The TEA workbook contains sheets for assumptions, resource
+        prices, engine factors, CAPEX, biogas data, site-specific scenario information, facility calculations, NPV
+        scenarios, summary outputs, sensitivity analysis, and BMP references.
+        </p>
+      <p>Since the TEA workbook is confidential the data extraction functionality is ommited from the public release.
+        Instead, the TEA workbook will be used as a reference for logic and calibration, while the curated dataset will
+        serve as the operational experimentation source for reproducible, versionable, and course-safe synthetic tables.
+        </p>
+      <h3><code>dataset.xlsx</code></h3>
+        <p>The dataset has 1,375 rows and 15 columns, including methane yield, substrate, inoculum, reactor type,
+        temperature, retention time, pretreatment, and units. The dataset is a curated collection of literature values
+        for methane yield under various experimental conditions. The dataset is used to build priors for methane yield,
+        feature taxonomy, unit-conversion pipeline, baseline ML models, and synthetic generator calibration.
+        Profiling surfaced the issues below, which has to be addressed before any modelling or synthetic generation can
+        be done:</p>
+      <div class="table-scroll" role="region" tabindex="0" aria-label="Dataset profiling issues (scroll horizontally)">
+<table class="table table-striped table-bordered">
+          <tr>
+            <th scope="col">Issue</th>
+            <th scope="col">Evidence in the data</th>
+            <th scope="col">Consequence for the pipeline</th>
+          </tr>
+          <tr>
+            <td><b>No control/treatment pairing</b></td>
+            <td>The paper computes effect sizes (Hedges' g) from control vs. treated pairs, but the spreadsheet has no
+              pairing key and no untreated-control rows.</td>
+            <td> We model <b>absolute yield</b>, not effect size. The pairing structure can't be recovered, so
+              synthesizing effect sizes is out of scope.</td>
+          </tr>
+          <tr>
+            <td><b>~45 unit spellings</b></td>
+            <td><code>mL/g VS</code>, <code>L/Kg VS</code>, <code>Nm³/kg VS</code>, <code>m³/t VS</code>,
+              <code>mL/g COD</code>… mixing volume basis (mL/L/m³) and denominator chemistry (VS/COD/OM).</td>
+            <td>A unit normalizer is mandatory <em>before</em> anything else. Mixing COD- and VS-based yields would make
+              the target physically meaningless.</td>
+          </tr>
+          <tr>
+            <td><b>Free-text in numeric cells</b></td>
+            <td><code>temp_c</code>='32-34', <code>stirring_rpm</code>='200-300 rpm. 15 min on…', yields stored as Excel
+              <strong>datetimes</strong> (<code>2020-07-13</code>).</td>
+            <td>Robust parsing (range→midpoint, datetime rejection) is required; naïve <code>to_numeric</code> silently
+              drops 4–1048 values per column.</td>
+          </tr>
+          <tr>
+            <td><b>High-cardinality categoricals</b></td>
+            <td>185 substrate spellings, 172 inoculum, 256 pretreatment descriptions, with case/typo duplicates
+              (<code>Wheat straw</code>/<code>wheat straw</code>, <code>Chemica+Physical</code>).</td>
+            <td>Canonicalization + rare-category collapsing, or the categorical model drowns in singletons.</td>
+          </tr>
+          <tr>
+            <td><b>Heavy-tailed target</b></td>
+            <td>Raw yield spans 0.013 → 2,816,505 (unit errors). After normalization, 96.9% fall in the physical
+              10–1,200 mL/gVS band.</td>
+            <td>Hard domain bounds + rejection sampling; the tail is data error, not signal.</td>
+          </tr>
+          <tr>
+            <td><b>Severe missingness</b></td>
+            <td><code>stirring_rpm</code> 76% missing, <code>reactor_type</code> 14%, <code>time_days</code> 8%.</td>
+            <td>Generator must preserve missingness patterns, not impute them away.</td>
+          </tr>
+        </table>
+</div>
+
+        <p>After cleaning and domain filtering: <b>1,283 usable rows</b>, target median <b>225 mL/gVS</b> (matches the
+        paper's ~220 reference value).</p>
       </div>
-      
-    </section>    
+
+    </section>
 
 
 
 
     <section id="engineering-progress" aria-labelledby="engineering-progress-title">
       <div class="section-head">
-        <h3 id="engineering-progress-title">Phase 2: Data Engineering Framework </h3>
+        <h2 id="engineering-progress-title">Phase 2: Data Engineering Framework </h2>
       </div>
-      The public release of this phase can be found at <a class="link"href="https://github.com/w2e-algo/biogas-hub-synthetic" target="_blank">Biogas Hub Synthetic Data</a>.
-      <br>
-      <br>
-      <h4>Synthetic Methods and Justification</h4>
 
-      Three generator families with a <b>train-on-synthetic / test-on-real (TSTR)</b> protocol are benchmarked. A <code>HistGradientBoosting</code> regressor is trained on synthetic data and scored on a held-out real test set, then compared to train-on-real (TRTR).
-      <br><br>
+       <div class="showcase-heading">
 
-      <table class="table table-striped table-bordered">
+        <h3>Synthetic Methods and Justification</h3>
+
+        <p>
+          This section outlines the synthetic data generation methods used and the rationale behind their selection. <br>The public release of this phase can be found at <a class="link"
+        href="https://github.com/w2e-algo/biogas-hub-synthetic" target="_blank" rel="noopener noreferrer">Biogas Hub Synthetic Data</a>.
+        </p>
+
+      </div>
+
+      <p>Three generator families with a <b>train-on-synthetic / test-on-real (TSTR)</b> protocol are benchmarked. A
+      <code>HistGradientBoosting</code> regressor is trained on synthetic data and scored on a held-out real test set,
+      then compared to train-on-real (TRTR).
+      </p>
+      <div class="table-scroll" role="region" tabindex="0" aria-label="Synthetic generator comparison (scroll horizontally)">
+<table class="table table-striped table-bordered">
         <tr>
-          <th>Generator</th>
-          <th>Target KS ↓</th>
-          <th>TRTR R²</th>
-          <th><b>TSTR R²</b></th>
-          <th>Utility ratio</th>
-          <th>Privacy ratio</th>
+          <th scope="col">Generator</th>
+          <th scope="col">Target KS ↓</th>
+          <th scope="col">TRTR R²</th>
+          <th scope="col"><b>TSTR R²</b></th>
+          <th scope="col">Utility ratio</th>
+          <th scope="col">Privacy ratio</th>
         </tr>
         <tr>
           <td>GaussianCopula (SDV)</td>
@@ -2392,19 +319,41 @@
           <td>2.97</td>
         </tr>
       </table>
+</div>
 
 
-    <b>The off-the-shelf generators fail</b>. The copula reproduces every column's <i>marginal</i> distribution almost perfectly (target KS 0.05) yet yields a model with <b>zero predictive power</b> (TSTR R² 0.01). The reason is structural: in this dataset the signal lives almost entirely in the <b>conditional</b> relationship <code>substrate → yield</code>. 185 substrate categories each pin the target to a narrow band; an unconditional generator that gets each marginal right but scrambles the joint destroys exactly the information the regressor needs.
-    <br><br>
-    The fix is a <b>structure-aware, group-conditional generator</b> that resamples within each substrate group and adds calibrated noise — preserving the conditional means while injecting controllable variance. It reaches <b>TSTR R² 0.81 > TRTR 0.69</b>: a model trained purely on its output generalizes to real data <i>better</i> than one trained on the small real set, because the synthetic set smooths sampling noise within each substrate group. Privacy ratio 2.97 confirms it isn't memorizing (synthetic rows sit ~3× farther from real rows than real rows sit from each other).
-    <br><br>
-    <b>Takeaway for the design:</b> for tabular scientific data dominated by a high-cardinality conditional driver, conditional/structure-aware generation beats deep unconditional generators (CTGAN/TVAE) regardless of how long you train them.
-    <br><br>
-    <h4>Data Generation Pipeline</h4>
+      <p><b>The off-the-shelf generators fail</b>. The copula reproduces every column's <i>marginal</i> distribution almost
+      perfectly (target KS 0.05) yet yields a model with <b>zero predictive power</b> (TSTR R² 0.01). The reason is
+      structural: in this dataset the signal lives almost entirely in the <b>conditional</b> relationship
+      <code>substrate → yield</code>. 185 substrate categories each pin the target to a narrow band; an unconditional
+      generator that gets each marginal right but scrambles the joint destroys exactly the information the regressor
+      needs.
+      </p>
+      <p>The fix is a <b>structure-aware, group-conditional generator</b> that resamples within each substrate group and
+      adds calibrated noise — preserving the conditional means while injecting controllable variance. It reaches <b>TSTR
+        R² 0.81 > TRTR 0.69</b>: a model trained purely on its output generalizes to real data <i>better</i> than one
+      trained on the small real set, because the synthetic set smooths sampling noise within each substrate group.
+      Privacy ratio 2.97 confirms it isn't memorizing (synthetic rows sit ~3× farther from real rows than real rows sit
+      from each other).
+      </p>
+      <p><b>Takeaway for the design:</b> for tabular scientific data dominated by a high-cardinality conditional driver,
+      conditional/structure-aware generation beats deep unconditional generators (CTGAN/TVAE) regardless of how long you
+      train them.
+      </p>
 
-    <pre><code>
+      <div class="showcase-heading">
+
+        <h3>Data Generation Pipeline</h3>
+
+        <p>
+          The following diagram illustrates the steps involved in the data generation pipeline.
+        </p>
+
+      </div>
+
+      <pre role="region" tabindex="0" aria-label="Data framework diagram (scroll horizontally)"><code>
       ┌─────────────────────────────┐
-      │ 1. configs/course_safe.yml  │ public and internal YAML config 
+      │ 1. configs/course_safe.yml  │ public and internal YAML config
       └──────────────┬──────────────┘ for synthetic generation
                      │
                      ▼
@@ -2418,7 +367,7 @@
       ┌─────────────────────────────────────────┐
       │ 3. generate_course_safe_dataset()       │ generate multi csv synthetic dataset
       └──┬────────────────────────────────────┬─┘
-         │                                    │ • public-safe rule-based bounded 
+         │                                    │ • public-safe rule-based bounded
          │                                    ▼   stochastic sampling
          │ • clean dataset.xlsx          ┌─────────────────────────┐
          │ • domain filler               │ TEA Parameter Sampler   │
@@ -2438,7 +387,7 @@
                         data/synthetic/*.csv
               • methane_yield        • feedstock_sources
               • facility_parameters  • logistics
-              • market_assumptions   • scenarios       
+              • market_assumptions   • scenarios
               • scenario_metadata
                                 │
                                 ▼
@@ -2453,13 +402,23 @@
                     validation_summary.json
     </code></pre>
 
- 
-    <h4>Synthetic Data Relationships</h4>
+      <div class="showcase-heading">
 
-    The public release is a linked relational-style synthetic dataset. Every public table uses <code>scenario_id</code> as the primary join key. The feedstock and facility tables also expose <code>feedstock_source_id</code> and <code>facility_candidate_id</code> so the logistics and scenario tables can join without needing confidential TEA extracts.
-    <br>
-    <br>
-    <pre><code>
+        
+        <h3>Synthetic Data Relationships</h3>
+        <p>
+          The following diagram illustrates the steps involved in the data generation pipeline.
+        </p>
+
+      </div>
+      
+
+      <p>The public release is a linked relational-style synthetic dataset. Every public table uses
+      <code>scenario_id</code> as the primary join key. The feedstock and facility tables also expose
+      <code>feedstock_source_id</code> and <code>facility_candidate_id</code> so the logistics and scenario tables can
+      join without needing confidential TEA extracts.
+      </p>
+      <pre role="region" tabindex="0" aria-label="Data framework diagram (scroll horizontally)"><code>
                          ┌────────────────────┐
                          │ methane_yield.csv  │
                          └─────────┬──────────┘
@@ -2484,169 +443,183 @@
           └───────────────┘
     </code></pre>
 
-    <code>scenario_id</code> is the canonical public identifier for a single synthetic scenario. It links methane-yield assumptions, feedstock availability, facility parameters, logistics assumptions, market assumptions, scenario summaries, and release metadata.
-    <br><br>
-    <h4>Synthetic Data Description</h4>
-    <br>
-    <table class="table table-striped table-bordered">
-      <tr>
-        <th>CSV file</th>
-        <th>What it contains</th>
-        <th>Primary join keys</th>
-        <th>Main use in workflow</th>
-      </tr>
-      <tr>
-        <td><code>methane_yield.csv</code></td>
-        <td>Core methane-yield assumptions and process context (feedstock, pretreatment, reactor, temperature, retention time, yield uncertainty).</td>
-        <td><code>scenario_id</code></td>
-        <td>Starting table for scenario-level joins and methane-performance analysis.</td>
-      </tr>
-      <tr>
-        <td><code>feedstock_sources.csv</code></td>
-        <td>Feedstock availability and quality descriptors (quantity, seasonality, moisture, volatile solids, contamination risk, gate fee).</td>
-        <td><code>scenario_id</code>, <code>feedstock_source_id</code></td>
-        <td>Supply-side inputs for logistics and facility matching.</td>
-      </tr>
-      <tr>
-        <td><code>facility_parameters.csv</code></td>
-        <td>Facility design and economics (capacity, CAPEX/OPEX, utilities, CHP efficiencies, discount rate, project life).</td>
-        <td><code>scenario_id</code>, <code>facility_candidate_id</code></td>
-        <td>Facility assumptions for techno-economic and optimisation-ready scenarios.</td>
-      </tr>
-      <tr>
-        <td><code>logistics.csv</code></td>
-        <td>Transport linkage between feedstock sources and facility candidates (distance, costs, emissions, collection radius).</td>
-        <td><code>scenario_id</code>, <code>feedstock_source_id</code>, <code>facility_candidate_id</code></td>
-        <td>Route-level logistics constraints and cost/emissions calculations.</td>
-      </tr>
-      <tr>
-        <td><code>market_assumptions.csv</code></td>
-        <td>Market-side assumptions (electricity/heat/carbon prices, certificate value, volatility flag).</td>
-        <td><code>scenario_id</code></td>
-        <td>Revenue and sensitivity inputs for downstream modelling.</td>
-      </tr>
-      <tr>
-        <td><code>scenarios.csv</code></td>
-        <td>Scenario-level consolidated view (scenario type, feedstock and facility references, throughput, distance, expected energy).</td>
-        <td><code>scenario_id</code>, <code>feedstock_source_id</code>, <code>facility_candidate_id</code></td>
-        <td>Compact table for ML experiments, uncertainty analysis, and optimisation smoke tests.</td>
-      </tr>
-      <tr>
-        <td><code>scenario_metadata.csv</code></td>
-        <td>Generation metadata and release flags (seed, timestamp, mode, course-safe marker, validation status).</td>
-        <td><code>scenario_id</code></td>
-        <td>Governance and traceability; <code>validation_status</code> changes from <code>pending</code> to <code>validated</code> after successful validation.</td>
-      </tr>
-    </table>
+      <p><code>scenario_id</code> is the canonical public identifier for a single synthetic scenario. It links
+      methane-yield assumptions, feedstock availability, facility parameters, logistics assumptions, market assumptions,
+      scenario summaries, and release metadata.
+      </p>
+
+      <div class="showcase-heading">
+
+        <h3>Synthetic Data Description</h3>
+
+        <p>
+          This section provides an overview of the synthetic dataset, including the contents of each CSV file and their roles in the workflow.
+        </p>
+
+      </div>
+      
+<div class="table-scroll" role="region" tabindex="0" aria-label="Synthetic dataset description (scroll horizontally)">
+<table class="table table-striped table-bordered">
+        <tr>
+          <th scope="col">CSV file</th>
+          <th scope="col">What it contains</th>
+          <th scope="col">Primary join keys</th>
+          <th scope="col">Main use in workflow</th>
+        </tr>
+        <tr>
+          <td><code>methane_yield.csv</code></td>
+          <td>Core methane-yield assumptions and process context (feedstock, pretreatment, reactor, temperature,
+            retention time, yield uncertainty).</td>
+          <td><code>scenario_id</code></td>
+          <td>Starting table for scenario-level joins and methane-performance analysis.</td>
+        </tr>
+        <tr>
+          <td><code>feedstock_sources.csv</code></td>
+          <td>Feedstock availability and quality descriptors (quantity, seasonality, moisture, volatile solids,
+            contamination risk, gate fee).</td>
+          <td><code>scenario_id</code>, <code>feedstock_source_id</code></td>
+          <td>Supply-side inputs for logistics and facility matching.</td>
+        </tr>
+        <tr>
+          <td><code>facility_parameters.csv</code></td>
+          <td>Facility design and economics (capacity, CAPEX/OPEX, utilities, CHP efficiencies, discount rate, project
+            life).</td>
+          <td><code>scenario_id</code>, <code>facility_candidate_id</code></td>
+          <td>Facility assumptions for techno-economic and optimisation-ready scenarios.</td>
+        </tr>
+        <tr>
+          <td><code>logistics.csv</code></td>
+          <td>Transport linkage between feedstock sources and facility candidates (distance, costs, emissions,
+            collection radius).</td>
+          <td><code>scenario_id</code>, <code>feedstock_source_id</code>, <code>facility_candidate_id</code></td>
+          <td>Route-level logistics constraints and cost/emissions calculations.</td>
+        </tr>
+        <tr>
+          <td><code>market_assumptions.csv</code></td>
+          <td>Market-side assumptions (electricity/heat/carbon prices, certificate value, volatility flag).</td>
+          <td><code>scenario_id</code></td>
+          <td>Revenue and sensitivity inputs for downstream modelling.</td>
+        </tr>
+        <tr>
+          <td><code>scenarios.csv</code></td>
+          <td>Scenario-level consolidated view (scenario type, feedstock and facility references, throughput, distance,
+            expected energy).</td>
+          <td><code>scenario_id</code>, <code>feedstock_source_id</code>, <code>facility_candidate_id</code></td>
+          <td>Compact table for ML experiments, uncertainty analysis, and optimisation smoke tests.</td>
+        </tr>
+        <tr>
+          <td><code>scenario_metadata.csv</code></td>
+          <td>Generation metadata and release flags (seed, timestamp, mode, course-safe marker, validation status).</td>
+          <td><code>scenario_id</code></td>
+          <td>Governance and traceability; <code>validation_status</code> changes from <code>pending</code> to
+            <code>validated</code> after successful validation.</td>
+        </tr>
+      </table>
+</div>
 
     </section>
 
     <section id="ml-progress" aria-labelledby="ml-progress-title">
       <div class="section-head">
         <h2 id="ml-progress-title">Phase 3: ML Framework</h2>
-        <p class="section-kicker">Development of predictive models for biogas yield and resource demand, alongside the design of student projects.</p>
+        <p class="section-kicker">Development of predictive models for biogas yield and resource demand, alongside the
+          design of student projects.</p>
       </div>
-      <p>Phase 3 focuses on developing machine learning frameworks to predict biogas production and resource utilisation, while integrating industry-relevant sustainability challenges into student research projects. Building on the synthetic data framework established in Phase 2, postgraduate students investigated predictive modelling for regional biogas hub planning in Western Australia. Using synthetic datasets informed by industry techno-economic assessments and real anaerobic digester data, students developed and evaluated multiple machine learning models. For example, Random Forest, XGBoost, and Long Short-Term Memory (LSTM) networks. These models aimed to predict methane yield, electricity generation, and carbon emission reductions based on feedstock characteristics and operational parameters. Students conducted exploratory data analysis, feature engineering, model optimisation, and comparative performance evaluation, gaining practical experience in applying artificial intelligence to sustainability challenges. The project establishes a predictive foundation for subsequent optimisation activities, demonstrating how industry-informed research can enhance experiential learning and support data-driven decision-making in renewable energy and waste management.</p>
-  <!-- SIX-STAGE PIPELINE -->
-   <br>
-   <h4>Machine Learning Pipeline</h4>
-   <br>
-    <div class="ml-pipeline" aria-label="Machine learning pipeline">
-      <button class="ml-stage active"
-              type="button"
-              data-stage="0"
-              aria-pressed="true">
-        <span class="ml-number">STEP 01</span>
-        <span class="ml-icon" aria-hidden="true">🗄️</span>
-        <span class="ml-stage-title">Data Collection</span>
-      </button>
-      <button class="ml-stage"
-              type="button"
-              data-stage="1"
-              aria-pressed="false">
-        <span class="ml-number">STEP 02</span>
-        <span class="ml-icon" aria-hidden="true">🧬</span>
-        <span class="ml-stage-title">Synthetic Data Generation</span>
-      </button>
-      <button class="ml-stage"
-              type="button"
-              data-stage="2"
-              aria-pressed="false">
-        <span class="ml-number">STEP 03</span>
-        <span class="ml-icon" aria-hidden="true">⚙️</span>
-        <span class="ml-stage-title">Data Preparation</span>
-      </button>
-      <button class="ml-stage"
-              type="button"
-              data-stage="3"
-              aria-pressed="false">
-        <span class="ml-number">STEP 04</span>
-        <span class="ml-icon" aria-hidden="true">🧠</span>
-        <span class="ml-stage-title">Model Training</span>
-      </button>
-      <button class="ml-stage"
-              type="button"
-              data-stage="4"
-              aria-pressed="false">
-        <span class="ml-number">STEP 05</span>
-        <span class="ml-icon" aria-hidden="true">📊</span>
-        <span class="ml-stage-title">Predictions</span>
-      </button>
-      <button class="ml-stage"
-              type="button"
-              data-stage="5"
-              aria-pressed="false">
-        <span class="ml-number">STEP 06</span>
-        <span class="ml-icon" aria-hidden="true">🎯</span>
-        <span class="ml-stage-title">Model Evaluation</span>
-      </button>
-    </div>
+      <p>Phase 3 focuses on developing machine learning frameworks to predict biogas production and resource
+        utilisation, while integrating industry-relevant sustainability challenges into student research projects.
+        Building on the synthetic data framework established in Phase 2, postgraduate students investigated predictive
+        modelling for regional biogas hub planning in Western Australia. Using synthetic datasets informed by industry
+        techno-economic assessments and real anaerobic digester data, students developed and evaluated multiple machine
+        learning models. For example, Random Forest, XGBoost, and Long Short-Term Memory (LSTM) networks. These models
+        aimed to predict methane yield, electricity generation, and carbon emission reductions based on feedstock
+        characteristics and operational parameters. Students conducted exploratory data analysis, feature engineering,
+        model optimisation, and comparative performance evaluation, gaining practical experience in applying artificial
+        intelligence to sustainability challenges. The project establishes a predictive foundation for subsequent
+        optimisation activities, demonstrating how industry-informed research can enhance experiential learning and
+        support data-driven decision-making in renewable energy and waste management.</p>
+      <!-- SIX-STAGE PIPELINE -->
+       <div class="showcase-heading">
 
-    <!-- DYNAMIC INFORMATION PANEL -->
-    <div class="ml-detail" id="mlDetail">
-      <div class="ml-detail-header">
-        <div class="ml-detail-icon" id="mlDetailIcon">
-          🗄️
-        </div>
-        <div>
-          <div class="ml-detail-label" id="mlDetailLabel">
-            Stage 01
+        <h3>Machine Learning Pipeline</h3>
+
+        <p>
+          The following interactive diagram illustrates the steps involved in the machine learning pipeline.
+        </p>
+
+      </div>
+
+<div class="ml-pipeline" role="group" aria-label="Machine learning pipeline">
+        <button class="ml-stage active" type="button" aria-controls="mlDetail" data-stage="0" aria-pressed="true">
+          <span class="ml-number">STEP 01</span>
+          <span class="ml-icon" aria-hidden="true">🗄️</span>
+          <span class="ml-stage-title">Data Collection</span>
+        </button>
+        <button class="ml-stage" type="button" aria-controls="mlDetail" data-stage="1" aria-pressed="false">
+          <span class="ml-number">STEP 02</span>
+          <span class="ml-icon" aria-hidden="true">🧬</span>
+          <span class="ml-stage-title">Synthetic Data Generation</span>
+        </button>
+        <button class="ml-stage" type="button" aria-controls="mlDetail" data-stage="2" aria-pressed="false">
+          <span class="ml-number">STEP 03</span>
+          <span class="ml-icon" aria-hidden="true">⚙️</span>
+          <span class="ml-stage-title">Data Preparation</span>
+        </button>
+        <button class="ml-stage" type="button" aria-controls="mlDetail" data-stage="3" aria-pressed="false">
+          <span class="ml-number">STEP 04</span>
+          <span class="ml-icon" aria-hidden="true">🧠</span>
+          <span class="ml-stage-title">Model Training</span>
+        </button>
+        <button class="ml-stage" type="button" aria-controls="mlDetail" data-stage="4" aria-pressed="false">
+          <span class="ml-number">STEP 05</span>
+          <span class="ml-icon" aria-hidden="true">📊</span>
+          <span class="ml-stage-title">Predictions</span>
+        </button>
+        <button class="ml-stage" type="button" aria-controls="mlDetail" data-stage="5" aria-pressed="false">
+          <span class="ml-number">STEP 06</span>
+          <span class="ml-icon" aria-hidden="true">🎯</span>
+          <span class="ml-stage-title">Model Evaluation</span>
+        </button>
+      </div>
+
+      <!-- DYNAMIC INFORMATION PANEL -->
+      <div class="ml-detail" id="mlDetail">
+        <div class="ml-detail-header">
+          <div class="ml-detail-icon" id="mlDetailIcon">
+            🗄️
           </div>
-          <h3 class="ml-detail-title" id="mlDetailTitle">
-            Data Collection
-          </h3>
+          <div>
+            <div class="ml-detail-label" id="mlDetailLabel">
+              Stage 01
+            </div>
+            <h3 class="ml-detail-title" id="mlDetailTitle">
+              Data Collection
+            </h3>
+          </div>
+        </div>
+
+        <div id="mlDynamicContent" aria-live="polite">
+          <!-- Content generated by JavaScript -->
+        </div>
+
+        <!-- NAVIGATION -->
+        <div class="ml-navigation">
+          <div class="ml-progress" id="mlProgress" role="status">
+            Stage 1 of 6
+          </div>
+          <div class="ml-nav-buttons">
+            <button class="ml-nav-btn" id="mlPrev" type="button" disabled>
+              ← Previous
+            </button>
+
+            <button class="ml-nav-btn primary" id="mlNext" type="button">
+              Next →
+            </button>
+          </div>
         </div>
       </div>
-
-      <div id="mlDynamicContent" aria-live="polite">
-        <!-- Content generated by JavaScript -->
-      </div>
-
-      <!-- NAVIGATION -->
-      <div class="ml-navigation">
-        <div class="ml-progress" id="mlProgress">
-          Stage 1 of 6
-        </div>
-        <div class="ml-nav-buttons">
-          <button class="ml-nav-btn"
-                  id="mlPrev"
-                  type="button"
-                  disabled>
-            ← Previous
-          </button>
-
-          <button class="ml-nav-btn primary"
-                  id="mlNext"
-                  type="button">
-            Next →
-          </button>
-        </div>
-      </div>
-    </div>
     </section>
 
-    <section id="assignments-progress"
-            aria-labelledby="assignments-progress-title">
+    <section id="assignments-progress" aria-labelledby="assignments-progress-title">
 
       <div class="section-head">
         <h2 id="assignments-progress-title">
@@ -2655,7 +628,8 @@
       </div>
 
       <p class="phase-intro">
-        During Semester 2, 2026, we developed and implemented industry-informed assignments and student research projects that integrated real-world sustainability challenges into the teaching of computing, artificial intelligence, and applied mathematics.
+        During Semester 2, 2026, we developed and implemented industry-informed assignments and student research projects that integrated real-world sustainability challenges into the teaching of computing, artificial
+        intelligence, and applied mathematics.
       </p>
 
       <!-- STUDENT ENGAGEMENT -->
@@ -2668,11 +642,10 @@
             <span class="engagement-label">
               STUDENTS ENGAGED
             </span>
-            <br>
-            <span class="engagement-label">Semester 2, 2026</span>
-            <br>
-            <br>
-            <span style="font-style: italic; font-size: small;">Authentic sustainability problems moved from research into live teaching.</span>
+<span class="engagement-label">Semester 2, 2026</span>
+
+<span class="engagement-note">Authentic sustainability problems moved from research
+              into live teaching.</span>
           </div>
           <div class="engagement-stats">
             <div>
@@ -2779,11 +752,7 @@
 
             <div class="assignment-preview">
 
-              <img
-                src="pdf_images/COMP1002_cover.png"
-                alt="COMP1002/5008 assignment cover"
-                loading="lazy"
-              >
+              <img src="pdf_images/COMP1002_cover.png" alt="COMP1002/5008 assignment cover" loading="lazy" width="1672" height="941">
 
             </div>
 
@@ -2794,13 +763,15 @@
               </span>
 
               <h4>
-                Biogas Feedstock Collection Network: Data Structures and Algorithms for Sustainable Waste 
-Management
+                Biogas Feedstock Collection Network: Data Structures and Algorithms for Sustainable Waste
+                Management
               </h4>
 
               <p>
-                An assignment exploring the design and implementation of a backend Biogas Feedstock Collection Network that manages farms information, represents transportation connections, prioritises feedstock collection requests, 
-and produces collection performance reports.
+                An assignment exploring the design and implementation of a backend Biogas Feedstock Collection Network
+                that manages farms information, represents transportation connections, prioritises feedstock collection
+                requests,
+                and produces collection performance reports.
               </p>
 
               <div class="assignment-meta">
@@ -2808,11 +779,8 @@ and produces collection performance reports.
                 <span>4 campuses</span>
               </div>
 
-              <button
-                type="button"
-                class="assignment-button"
-                data-pdf="pdf_images/COMP1002_Final_Assignment_Biogas_Feedstock_Collection_Network_cover_page.pdf"
-              >
+              <button type="button" class="assignment-button"
+                data-pdf="pdf_images/COMP1002_Final_Assignment_Biogas_Feedstock_Collection_Network_cover_page.pdf">
                 View Assignment Cover Page ↗
               </button>
 
@@ -2827,11 +795,7 @@ and produces collection performance reports.
 
             <div class="assignment-preview">
 
-              <img
-                src="pdf_images/COMP6009_cover.png"
-                alt="COMP6009 assignment cover"
-                loading="lazy"
-              >
+              <img src="pdf_images/COMP6009_cover.png" alt="COMP6009 assignment cover" loading="lazy" width="1672" height="941">
 
             </div>
 
@@ -2845,9 +809,10 @@ and produces collection performance reports.
                 Biogas Plant Intelligent Monitoring
                 and Decision System for Biogas Plant Operations
               </h4>
-              <br>
-              <p>
-                An assignment requiring the development of an intelligent monitoring and decision-support system for biogas plant operations under uncertain conditions to manage and respond to varying operational scenarios effectively.
+<p>
+                An assignment requiring the development of an intelligent monitoring and decision-support system for
+                biogas plant operations under uncertain conditions to manage and respond to varying operational
+                scenarios effectively.
               </p>
 
               <div class="assignment-meta">
@@ -2855,11 +820,8 @@ and produces collection performance reports.
                 <span>3 campuses</span>
               </div>
 
-              <button
-                type="button"
-                class="assignment-button"
-                data-pdf="pdf_images/COMP6009_Assignment_Part_B_cover_page.pdf"
-              >
+              <button type="button" class="assignment-button"
+                data-pdf="pdf_images/COMP6009_Assignment_Part_B_cover_page.pdf">
                 View Assignment Cover Page ↗
               </button>
 
@@ -2875,9 +837,8 @@ and produces collection performance reports.
 
       <div class="assignment-showcase">
         <div class="showcase-heading">
-          <br>
-          <br>
-          <h3>Student Projects Showcase</h3>
+
+<h3>Student Projects Showcase</h3>
           <p>
             Discover the innovative projects created by students
             in response to real-world biogas and sustainability challenges.
@@ -2887,15 +848,11 @@ and produces collection performance reports.
         <div class="assignment-grid">
 
           <!-- Project 1 -->
-           <article class="assignment-card">
+          <article class="assignment-card">
 
             <div class="assignment-preview">
 
-              <img
-                src="pdf_images/project2.png"
-                alt="MATH3004 assignment cover"
-                loading="lazy"
-              >
+              <img src="pdf_images/project2.png" alt="MATH3004 assignment cover" loading="lazy" width="12000" height="6750">
 
             </div>
 
@@ -2906,11 +863,13 @@ and produces collection performance reports.
               </span>
 
               <h4>
-                Techno-economic Assessment and Statistical Data Analysis of Anaerobic Red Meat Industry in Western Australia
+                Techno-economic Assessment and Statistical Data Analysis of Anaerobic Red Meat Industry in Western
+                Australia
               </h4>
 
               <p>
-                A project assessing the techno-economic aspects and performing sensitivity and uncertainty analysis of the anaerobic digestion in the red meat industry in Western Australia.
+                A project assessing the techno-economic aspects and performing sensitivity and uncertainty analysis of
+                the anaerobic digestion in the red meat industry in Western Australia.
               </p>
 
               <div class="assignment-meta">
@@ -2925,11 +884,7 @@ and produces collection performance reports.
           <!-- Project 2 -->
           <article class="assignment-card">
             <div class="assignment-preview">
-              <img
-                src="pdf_images/project1.png"
-                alt="COMP6019 Predictive Analytics Project"
-                loading="lazy"
-              >
+              <img src="pdf_images/project1.png" alt="COMP6019 Predictive Analytics Project" loading="lazy" width="720" height="405">
             </div>
             <div class="assignment-content">
               <span class="assignment-code">
@@ -2941,7 +896,8 @@ and produces collection performance reports.
               </h4>
 
               <p>
-                A project exploring synthetic data framework and predictive models for methane yield, electricity generation, and carbon emission reduction.
+                A project exploring synthetic data framework and predictive models for methane yield, electricity
+                generation, and carbon emission reduction.
               </p>
 
               <div class="assignment-meta">
@@ -2957,15 +913,11 @@ and produces collection performance reports.
         <div class="assignment-grid">
 
           <!-- Project 3 -->
-           <article class="assignment-card">
+          <article class="assignment-card">
 
             <div class="assignment-preview">
 
-              <img
-                src="pdf_images/project4.png"
-                alt="MATH6004 assignment cover 1"
-                loading="lazy"
-              >
+              <img src="pdf_images/project4.png" alt="MATH6004 assignment cover 1" loading="lazy" width="720" height="405">
 
             </div>
 
@@ -2976,11 +928,14 @@ and produces collection performance reports.
               </span>
 
               <h4>
-                Transforming Waste into Energy: Optimising Biogas Supply Chains for Western Australia's Red Meat Industry
+                Transforming Waste into Energy: Optimising Biogas Supply Chains for Western Australia's Red Meat
+                Industry
               </h4>
 
               <p>
-                This project develops a mixed-integer linear programming (MILP) model for a WA anaerobic digestion hub that optimises feedstock selection, supplier contracts, transport, and water use, reducing annual electricity production costs while meeting the energy target.
+                This project develops a mixed-integer linear programming (MILP) model for a WA anaerobic digestion hub
+                that optimises feedstock selection, supplier contracts, transport, and water use, reducing annual
+                electricity production costs while meeting the energy target.
               </p>
 
               <div class="assignment-meta">
@@ -2995,11 +950,7 @@ and produces collection performance reports.
           <!-- Project 4 -->
           <article class="assignment-card">
             <div class="assignment-preview">
-              <img
-                src="pdf_images/project3.png"
-                alt="MATH6004 assignment cover 2"
-                loading="lazy"
-              >
+              <img src="pdf_images/project3.png" alt="MATH6004 assignment cover 2" loading="lazy" width="720" height="405">
             </div>
             <div class="assignment-content">
               <span class="assignment-code">
@@ -3007,11 +958,14 @@ and produces collection performance reports.
               </span>
 
               <h4>
-                Optimisation of a Livestock-Based Biogas Supply Chain Network for Sustainable Renewable Energy Production
+                Optimisation of a Livestock-Based Biogas Supply Chain Network for Sustainable Renewable Energy
+                Production
               </h4>
 
               <p>
-                This project develops a MILP model to optimise livestock biogas networks in California’s Central Valley, demonstrating that shared hub-and-spoke anaerobic digestion systems can increase annual net surplus compared with stand-alone facilities.
+                This project develops a MILP model to optimise livestock biogas networks in California’s Central Valley,
+                demonstrating that shared hub-and-spoke anaerobic digestion systems can increase annual net surplus
+                compared with stand-alone facilities.
               </p>
 
               <div class="assignment-meta">
@@ -3030,35 +984,23 @@ and produces collection performance reports.
 
     <!-- PDF MODAL -->
 
-    <dialog id="assignmentModal" class="assignment-modal">
+    <dialog id="assignmentModal" class="assignment-modal" aria-labelledby="assignmentModalTitle">
 
       <div class="modal-header">
 
-        <strong>Assignment Preview</strong>
+        <strong id="assignmentModalTitle">Assignment Preview</strong>
 
-        <button
-          type="button"
-          id="closeAssignmentModal"
-          aria-label="Close assignment preview"
-        >
+        <button type="button" id="closeAssignmentModal" autofocus aria-label="Close assignment preview">
           ✕
         </button>
 
       </div>
 
-      <iframe
-        id="assignmentFrame"
-        title="Assignment PDF preview"
-      ></iframe>
+      <iframe id="assignmentFrame" title="Assignment PDF preview"></iframe>
 
       <div class="modal-footer">
 
-        <a
-          id="openAssignmentPDF"
-          href="#"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <a id="openAssignmentPDF" href="#" target="_blank" rel="noopener noreferrer">
           Open PDF in New Tab ↗
         </a>
 
@@ -3066,34 +1008,40 @@ and produces collection performance reports.
 
     </dialog>
 
-    <section id="optimisation-progress"
-        class="ml-section"
-        aria-labelledby="optimisation-title">
+    <section id="optimisation-progress" class="ml-section" aria-labelledby="optimisation-title">
 
       <div class="section-head">
-        <h2 id="assignments-progress-title">
+        <h2 id="optimisation-title">
           Phase 5: Optimisation Framework
         </h2>
       </div>
+      <p>
+        Phase 5 focuses on developing a transferable, data-driven optimisation framework for regional biogas hub
+        planning and operation. Building on the synthetic data and machine learning frameworks established in earlier
+        phases, the proposed approach integrates spatial feedstock networks, predictive modelling, and techno-economic
+        analysis to support sustainable decision-making. The framework aims to optimise biogas hub locations, facility
+        capacities, feedstock allocation, and operational strategies while accounting for uncertainties in feedstock
+        availability, process performance, and economic conditions. Through scenario analysis and stress testing, the
+        framework will evaluate trade-offs between economic viability, environmental performance, and operational
+        resilience. Applications in data-rich US and data-limited Australian contexts will further investigate the
+        transferability of the modelling approach, providing a foundation for evidence-based planning and more resilient
+        waste-to-energy systems.
+      </p>
+
+      <!-- SIX-STAGE PIPELINE -->
+       <div class="showcase-heading">
+
+        <h3>Optimisation Framework Pipeline</h3>
+
         <p>
-          Phase 5 focuses on developing a transferable, data-driven optimisation framework for regional biogas hub planning and operation. Building on the synthetic data and machine learning frameworks established in earlier phases, the proposed approach integrates spatial feedstock networks, predictive modelling, and techno-economic analysis to support sustainable decision-making. The framework aims to optimise biogas hub locations, facility capacities, feedstock allocation, and operational strategies while accounting for uncertainties in feedstock availability, process performance, and economic conditions. Through scenario analysis and stress testing, the framework will evaluate trade-offs between economic viability, environmental performance, and operational resilience. Applications in data-rich US and data-limited Australian contexts will further investigate the transferability of the modelling approach, providing a foundation for evidence-based planning and more resilient waste-to-energy systems.
+          The following interactive diagram illustrates the steps involved in the optimisation framework pipeline.
         </p>
 
       </div>
 
-      <!-- SIX-STAGE PIPELINE -->
+<div class="ml-pipeline optimisation-pipeline" role="group" aria-label="Optimisation framework pipeline">
 
-      <br>
-      <h3>Optimisation Framework Pipeline</h3>
-      <br>
-
-      <div class="ml-pipeline optimisation-pipeline"
-          aria-label="Optimisation framework pipeline">
-
-        <button class="ml-stage active"
-                type="button"
-                data-opt-stage="0"
-                aria-pressed="true">
+        <button class="ml-stage active" type="button" aria-controls="optDetail" data-opt-stage="0" aria-pressed="true">
 
           <span class="ml-number">STEP 01</span>
           <span class="ml-icon" aria-hidden="true">🗄️</span>
@@ -3101,10 +1049,7 @@ and produces collection performance reports.
 
         </button>
 
-        <button class="ml-stage"
-                type="button"
-                data-opt-stage="1"
-                aria-pressed="false">
+        <button class="ml-stage" type="button" aria-controls="optDetail" data-opt-stage="1" aria-pressed="false">
 
           <span class="ml-number">STEP 02</span>
           <span class="ml-icon" aria-hidden="true">🗺️</span>
@@ -3112,10 +1057,7 @@ and produces collection performance reports.
 
         </button>
 
-        <button class="ml-stage"
-                type="button"
-                data-opt-stage="2"
-                aria-pressed="false">
+        <button class="ml-stage" type="button" aria-controls="optDetail" data-opt-stage="2" aria-pressed="false">
 
           <span class="ml-number">STEP 03</span>
           <span class="ml-icon" aria-hidden="true">🧠</span>
@@ -3123,10 +1065,7 @@ and produces collection performance reports.
 
         </button>
 
-        <button class="ml-stage"
-                type="button"
-                data-opt-stage="3"
-                aria-pressed="false">
+        <button class="ml-stage" type="button" aria-controls="optDetail" data-opt-stage="3" aria-pressed="false">
 
           <span class="ml-number">STEP 04</span>
           <span class="ml-icon" aria-hidden="true">📈</span>
@@ -3134,10 +1073,7 @@ and produces collection performance reports.
 
         </button>
 
-        <button class="ml-stage"
-                type="button"
-                data-opt-stage="4"
-                aria-pressed="false">
+        <button class="ml-stage" type="button" aria-controls="optDetail" data-opt-stage="4" aria-pressed="false">
 
           <span class="ml-number">STEP 05</span>
           <span class="ml-icon" aria-hidden="true">⚙️</span>
@@ -3145,10 +1081,7 @@ and produces collection performance reports.
 
         </button>
 
-        <button class="ml-stage"
-                type="button"
-                data-opt-stage="5"
-                aria-pressed="false">
+        <button class="ml-stage" type="button" aria-controls="optDetail" data-opt-stage="5" aria-pressed="false">
 
           <span class="ml-number">STEP 06</span>
           <span class="ml-icon" aria-hidden="true">🎯</span>
@@ -3182,31 +1115,24 @@ and produces collection performance reports.
 
         </div>
 
-        <p class="ml-description"
-          id="optDescription"
-          aria-live="polite">
+        <p class="ml-description" id="optDescription" aria-live="polite">
         </p>
 
         <div class="opt-tags" id="optTags"></div>
 
         <div class="ml-navigation">
 
-          <div class="ml-progress" id="optProgress">
+          <div class="ml-progress" id="optProgress" role="status">
             Stage 1 of 6
           </div>
 
           <div class="ml-nav-buttons">
 
-            <button class="ml-nav-btn"
-                    id="optPrev"
-                    type="button"
-                    disabled>
+            <button class="ml-nav-btn" id="optPrev" type="button" disabled>
               ← Previous
             </button>
 
-            <button class="ml-nav-btn primary"
-                    id="optNext"
-                    type="button">
+            <button class="ml-nav-btn primary" id="optNext" type="button">
               Next →
             </button>
 
@@ -3218,135 +1144,159 @@ and produces collection performance reports.
 
     </section>
 
-    <section id="evaluation-progress"
-         aria-labelledby="evaluation-progress-title">
+    <section id="evaluation-progress" aria-labelledby="evaluation-progress-title">
 
-  <div class="section-head">
-    <h2 id="evaluation-progress-title">
-      Phase 6: Evaluation of Curriculum Integration
-    </h2>
-  </div>
+      <div class="section-head">
+        <h2 id="evaluation-progress-title">
+          Phase 6: Evaluation of Curriculum Integration
+        </h2>
+      </div>
 
-  <p class="eval-intro">
-    Evaluating the integration of industry-informed sustainability
-    challenges into teaching and learning through feedback from
-    academic staff across campuses, with a focus on educational
-    relevance, student learning opportunities, and continuous
-    curriculum improvement.
-  </p>
+      <p class="eval-intro">
+        Evaluating the integration of industry-informed sustainability
+        challenges into teaching and learning through feedback from
+        academic staff across campuses, with a focus on educational
+        relevance, student learning opportunities, and continuous
+        curriculum improvement.
+      </p>
 
 
-  <!-- =========================================
+      <!-- =========================================
        1. CURRICULUM INTEGRATION OUTCOMES
   ========================================== -->
 
-  <div class="eval-section-heading">
-    <span class="eval-eyebrow">EDUCATIONAL OBJECTIVES</span>
-    <h3>Curriculum Integration Outcomes</h3>
-    <p>
-      Connecting disciplinary knowledge with authentic
-      sustainability challenges and industry applications.
-    </p>
-  </div>
+      <div class="eval-section-heading">
+        <span class="eval-eyebrow">EDUCATIONAL OBJECTIVES</span>
+        <h3>Curriculum Integration Outcomes</h3>
+        <p>
+          Connecting disciplinary knowledge with authentic
+          sustainability challenges and industry applications.
+        </p>
+      </div>
 
-  <div class="eval-outcomes">
+      <div class="eval-outcomes">
 
-    <article class="eval-outcome-card">
-      <div class="eval-outcome-icon">🌱</div>
+        <article class="eval-outcome-card">
+          <div class="eval-outcome-icon">🌱</div>
 
-      <h4>Sustainability Awareness</h4>
+          <h4>Sustainability Awareness</h4>
 
-      <p>
-        Introducing students to renewable energy,
-        organic waste management, and environmental
-        sustainability challenges in the red meat industry.
-      </p>
-    </article>
+          <p>
+            Introducing students to renewable energy,
+            organic waste management, and environmental
+            sustainability challenges in the red meat industry.
+          </p>
+        </article>
 
-    <article class="eval-outcome-card">
-      <div class="eval-outcome-icon">🧠</div>
+        <article class="eval-outcome-card">
+          <div class="eval-outcome-icon">🧠</div>
 
-      <h4>Applied Problem-Solving</h4>
+          <h4>Applied Problem-Solving</h4>
 
-      <p>
-        Applying computing, machine learning, and
-        optimisation concepts to realistic
-        industry-informed problems.
-      </p>
-    </article>
+          <p>
+            Applying computing, machine learning, and
+            optimisation concepts to realistic
+            industry-informed problems.
+          </p>
+        </article>
 
-    <article class="eval-outcome-card">
-      <div class="eval-outcome-icon">🤝</div>
+        <article class="eval-outcome-card">
+          <div class="eval-outcome-icon">🤝</div>
 
-      <h4>Industry-Informed Learning</h4>
+          <h4>Industry-Informed Learning</h4>
 
-      <p>
-        Bridging theoretical knowledge and practical
-        applications through authentic datasets
-        and industry-relevant scenarios.
-      </p>
-    </article>
+          <p>
+            Bridging theoretical knowledge and practical
+            applications through authentic datasets
+            and industry-relevant scenarios.
+          </p>
+        </article>
 
-  </div>
+      </div>
 
 
-  <!-- =========================================
+      <!-- =========================================
        2. TEACHING STAFF TESTIMONIALS
   ========================================== -->
 
-  <div class="eval-testimonials-section">
+      <div class="eval-testimonials-section">
 
-    <div class="eval-section-heading">
-      <span class="eval-eyebrow">CROSS-CAMPUS FEEDBACK</span>
-      <h3>Voices from Our Teaching Community</h3>
+        <div class="eval-section-heading">
+          <span class="eval-eyebrow">CROSS-CAMPUS FEEDBACK</span>
+          <h3>Voices from Our Teaching Community</h3>
 
-      <p>
-        Feedback from teaching staff across Curtin's
-        global campuses highlights the value of
-        authentic, industry-informed assignments.
-      </p>
-    </div>
-
-
-    <div class="eval-testimonial-container">
-
-      <div class="eval-testimonial-top">
-
-        <span class="eval-quote-icon" aria-hidden="true">
-          ❝
-        </span>
-
-        <span class="eval-feedback-badge" id="evalFeedbackBadge">
-          Real-World Learning
-        </span>
-
-      </div>
+          <p>
+            Feedback from teaching staff across Curtin's
+            global campuses highlights the value of
+            authentic, industry-informed assignments.
+          </p>
+        </div>
 
 
-      <div class="eval-testimonial-content"
-           id="evalTestimonialContent"
-           aria-live="polite"
-           aria-atomic="true">
+        <div class="eval-testimonial-container">
 
-        <blockquote id="evalQuote">
-          This is indeed a good initiative since students
-          are experiencing a real-world development scenario.
-        </blockquote>
+          <div class="eval-testimonial-top">
 
-        <div class="eval-testimonial-author">
-
-          <div class="eval-avatar" id="evalAvatar">
-            MU
-          </div>
-
-          <div>
-            <strong id="evalCampus">
-              Curtin Mauritius
-            </strong>
-
-            <span id="evalRole">
-              Lecturer · COMP1002/5008
+            <span class="eval-quote-icon" aria-hidden="true">
+              ❝
             </span>
+
+            <span class="eval-feedback-badge" id="evalFeedbackBadge">
+              Real-World Learning
+            </span>
+
+          </div>
+
+
+          <div class="eval-testimonial-content" id="evalTestimonialContent" aria-live="polite" aria-atomic="true">
+
+            <blockquote id="evalQuote">
+              This is indeed a good initiative since students
+              are experiencing a real-world development scenario.
+            </blockquote>
+
+            <div class="eval-testimonial-author">
+
+              <div class="eval-avatar" id="evalAvatar">
+                MU
+              </div>
+
+              <div>
+                <strong id="evalCampus">
+                  Curtin Mauritius
+                </strong>
+
+                <span id="evalRole">
+                  Lecturer · COMP1002/5008
+                </span>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="eval-testimonial-footer">
+
+            <div class="eval-dots" id="evalDots" role="group" aria-label="Select testimonial">
+            </div>
+
+            <div class="eval-carousel-controls">
+
+              <button type="button" id="evalPrev" class="eval-carousel-btn" aria-label="Previous testimonial">
+                ←
+              </button>
+
+              <span class="eval-carousel-count" id="evalCount">
+                01 / 04
+              </span>
+
+              <button type="button" id="evalNext" class="eval-carousel-btn" aria-label="Next testimonial">
+                →
+              </button>
+
+            </div>
+
           </div>
 
         </div>
@@ -3354,1244 +1304,315 @@ and produces collection performance reports.
       </div>
 
 
-      <div class="eval-testimonial-footer">
-
-        <div class="eval-dots"
-             id="evalDots"
-             aria-label="Select testimonial">
-        </div>
-
-        <div class="eval-carousel-controls">
-
-          <button type="button"
-                  id="evalPrev"
-                  class="eval-carousel-btn"
-                  aria-label="Previous testimonial">
-            ←
-          </button>
-
-          <span class="eval-carousel-count" id="evalCount">
-            01 / 04
-          </span>
-
-          <button type="button"
-                  id="evalNext"
-                  class="eval-carousel-btn"
-                  aria-label="Next testimonial">
-            →
-          </button>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <!-- =========================================
+      <!-- =========================================
        3. KEY EVALUATION INSIGHTS
   ========================================== -->
 
-  <div class="eval-insights-section">
+      <div class="eval-insights-section">
 
-    <div class="eval-section-heading">
-      <span class="eval-eyebrow">REFLECTION & EVALUATION</span>
-      <h3>Key Evaluation Insights</h3>
+        <div class="eval-section-heading">
+          <span class="eval-eyebrow">REFLECTION & EVALUATION</span>
+          <h3>Key Evaluation Insights</h3>
 
-      <p>
-        Emerging themes from academic staff feedback
-        and opportunities for further evaluation.
-      </p>
-    </div>
-
-
-    <div class="eval-insights-grid">
-
-      <!-- Positive feedback -->
-
-      <article class="eval-insight-card positive">
-
-        <div class="eval-insight-header">
-          <span class="eval-insight-icon">✓</span>
-          <h4>What Worked Well</h4>
+          <p>
+            Emerging themes from academic staff feedback
+            and opportunities for further evaluation.
+          </p>
         </div>
 
-        <div class="eval-insight-items">
 
-          <div class="eval-insight-item">
-            <strong>Authentic Industry Context</strong>
-            <p>
-              Teaching staff valued the integration
-              of real-world sustainability scenarios
-              into technical assignments.
-            </p>
-          </div>
+        <div class="eval-insights-grid">
 
-          <div class="eval-insight-item">
-            <strong>Practical Data Applications</strong>
-            <p>
-              Working with structured, realistic datasets
-              was viewed as a valuable alternative to
-              conventional assessment scenarios.
-            </p>
-          </div>
+          <!-- Positive feedback -->
 
-          <div class="eval-insight-item">
-            <strong>Cross-Campus Relevance</strong>
-            <p>
-              Positive feedback from multiple campuses
-              suggests the assignment contexts are
-              relevant across different teaching locations.
-            </p>
-          </div>
+          <article class="eval-insight-card positive">
+
+            <div class="eval-insight-header">
+              <span class="eval-insight-icon">✓</span>
+              <h4>What Worked Well</h4>
+            </div>
+
+            <div class="eval-insight-items">
+
+              <div class="eval-insight-item">
+                <strong>Authentic Industry Context</strong>
+                <p>
+                  Teaching staff valued the integration
+                  of real-world sustainability scenarios
+                  into technical assignments.
+                </p>
+              </div>
+
+              <div class="eval-insight-item">
+                <strong>Practical Data Applications</strong>
+                <p>
+                  Working with structured, realistic datasets
+                  was viewed as a valuable alternative to
+                  conventional assessment scenarios.
+                </p>
+              </div>
+
+              <div class="eval-insight-item">
+                <strong>Cross-Campus Relevance</strong>
+                <p>
+                  Positive feedback from multiple campuses
+                  suggests the assignment contexts are
+                  relevant across different teaching locations.
+                </p>
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <!-- Improvement opportunities -->
+
+          <article class="eval-insight-card improvement">
+
+            <div class="eval-insight-header">
+              <span class="eval-insight-icon">↗</span>
+              <h4>Opportunities for Improvement</h4>
+            </div>
+
+            <div class="eval-insight-items">
+
+              <div class="eval-insight-item">
+                <strong>Evaluate Student Learning</strong>
+                <p>
+                  Gather student feedback and assessment
+                  evidence to better understand learning
+                  outcomes and sustainability awareness.
+                </p>
+              </div>
+
+              <div class="eval-insight-item">
+                <strong>Refine Teaching Resources</strong>
+                <p>
+                  Review assignment clarity, workload,
+                  and supporting materials to improve
+                  accessibility across student cohorts.
+                </p>
+              </div>
+
+              <div class="eval-insight-item">
+                <strong>Strengthen Evaluation</strong>
+                <p>
+                  Develop consistent feedback mechanisms
+                  across campuses to support future
+                  curriculum improvements.
+                </p>
+              </div>
+
+            </div>
+
+          </article>
 
         </div>
 
-      </article>
+      </div>
 
 
-      <!-- Improvement opportunities -->
-
-      <article class="eval-insight-card improvement">
-
-        <div class="eval-insight-header">
-          <span class="eval-insight-icon">↗</span>
-          <h4>Opportunities for Improvement</h4>
-        </div>
-
-        <div class="eval-insight-items">
-
-          <div class="eval-insight-item">
-            <strong>Evaluate Student Learning</strong>
-            <p>
-              Gather student feedback and assessment
-              evidence to better understand learning
-              outcomes and sustainability awareness.
-            </p>
-          </div>
-
-          <div class="eval-insight-item">
-            <strong>Refine Teaching Resources</strong>
-            <p>
-              Review assignment clarity, workload,
-              and supporting materials to improve
-              accessibility across student cohorts.
-            </p>
-          </div>
-
-          <div class="eval-insight-item">
-            <strong>Strengthen Evaluation</strong>
-            <p>
-              Develop consistent feedback mechanisms
-              across campuses to support future
-              curriculum improvements.
-            </p>
-          </div>
-
-        </div>
-
-      </article>
-
-    </div>
-
-  </div>
-
-
-  <!-- =========================================
+      <!-- =========================================
      4. SUSTAINING IMPACT & KNOWLEDGE SHARING
 ========================================== -->
 
-<div class="eval-future-section">
+      <div class="eval-future-section">
 
-  <div class="eval-section-heading">
-    <span class="eval-eyebrow">LONG-TERM IMPACT</span>
+        <div class="eval-section-heading">
+          <span class="eval-eyebrow">LONG-TERM IMPACT</span>
 
-    <h3>Sustaining Impact & Knowledge Sharing</h3>
-
-    <p>
-      Creating lasting value through reusable teaching resources,
-      open research tools, knowledge exchange, and
-      industry-connected student engagement.
-    </p>
-  </div>
-
-
-  <div class="eval-impact-grid">
-
-    <!-- PATHWAY 1 -->
-
-    <article class="eval-impact-card learning">
-
-      <div class="eval-impact-header">
-        <span class="eval-impact-number">01</span>
-        <span class="eval-impact-icon">📚</span>
-      </div>
-
-      <h4>Learning Materials</h4>
-
-      <p class="eval-impact-description">
-        Embedding industry-informed sustainability challenges
-        into reusable teaching and assessment resources.
-      </p>
-
-      <div class="eval-impact-details">
-
-        <div class="eval-impact-group">
-          <span class="eval-impact-label">WHO BENEFITS</span>
+          <h3>Sustaining Impact & Knowledge Sharing</h3>
 
           <p>
-            Students, academics, and unit coordinators
+            Creating lasting value through reusable teaching resources,
+            open research tools, knowledge exchange, and
+            industry-connected student engagement.
           </p>
         </div>
 
-        <div class="eval-impact-group">
-          <span class="eval-impact-label">SHARED THROUGH</span>
 
-          <ul>
-            <li>Case studies</li>
-            <li>Teaching materials</li>
-            <li>Unit assessments</li>
-          </ul>
+        <div class="eval-impact-grid">
+
+          <!-- PATHWAY 1 -->
+
+          <article class="eval-impact-card learning">
+
+            <div class="eval-impact-header">
+              <span class="eval-impact-number">01</span>
+              <span class="eval-impact-icon">📚</span>
+            </div>
+
+            <h4>Learning Materials</h4>
+
+            <p class="eval-impact-description">
+              Embedding industry-informed sustainability challenges
+              into reusable teaching and assessment resources.
+            </p>
+
+            <div class="eval-impact-details">
+
+              <div class="eval-impact-group">
+                <span class="eval-impact-label">WHO BENEFITS</span>
+
+                <p>
+                  Students, academics, and unit coordinators
+                </p>
+              </div>
+
+              <div class="eval-impact-group">
+                <span class="eval-impact-label">SHARED THROUGH</span>
+
+                <ul>
+                  <li>Case studies</li>
+                  <li>Teaching materials</li>
+                  <li>Unit assessments</li>
+                </ul>
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <!-- PATHWAY 2 -->
+
+          <article class="eval-impact-card prototypes">
+
+            <div class="eval-impact-header">
+              <span class="eval-impact-number">02</span>
+              <span class="eval-impact-icon">💻</span>
+            </div>
+
+            <h4>Prototypes & Code</h4>
+
+            <p class="eval-impact-description">
+              Supporting reproducible research and further
+              development through accessible computational
+              frameworks and prototype tools.
+            </p>
+
+            <div class="eval-impact-details">
+
+              <div class="eval-impact-group">
+                <span class="eval-impact-label">WHO BENEFITS</span>
+
+                <p>
+                  Students, researchers, and the wider community
+                </p>
+              </div>
+
+              <div class="eval-impact-group">
+                <span class="eval-impact-label">SHARED THROUGH</span>
+
+                <ul>
+                  <li>Open GitHub repository</li>
+                  <li>Curtin project website</li>
+                </ul>
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <!-- PATHWAY 3 -->
+
+          <article class="eval-impact-card knowledge">
+
+            <div class="eval-impact-header">
+              <span class="eval-impact-number">03</span>
+              <span class="eval-impact-icon">🎓</span>
+            </div>
+
+            <h4>Knowledge Sharing</h4>
+
+            <p class="eval-impact-description">
+              Sharing project experiences, educational
+              practices, and research insights across
+              disciplines and campuses.
+            </p>
+
+            <div class="eval-impact-details">
+
+              <div class="eval-impact-group">
+                <span class="eval-impact-label">WHO BENEFITS</span>
+
+                <p>
+                  School of EECMS and all Curtin campuses
+                </p>
+              </div>
+
+              <div class="eval-impact-group">
+                <span class="eval-impact-label">SHARED THROUGH</span>
+
+                <ul>
+                  <li>Discipline meetings</li>
+                  <li>Digital Technologies & Analytics Forum #4</li>
+                  <li>WA Teaching & Learning Forum 2027</li>
+                </ul>
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <!-- PATHWAY 4 -->
+
+          <article class="eval-impact-card showcase">
+
+            <div class="eval-impact-header">
+              <span class="eval-impact-number">04</span>
+              <span class="eval-impact-icon">🚀</span>
+            </div>
+
+            <h4>Showcase & Hackathon</h4>
+
+            <p class="eval-impact-description">
+              Promoting student innovation and sustainability
+              through interdisciplinary activities and
+              engagement with industry partners.
+            </p>
+
+            <div class="eval-impact-details">
+
+              <div class="eval-impact-group">
+                <span class="eval-impact-label">WHO BENEFITS</span>
+
+                <p>
+                  Students, Curtin community, and industry partners
+                </p>
+              </div>
+
+              <div class="eval-impact-group">
+                <span class="eval-impact-label">SHARED THROUGH</span>
+
+                <ul>
+                  <li>ComSSA and FSE intranet</li>
+                  <li>News, LinkedIn, and posters</li>
+                  <li>Curtin Assessment 2030</li>
+                </ul>
+              </div>
+
+            </div>
+
+          </article>
+
         </div>
 
       </div>
 
-    </article>
-
-
-    <!-- PATHWAY 2 -->
-
-    <article class="eval-impact-card prototypes">
-
-      <div class="eval-impact-header">
-        <span class="eval-impact-number">02</span>
-        <span class="eval-impact-icon">💻</span>
-      </div>
-
-      <h4>Prototypes & Code</h4>
-
-      <p class="eval-impact-description">
-        Supporting reproducible research and further
-        development through accessible computational
-        frameworks and prototype tools.
-      </p>
-
-      <div class="eval-impact-details">
-
-        <div class="eval-impact-group">
-          <span class="eval-impact-label">WHO BENEFITS</span>
-
-          <p>
-            Students, researchers, and the wider community
-          </p>
-        </div>
-
-        <div class="eval-impact-group">
-          <span class="eval-impact-label">SHARED THROUGH</span>
-
-          <ul>
-            <li>Open GitHub repository</li>
-            <li>Curtin project website</li>
-          </ul>
-        </div>
-
-      </div>
-
-    </article>
-
-
-    <!-- PATHWAY 3 -->
-
-    <article class="eval-impact-card knowledge">
-
-      <div class="eval-impact-header">
-        <span class="eval-impact-number">03</span>
-        <span class="eval-impact-icon">🎓</span>
-      </div>
-
-      <h4>Knowledge Sharing</h4>
-
-      <p class="eval-impact-description">
-        Sharing project experiences, educational
-        practices, and research insights across
-        disciplines and campuses.
-      </p>
-
-      <div class="eval-impact-details">
-
-        <div class="eval-impact-group">
-          <span class="eval-impact-label">WHO BENEFITS</span>
-
-          <p>
-            School of EECMS and all Curtin campuses
-          </p>
-        </div>
-
-        <div class="eval-impact-group">
-          <span class="eval-impact-label">SHARED THROUGH</span>
-
-          <ul>
-            <li>Discipline meetings</li>
-            <li>Digital Technologies & Analytics Forum #4</li>
-            <li>WA Teaching & Learning Forum 2027</li>
-          </ul>
-        </div>
-
-      </div>
-
-    </article>
-
-
-    <!-- PATHWAY 4 -->
-
-    <article class="eval-impact-card showcase">
-
-      <div class="eval-impact-header">
-        <span class="eval-impact-number">04</span>
-        <span class="eval-impact-icon">🚀</span>
-      </div>
-
-      <h4>Showcase & Hackathon</h4>
-
-      <p class="eval-impact-description">
-        Promoting student innovation and sustainability
-        through interdisciplinary activities and
-        engagement with industry partners.
-      </p>
-
-      <div class="eval-impact-details">
-
-        <div class="eval-impact-group">
-          <span class="eval-impact-label">WHO BENEFITS</span>
-
-          <p>
-            Students, Curtin community, and industry partners
-          </p>
-        </div>
-
-        <div class="eval-impact-group">
-          <span class="eval-impact-label">SHARED THROUGH</span>
-
-          <ul>
-            <li>ComSSA and FSE intranet</li>
-            <li>News, LinkedIn, and posters</li>
-            <li>Curtin Assessment 2030</li>
-          </ul>
-        </div>
-
-      </div>
-
-    </article>
-
-  </div>
-
-</div>
-
-</section>
+    </section>
 
   </main>
 
-<script>
-/* =========================================
-   PIPELINE DATA
-========================================= */
-
-const mlStages = [
-
-  {
-    title: "Data Collection",
-    icon: "🗄️",
-    color: "#2878c7",
-    background: "#e3efff",
-
-    description:
-      "The project combines Western Australian red meat industry " +
-      "techno-economic assessment (TEA) parameters with real " +
-      "anaerobic digester observations to establish a " +
-      "data-informed foundation for predictive modelling.",
-
-    cards: [
-      {
-        title: "WA Industry TEA",
-        text:
-          "Feedstock characteristics, waste quantities, " +
-          "volatile solids content, and energy conversion parameters."
-      },
-      {
-        title: "US Digester Database",
-        text:
-          "Operational records from two anaerobic digesters, " +
-          "providing real feedstock and methane-yield observations."
-      },
-      {
-        title: "104 Reactor Observations",
-        text:
-          "Cleaned observations used to estimate the relationship " +
-          "between organic loading rate, feed concentration, " +
-          "and methane yield."
-      }
-    ]
-  },
-
-  {
-    title: "Synthetic Data Generation",
-    icon: "🧬",
-    color: "#31934b",
-    background: "#e2f3e5",
-
-    description:
-      "A synthetic dataset was generated to address the limited " +
-      "availability of large-scale Western Australian operational " +
-      "data. The generation process combines industry-informed " +
-      "feedstock parameters with relationships derived from " +
-      "real anaerobic digester observations.",
-
-    cards: [
-      {
-        title: "800 Simulated Facilities",
-        text:
-          "Generate 800 synthetic facility observations with " +
-          "variations in feedstock quantities and operating conditions."
-      },
-      {
-        title: "Feedstock Variation",
-        text:
-          "Scale WA feedstock quantities and sample organic " +
-          "loading rate (OLR) and diluted feed volatile solids (VS%)."
-      },
-      {
-        title: "Operational Outcomes",
-        text:
-          "Generate methane yield, electricity generation, " +
-          "and carbon emission reduction values for each facility."
-      }
-    ]
-  },
-
-  {
-    title: "Data Preparation",
-    icon: "⚙️",
-    color: "#c8871d",
-    background: "#fff0dc",
-
-    description:
-      "The synthetic dataset undergoes preprocessing and " +
-      "exploratory analysis to ensure that the observations " +
-      "are suitable for machine learning model development.",
-
-    cards: [
-      {
-        title: "Data Quality",
-        text:
-          "Check missing values, identify outliers, and examine " +
-          "the distributions of operational variables."
-      },
-      {
-        title: "Feature Engineering",
-        text:
-          "Prepare numerical and categorical variables through " +
-          "scaling, encoding, and feature construction."
-      },
-      {
-        title: "Dataset Splitting",
-        text:
-          "Divide observations into 70% training, " +
-          "15% validation, and 15% testing datasets."
-      }
-    ]
-  },
-
-  {
-    title: "Machine Learning Model Training",
-    icon: "🧠",
-    color: "#6b63bd",
-    background: "#e9e9fa",
-
-    description:
-      "Three machine learning architectures were developed " +
-      "and compared to predict biogas-related operational " +
-      "outcomes. A linear regression baseline was also " +
-      "included to assess whether more complex algorithms " +
-      "provide meaningful improvements.",
-
-    cards: [
-      {
-        title: "Random Forest",
-        text:
-          "An ensemble of decision trees designed to capture " +
-          "nonlinear relationships between feedstock " +
-          "characteristics and operational outcomes."
-      },
-      {
-        title: "XGBoost",
-        text:
-          "A gradient-boosting algorithm that sequentially " +
-          "improves decision trees to reduce prediction errors."
-      },
-      {
-        title: "LSTM Neural Network",
-        text:
-          "A recurrent neural network evaluated to investigate " +
-          "whether sequence-oriented modelling offers benefits " +
-          "for the synthetic facility dataset."
-      },
-      {
-        title: "Linear Regression Baseline",
-        text:
-          "A simpler benchmark model used to evaluate whether " +
-          "the additional complexity of the three machine " +
-          "learning architectures improves prediction accuracy."
-      }
-    ]
-  },
-
-  {
-    title: "Predictions",
-    icon: "📊",
-    color: "#cf6262",
-    background: "#ffe5e5",
-
-    description:
-      "The trained models generate predictions for three " +
-      "operational outcomes relevant to renewable energy " +
-      "production and sustainability planning.",
-
-    cards: [
-      {
-        title: "Methane Yield",
-        text:
-          "Estimate methane production potential based on " +
-          "feedstock characteristics and operating conditions."
-      },
-      {
-        title: "Electricity Generation",
-        text:
-          "Predict electricity generation associated with " +
-          "methane production and the amount of organic " +
-          "material processed."
-      },
-      {
-        title: "Carbon Emission Reduction",
-        text:
-          "Estimate avoided emissions associated with " +
-          "renewable electricity generation using " +
-          "the assumed grid emission factor."
-      }
-    ]
-  },
-
-  {
-    title: "Model Evaluation",
-    icon: "🎯",
-    color: "#9864bd",
-    background: "#efe5f7",
-
-    description:
-      "Model performance is assessed using regression metrics " +
-      "and comparative analysis. The evaluation examines " +
-      "prediction accuracy, error distributions, and the " +
-      "limitations of learning from synthetic data.",
-
-    cards: [
-      {
-        title: "Mean Absolute Error (MAE)",
-        text:
-          "Measures the average absolute difference between " +
-          "predicted and observed values."
-      },
-      {
-        title: "Root Mean Squared Error (RMSE)",
-        text:
-          "Measures prediction error while assigning " +
-          "greater penalties to larger deviations."
-      },
-      {
-        title: "Coefficient of Determination (R²)",
-        text:
-          "Measures the proportion of variation in " +
-          "the target variable explained by the model."
-      },
-      {
-        title: "Comparative Analysis",
-        text:
-          "Compare Random Forest, XGBoost, LSTM, and " +
-          "linear regression to identify strengths, " +
-          "limitations, and opportunities for improvement."
-      }
-    ]
-  }
-
-];
-
-
-/* =========================================
-   ELEMENT REFERENCES
-========================================= */
-
-const mlButtons = document.querySelectorAll(".ml-stage");
-
-const mlDetail = document.getElementById("mlDetail");
-const mlDetailIcon = document.getElementById("mlDetailIcon");
-const mlDetailLabel = document.getElementById("mlDetailLabel");
-const mlDetailTitle = document.getElementById("mlDetailTitle");
-
-const mlDynamicContent =
-  document.getElementById("mlDynamicContent");
-
-const mlProgress = document.getElementById("mlProgress");
-
-const mlPrev = document.getElementById("mlPrev");
-const mlNext = document.getElementById("mlNext");
-
-let currentMLStage = 0;
-
-
-/* =========================================
-   RENDER STAGE
-========================================= */
-
-function renderMLStage(index) {
-
-  if (index < 0 || index >= mlStages.length) {
-    return;
-  }
-  currentMLStage = index;
-  const stage = mlStages[index];
-
-  /* Update selected stage */
-  mlButtons.forEach((button, buttonIndex) => {
-    const isActive = buttonIndex === index;
-    button.classList.toggle("active", isActive);
-    button.setAttribute(
-      "aria-pressed",
-      String(isActive)
-    );
-
-  });
-
-  /* Update panel colours */
-
-  mlDetail.style.setProperty(
-    "--detail-color",
-    stage.color
-  );
-
-  mlDetail.style.setProperty(
-    "--detail-bg",
-    stage.background
-  );
-
-  /* Update heading */
-
-  mlDetailIcon.textContent = stage.icon;
-
-  mlDetailLabel.textContent =
-    `Stage ${String(index + 1).padStart(2, "0")}`;
-
-  mlDetailTitle.textContent = stage.title;
-
-  /* Generate information cards safely */
-
-  mlDynamicContent.replaceChildren();
-
-  const description = document.createElement("p");
-  description.className = "ml-description";
-  description.textContent = stage.description;
-
-  const grid = document.createElement("div");
-  grid.className = "ml-info-grid";
-
-  stage.cards.forEach(card => {
-
-    const cardElement = document.createElement("div");
-    cardElement.className = "ml-info-card";
-
-    const heading = document.createElement("h4");
-    heading.textContent = card.title;
-
-    const paragraph = document.createElement("p");
-    paragraph.textContent = card.text;
-
-    cardElement.append(heading, paragraph);
-    grid.appendChild(cardElement);
-
-  });
-
-  mlDynamicContent.append(description, grid);
-
-  /* Animate updated content */
-  mlDynamicContent.classList.remove("ml-fade");
-  void mlDynamicContent.offsetWidth;
-  mlDynamicContent.classList.add("ml-fade");
-
-  /* Update navigation */
-  mlProgress.textContent =
-    `Stage ${index + 1} of ${mlStages.length}`;
-
-  mlPrev.disabled = index === 0;
-  mlNext.disabled = index === mlStages.length - 1;
-
-}
-
-
-/* =========================================
-   STAGE CLICK HANDLERS
-========================================= */
-
-mlButtons.forEach(button => {
-
-  button.addEventListener("click", () => {
-
-    const index = Number(button.dataset.stage);
-
-    renderMLStage(index);
-
-  });
-
-});
-
-
-/* =========================================
-   PREVIOUS / NEXT
-========================================= */
-
-mlPrev.addEventListener("click", () => {
-
-  renderMLStage(currentMLStage - 1);
-
-});
-
-mlNext.addEventListener("click", () => {
-
-  renderMLStage(currentMLStage + 1);
-
-});
-
-
-/* =========================================
-   INITIALISE
-========================================= */
-
-renderMLStage(0);
-
-const assignmentModal =
-  document.getElementById("assignmentModal");
-
-const assignmentFrame =
-  document.getElementById("assignmentFrame");
-
-const openAssignmentPDF =
-  document.getElementById("openAssignmentPDF");
-
-const closeAssignmentModal =
-  document.getElementById("closeAssignmentModal");
-
-
-document.querySelectorAll(".assignment-button")
-  .forEach(button => {
-
-    button.addEventListener("click", () => {
-
-      const pdfPath = button.dataset.pdf;
-
-      assignmentFrame.src = pdfPath;
-
-      openAssignmentPDF.href = pdfPath;
-
-      assignmentModal.showModal();
-
-    });
-
-  });
-
-
-closeAssignmentModal.addEventListener("click", () => {
-  assignmentModal.close();
-});
-
-
-assignmentModal.addEventListener("close", () => {
-  assignmentFrame.removeAttribute("src");
-});
-
-
-assignmentModal.addEventListener("click", event => {
-  if (event.target === assignmentModal) {
-    assignmentModal.close();
-  }
-});
-
-/* =========================================
-   OPTIMISATION PIPELINE DATA
-========================================= */
-
-const optimisationStages = [
-
-  {
-    title: "Data Integration",
-    icon: "🗄️",
-    color: "#2878c7",
-    background: "#e3efff",
-
-    description:
-      "Integrate spatial, feedstock, experimental and " +
-      "techno-economic datasets to establish a consistent " +
-      "foundation for regional biogas hub modelling.",
-
-    tags: [
-      "Spatial Data",
-      "Digester Data",
-      "Techno-Economic Data"
-    ]
-  },
-
-  {
-    title: "Regional System",
-    icon: "🗺️",
-    color: "#31934b",
-    background: "#e2f3e5",
-
-    description:
-      "Develop realistic synthetic regional systems representing " +
-      "feedstock suppliers, candidate biogas hubs, transport " +
-      "networks and operating conditions.",
-
-    tags: [
-      "Feedstock Supply",
-      "Facility Locations",
-      "Transport Networks"
-    ]
-  },
-
-  {
-    title: "Process Prediction",
-    icon: "🧠",
-    color: "#c8871d",
-    background: "#fff0dc",
-
-    description:
-      "Incorporate predictive models to estimate methane yield " +
-      "and biogas production from feedstock composition " +
-      "and anaerobic digester operating conditions.",
-
-    tags: [
-      "Machine Learning",
-      "Methane Yield",
-      "Process Performance"
-    ]
-  },
-
-  {
-    title: "Techno-Economic Modelling",
-    icon: "📈",
-    color: "#6b63bd",
-    background: "#e9e9fa",
-
-    description:
-      "Translate predicted process performance into energy " +
-      "production, investment requirements, operating costs " +
-      "and financial indicators to evaluate economic viability.",
-
-    tags: [
-      "CAPEX & OPEX",
-      "Energy Revenue",
-      "Net Present Value"
-    ]
-  },
-
-  {
-    title: "Risk-Aware Optimisation",
-    icon: "⚙️",
-    color: "#cf6262",
-    background: "#ffe5e5",
-
-    description:
-      "Identify economically viable and resilient biogas hub " +
-      "configurations by optimising facility locations, " +
-      "capacities, feedstock allocation and operations " +
-      "under uncertain conditions.",
-
-    tags: [
-      "Hub Location",
-      "Feedstock Allocation",
-      "Uncertainty & Risk"
-    ]
-  },
-
-  {
-    title: "Evaluation",
-    icon: "🎯",
-    color: "#9864bd",
-    background: "#efe5f7",
-
-    description:
-      "Evaluate economic, environmental and operational " +
-      "performance through scenario analysis and stress " +
-      "testing, including comparisons between Australian " +
-      "and US regional systems.",
-
-    tags: [
-      "Economic Performance",
-      "Environmental Impact",
-      "Risk & Resilience"
-    ]
-  }
-
-];
-
-
-/* =========================================
-   ELEMENT REFERENCES
-========================================= */
-
-const optSection =
-  document.getElementById("optimisation-progress");
-
-const optButtons =
-  optSection.querySelectorAll("[data-opt-stage]");
-
-const optDetail =
-  document.getElementById("optDetail");
-
-const optDetailIcon =
-  document.getElementById("optDetailIcon");
-
-const optDetailLabel =
-  document.getElementById("optDetailLabel");
-
-const optDetailTitle =
-  document.getElementById("optDetailTitle");
-
-const optDescription =
-  document.getElementById("optDescription");
-
-const optTags =
-  document.getElementById("optTags");
-
-const optProgress =
-  document.getElementById("optProgress");
-
-const optPrev =
-  document.getElementById("optPrev");
-
-const optNext =
-  document.getElementById("optNext");
-
-let currentOptStage = 0;
-
-
-/* =========================================
-   RENDER SELECTED STAGE
-========================================= */
-
-function renderOptStage(index) {
-
-  if (index < 0 || index >= optimisationStages.length) {
-    return;
-  }
-
-  currentOptStage = index;
-
-  const stage = optimisationStages[index];
-
-  /* Highlight active stage */
-
-  optButtons.forEach((button, buttonIndex) => {
-
-    const active = buttonIndex === index;
-
-    button.classList.toggle("active", active);
-
-    button.setAttribute(
-      "aria-pressed",
-      String(active)
-    );
-
-  });
-
-  /* Update colours */
-
-  optDetail.style.setProperty(
-    "--detail-color",
-    stage.color
-  );
-
-  optDetail.style.setProperty(
-    "--detail-bg",
-    stage.background
-  );
-
-  /* Update heading */
-
-  optDetailIcon.textContent = stage.icon;
-
-  optDetailLabel.textContent =
-    `Stage ${String(index + 1).padStart(2, "0")}`;
-
-  optDetailTitle.textContent = stage.title;
-
-  /* Update description */
-
-  optDescription.textContent = stage.description;
-
-  /* Update tags */
-
-  optTags.replaceChildren();
-
-  stage.tags.forEach(tag => {
-
-    const element = document.createElement("span");
-
-    element.className = "opt-tag";
-    element.textContent = tag;
-
-    optTags.appendChild(element);
-
-  });
-
-  /* Update navigation */
-
-  optProgress.textContent =
-    `Stage ${index + 1} of ${optimisationStages.length}`;
-
-  optPrev.disabled = index === 0;
-
-  optNext.disabled =
-    index === optimisationStages.length - 1;
-
-}
-
-
-/* =========================================
-   EVENT LISTENERS
-========================================= */
-
-optButtons.forEach(button => {
-
-  button.addEventListener("click", () => {
-
-    renderOptStage(Number(button.dataset.optStage));
-
-  });
-
-});
-
-
-optPrev.addEventListener("click", () => {
-
-  renderOptStage(currentOptStage - 1);
-
-});
-
-
-optNext.addEventListener("click", () => {
-
-  renderOptStage(currentOptStage + 1);
-
-});
-
-
-/* =========================================
-   INITIALISE
-========================================= */
-
-renderOptStage(0);
-
-/* =========================================
-   PHASE 6: TESTIMONIAL DATA
-========================================= */
-
-const evaluationTestimonials = [
-
-  {
-    quote:
-      "This is indeed a good initiative since students are " +
-      "experiencing a real-world development scenario.",
-
-    campus: "Curtin Mauritius",
-    role: "Lecturer · COMP1002/5008",
-    initials: "👱‍♂️",
-    category: "Real-World Learning"
-  },
-
-  {
-    quote:
-      "I like the idea of restricting them for a standard, " +
-      "actual data set so that students get exposed to work " +
-      "around proper data. It changes the monotonous nature " +
-      "of previous semester assessments.",
-
-    campus: "Curtin Colombo",
-    role: "Lecturer · COMP1002/5008",
-    initials: "👩‍🦱",
-    category: "Authentic Datasets"
-  },
-
-  {
-    quote:
-      "Incorporating a real-world scenario and dataset is " +
-      "an interesting approach, as it makes the assignment " +
-      "more practical and relevant to the students,",
-
-    campus: "Curtin Malaysia",
-    role: "Lecturer · COMP1002/5008",
-    initials: "👩‍🦰",
-    category: "Practical Relevance"
-  },
-
-  {
-    quote:
-      "The design and framing are excellent. The anaerobic " +
-      "digestion scenario at the Western Australian " +
-      "meat-processing facility offers an authentic, " +
-      "high-impact context for sustainability, clearly " +
-      "demonstrating how AI applies to real-world " +
-      "environmental engineering and resource recovery.",
-
-    campus: "Curtin Dubai",
-    role: "Lecturer · COMP6009",
-    initials: "👨🏼",
-    category: "Sustainability & AI"
-  }
-
-];
-
-
-/* =========================================
-   ELEMENT REFERENCES
-========================================= */
-
-const evalSection =
-  document.getElementById("evaluation-progress");
-
-const evalQuote =
-  evalSection.querySelector("#evalQuote");
-
-const evalCampus =
-  evalSection.querySelector("#evalCampus");
-
-const evalRole =
-  evalSection.querySelector("#evalRole");
-
-const evalAvatar =
-  evalSection.querySelector("#evalAvatar");
-
-const evalBadge =
-  evalSection.querySelector("#evalFeedbackBadge");
-
-const evalDots =
-  evalSection.querySelector("#evalDots");
-
-const evalCount =
-  evalSection.querySelector("#evalCount");
-
-const evalPrev =
-  evalSection.querySelector("#evalPrev");
-
-const evalNext =
-  evalSection.querySelector("#evalNext");
-
-let currentEvalIndex = 0;
-
-
-/* =========================================
-   CREATE CAROUSEL INDICATORS
-========================================= */
-
-evaluationTestimonials.forEach((testimonial, index) => {
-
-  const dot = document.createElement("button");
-
-  dot.type = "button";
-  dot.className = "eval-dot";
-
-  dot.setAttribute(
-    "aria-label",
-    `Show testimonial from ${testimonial.campus}`
-  );
-
-  dot.addEventListener("click", () => {
-    renderEvaluationTestimonial(index);
-  });
-
-  evalDots.appendChild(dot);
-
-});
-
-
-/* =========================================
-   RENDER TESTIMONIAL
-========================================= */
-
-function renderEvaluationTestimonial(index) {
-
-  const total = evaluationTestimonials.length;
-
-  currentEvalIndex = (index + total) % total;
-
-  const testimonial =
-    evaluationTestimonials[currentEvalIndex];
-
-  evalQuote.textContent = `“${testimonial.quote}”`;
-
-  evalCampus.textContent = testimonial.campus;
-
-  evalRole.textContent = testimonial.role;
-
-  evalAvatar.textContent = testimonial.initials;
-
-  evalBadge.textContent = testimonial.category;
-
-  evalCount.textContent =
-    `${String(currentEvalIndex + 1).padStart(2, "0")} / ` +
-    `${String(total).padStart(2, "0")}`;
-
-  /* Update active indicator */
-
-  const dots = evalDots.querySelectorAll(".eval-dot");
-
-  dots.forEach((dot, dotIndex) => {
-
-    const active = dotIndex === currentEvalIndex;
-
-    dot.classList.toggle("active", active);
-
-    dot.setAttribute(
-      "aria-current",
-      active ? "true" : "false"
-    );
-
-  });
-
-}
-
-
-/* =========================================
-   NAVIGATION
-========================================= */
-
-evalPrev.addEventListener("click", () => {
-
-  renderEvaluationTestimonial(currentEvalIndex - 1);
-
-});
-
-evalNext.addEventListener("click", () => {
-
-  renderEvaluationTestimonial(currentEvalIndex + 1);
-
-});
-
-
-/* =========================================
-   INITIALISE
-========================================= */
-
-renderEvaluationTestimonial(0);
-
-
-</script>
+  <footer>
+    <strong>Data-driven. Sustainability-focused. Education-powered.</strong>
+    <div>Building a smarter, greener future through innovation and collaboration.</div>
+  </footer>
+
+  <script src="assets/js/progress.js" defer></script>
 </body>
+
 </html>

@@ -1,0 +1,33 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>IERP local responsive checks</title><style>body{font:14px system-ui;margin:16px}table{border-collapse:collapse}td,th{border:1px solid #bbb;padding:5px}#preview{position:relative;overflow:auto;height:750px}iframe{border:0;transform-origin:top left}button,select{font:inherit;padding:8px;margin:8px}</style><h1>IERP local verification</h1><div id="results">Running…</div><label>Preview <select id="which"></select></label><label>Section <select id="section"><option value="">Top</option><option>status</option><option>data-progress</option><option>engineering-progress</option><option>ml-progress</option><option>assignments-progress</option><option>optimisation-progress</option><option>evaluation-progress</option><option>evalTestimonialContent</option><option>team</option><option>timeline</option></select></label><button id="show">Show selected preview</button><div id="preview"></div><div id="frames"></div><script>
+const rows=[],frames=[];let runtimeErrors=[];
+async function run(){
+ for(const page of ['index','progress']) for(const width of [1920,1440,1366,1024,768,430,375,320]) {
+ const frame=document.createElement('iframe'); frame.setAttribute('aria-hidden','true'); frame.style.cssText=`position:absolute;left:0;top:20000px;width:${width}px;height:900px`;
+ document.querySelector('#frames').append(frame); await new Promise(r=>{frame.onload=r;frame.src='../'+page+'.html'});
+ const d=frame.contentDocument,w=frame.contentWindow,q=s=>d.querySelector(s);
+ w.addEventListener('error',e=>runtimeErrors.push(e.message));
+ await new Promise(r=>setTimeout(r,100));
+ const row={page,width,actual:w.innerWidth,overflow:d.documentElement.scrollWidth>width,images:[...d.images].filter(i=>i.complete&&!i.naturalWidth).length};
+ if(page==='progress') {
+ let ok=true;
+ for(let i=0;i<6;i++) { q(`[data-stage="${i}"]`).click(); ok&&=q('#mlProgress').textContent===`Stage ${i+1} of 6`;q(`[data-opt-stage="${i}"]`).click();ok&&=q('#optProgress').textContent===`Stage ${i+1} of 6`&&q(`[data-stage="${i}"]`).getAttribute('aria-pressed')==='true'; }
+ ok&&=q('#mlNext').disabled&&q('#optNext').disabled;
+ for(let i=0;i<5;i++){q('#mlPrev').click();q('#optPrev').click()}
+ ok&&=q('#mlPrev').disabled&&q('#optPrev').disabled;
+ for(let i=0;i<5;i++){q('#mlNext').click();q('#optNext').click()}
+ ok&&=q('#mlNext').disabled&&q('#optNext').disabled;
+ row.pipelines=ok;
+ const campuses=[];for(let i=0;i<4;i++){campuses.push(q('#evalCampus').textContent);q('#evalNext').click()}
+ row.carousel=new Set(campuses).size===4&&q('#evalCampus').textContent===campuses[0];q('#evalPrev').click();row.carousel&&=q('#evalCampus').textContent===campuses[3];
+ [...d.querySelectorAll('.eval-dot')].forEach((b,i)=>{b.click();row.carousel&&=q('#evalCampus').textContent===campuses[i]});
+ row.modal=true; for(const b of d.querySelectorAll('.assignment-button')){b.focus();b.click();row.modal&&=q('#assignmentModal').open&&q('#assignmentFrame').getAttribute('src')===b.dataset.pdf&&d.activeElement===q('#closeAssignmentModal');q('#closeAssignmentModal').click();await new Promise(r=>setTimeout(r,40));row.modal&&=!q('#assignmentModal').open&&!q('#assignmentFrame').hasAttribute('src')&&d.activeElement===b}
+ q('[data-stage="0"]').click();q('[data-opt-stage="0"]').click();q('.eval-dot').click();
+ row.overflow=d.documentElement.scrollWidth>width;
+ }
+ frames.push(frame);rows.push(row);document.querySelector('#which').add(new Option(page+' '+width,frames.length-1));
+ }
+ document.querySelector('#results').innerHTML='<table><tr><th>Page</th><th>Width</th><th>Actual</th><th>Overflow</th><th>Broken loaded images</th><th>Pipelines</th><th>Carousel</th><th>Modal + focus</th></tr>'+rows.map(r=>'<tr>'+[r.page,r.width,r.actual,r.overflow,r.images,r.pipelines??'—',r.carousel??'—',r.modal??'—'].map(v=>'<td>'+v+'</td>').join('')+'</tr>').join('')+'</table><p>Runtime errors: '+JSON.stringify(runtimeErrors)+'</p>';
+}
+document.querySelector('#show').onclick=()=>{const i=Number(document.querySelector('#which').value),r=rows[i],f=document.createElement('iframe');f.style.width=r.width+'px';f.style.height='1000px';f.style.transform=`scale(${Math.min(1,(innerWidth-50)/r.width)})`;f.onload=()=>{const id=document.querySelector('#section').value;if(id)f.contentDocument.getElementById(id)?.scrollIntoView({behavior:'instant'});};document.querySelector('#preview').replaceChildren(f);f.src='../'+r.page+'.html';document.querySelector('#preview').scrollIntoView({behavior:'instant'});};
+run().catch(e=>document.querySelector('#results').textContent=e.stack);
+</script></html>

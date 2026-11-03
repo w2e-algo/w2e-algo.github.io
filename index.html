@@ -6,623 +6,15 @@
   <title>Powering T&amp;L with Waste-to-Energy Systems</title>
   <meta name="description" content="A dynamic optimisation and machine learning framework for sustainable waste-to-energy teaching and learning.">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-  <style>
-    :root {
-      --ink: #10221b;
-      --muted: #54655d;
-      --line: #d8e2dc;
-      --paper: #f7faf7;
-      --white: #ffffff;
-      --forest: #0f5132;
-      --moss: #6f8f3b;
-      --teal: #0d7f78;
-      --gold: #c58a22;
-      --clay: #a65339;
-      --sky: #dceff1;
-      --shadow: 0 18px 50px rgba(16, 34, 27, 0.14);
-      --radius: 8px;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      color: var(--ink);
-      background: var(--paper);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      line-height: 1.55;
-    }
-
-    img {
-      display: block;
-      max-width: 100%;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      border-bottom: 1px solid rgba(216, 226, 220, 0.9);
-      background: rgba(247, 250, 247, 0.88);
-      backdrop-filter: blur(16px);
-    }
-
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      width: min(1120px, calc(100% - 40px));
-      margin: 0 auto;
-      min-height: 68px;
-    }
-
-    .brand-logo {
-      width: clamp(110px, 16vw, 190px);
-      height: auto;
-      max-height: 56px;
-      object-fit: contain;
-      flex: 0 1 auto;
-    }
-
-    .nav-logo-right {
-      width: clamp(380px, 50%, 450px);
-      height: auto;
-      margin-top: 20px;
-      max-height: 180px;
-      object-fit: contain;
-      flex: 0 1 auto;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      min-width: 0;
-      font-weight: 800;
-      color: var(--forest);
-    }
-
-    .brand-mark {
-      display: grid;
-      place-items: center;
-      width: 38px;
-      height: 38px;
-      border-radius: var(--radius);
-      color: var(--white);
-      background: linear-gradient(135deg, var(--forest), var(--teal));
-      font-size: 0.8rem;
-      font-weight: 900;
-    }
-
-    .brand span:last-child {
-      overflow-wrap: anywhere;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      color: var(--muted);
-      font-size: 0.94rem;
-      font-weight: 700;
-    }
-
-    .nav-links a {
-      padding: 8px 0;
-    }
-
-    .nav-links a:hover {
-      color: var(--forest);
-    }
-
-    .hero {
-      position: relative;
-      min-height: 76vh;
-      isolation: isolate;
-      color: var(--white);
-      background-image:
-        linear-gradient(90deg, rgba(10, 36, 24, 0.91) 0%, rgba(10, 36, 24, 0.74) 46%, rgba(10, 36, 24, 0.28) 100%),
-        url("pdf_images/image2.png");
-      background-position: center;
-      background-size: cover;
-    }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      inset: auto 0 0 0;
-      height: 96px;
-      background: linear-gradient(180deg, rgba(247, 250, 247, 0), var(--paper));
-      z-index: -1;
-    }
-
-    .hero-inner {
-      display: grid;
-      align-items: center;
-      width: min(1120px, calc(100% - 40px));
-      min-height: 76vh;
-      margin: 0 auto;
-      padding: 58px 0 96px;
-    }
-
-    .eyebrow {
-      width: fit-content;
-      margin: 0 0 18px;
-      padding: 7px 10px;
-      border: 1px solid rgba(255, 255, 255, 0.32);
-      border-radius: 999px;
-      color: #dff3e9;
-      background: rgba(255, 255, 255, 0.08);
-      font-size: 0.82rem;
-      font-weight: 800;
-      text-transform: uppercase;
-    }
-
-    h1,
-    h2,
-    h3,
-    p {
-      margin-top: 0;
-    }
-
-    h1 {
-      max-width: 900px;
-      margin-bottom: 18px;
-      font-size: clamp(2.45rem, 7vw, 5.65rem);
-      line-height: 1.02;
-      letter-spacing: 0;
-    }
-
-    .subtitle {
-      max-width: 840px;
-      margin-bottom: 32px;
-      color: rgba(255, 255, 255, 0.88);
-      font-size: clamp(1.05rem, 2vw, 1.35rem);
-    }
-
-    .hero-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      max-width: 900px;
-    }
-
-    .hero-meta span {
-      border: 1px solid rgba(255, 255, 255, 0.28);
-      border-radius: 999px;
-      padding: 9px 13px;
-      background: rgba(255, 255, 255, 0.11);
-      color: #f4fff9;
-      font-size: 0.94rem;
-      font-weight: 700;
-    }
-
-    main {
-      margin-top: -32px;
-      position: relative;
-      z-index: 5;
-    }
-
-    main section {
-      width: min(1120px, calc(100% - 40px));
-      margin: 0 auto;
-      padding: 54px 0;
-      scroll-margin-top: 94px;
-    }
-
-    .section-heading {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 24px;
-      margin-bottom: 24px;
-    }
-
-    .section-heading h2 {
-      margin-bottom: 0;
-      font-size: clamp(1.65rem, 3vw, 2.35rem);
-      line-height: 1.1;
-      letter-spacing: 0;
-    }
-
-    .section-kicker {
-      max-width: 500px;
-      color: var(--muted);
-      font-size: 1rem;
-    }
-
-    .overview-grid {
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 22px;
-      align-items: stretch;
-    }
-
-    .panel,
-    .member-card,
-    .outcome-card,
-    .timeline-item {
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--white);
-      box-shadow: var(--shadow);
-    }
-
-    .panel {
-      padding: clamp(22px, 4vw, 34px);
-    }
-
-    .lead {
-      margin-bottom: 26px;
-      font-size: 1.13rem;
-      color: #26372f;
-    }
-
-    .fact-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-    }
-
-    .fact {
-      border-left: 4px solid var(--teal);
-      padding: 4px 0 4px 14px;
-    }
-
-    .fact:nth-child(2) {
-      border-color: var(--moss);
-    }
-
-    .fact:nth-child(3) {
-      border-color: var(--gold);
-    }
-
-    .fact:nth-child(4) {
-      border-color: var(--clay);
-    }
-
-    .fact dt {
-      margin-bottom: 3px;
-      color: var(--muted);
-      font-size: 0.82rem;
-      font-weight: 800;
-      text-transform: uppercase;
-    }
-
-    .fact dd {
-      margin: 0;
-      font-weight: 750;
-    }
-
-    .focus-list {
-      display: grid;
-      gap: 14px;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .focus-list li {
-      display: grid;
-      grid-template-columns: 12px 1fr;
-      gap: 12px;
-      align-items: start;
-      color: #26372f;
-    }
-
-    .focus-list li::before {
-      content: "";
-      width: 10px;
-      height: 10px;
-      margin-top: 8px;
-      border-radius: 50%;
-      background: var(--teal);
-    }
-
-    .member-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .member-card {
-      display: grid;
-      grid-template-columns: 92px 1fr;
-      gap: 18px;
-      align-items: center;
-      padding: 18px;
-    }
-
-    .member-card img {
-      width: 92px;
-      height: 92px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 4px solid var(--sky);
-    }
-
-    .member-card h3 {
-      margin-bottom: 4px;
-      font-size: 1.2rem;
-    }
-
-    .member-card p {
-      margin-bottom: 0;
-      color: var(--muted);
-      font-weight: 700;
-    }
-
-    .date {
-      color: var(--forest);
-      font-weight: 900;
-      white-space: nowrap;
-    }
-
-    .sdg-strip {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 20px;
-    }
-
-    .sdg-strip span {
-      border-radius: var(--radius);
-      padding: 10px 12px;
-      color: var(--white);
-      font-weight: 900;
-      font-size: 0.86rem;
-    }
-
-    .sdg-strip span:nth-child(1) {
-      background: #4c9f38;
-    }
-
-    .sdg-strip span:nth-child(2) {
-      background: #fcc30b;
-      color: #1c221f;
-    }
-
-    .sdg-strip span:nth-child(3) {
-      background: #fd6925;
-    }
-
-    .sdg-strip span:nth-child(4) {
-      background: #bf8b2e;
-    }
-
-    .sdg-strip span:nth-child(5) {
-      background: #3f7e44;
-    }
-
-    .poster {
-      overflow: hidden;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--white);
-      box-shadow: var(--shadow);
-    }
-
-    .poster img {
-      width: 100%;
-      height: auto;
-    }
-
-    footer {
-      margin-top: 30px;
-      padding: 30px 20px;
-      color: var(--muted);
-      text-align: center;
-      background: #edf4ef;
-      border-top: 1px solid var(--line);
-    }
-
-    footer strong {
-      color: var(--forest);
-    }
-
-    #timeline .timeline-wrap {
-      position: relative;
-      overflow-x: auto;
-      padding: 10px 0 16px;
-    }
-
-    #timeline .timeline {
-      position: relative;
-      min-width: 980px;
-      display: grid;
-      grid-template-columns: repeat(6, minmax(0, 1fr));
-      gap: 14px;
-      padding-top: 22px;
-    }
-
-    #timeline .timeline::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 10px;
-      height: 3px;
-      background: linear-gradient(90deg, rgba(29, 90, 59, 0.26), rgba(25, 122, 120, 0.24));
-      border-radius: 999px;
-    }
-
-    #timeline .phase {
-      position: relative;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 12px;
-      background: #fbfdf9;
-      min-height: 170px;
-    }
-
-    #timeline .phase::before {
-      content: "";
-      position: absolute;
-      top: -18px;
-      left: 12px;
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: #b8c8bf;
-      border: 2px solid #f8faf6;
-      box-shadow: 0 0 0 1px var(--line);
-    }
-
-    #timeline .phase.done {
-      border-color: rgba(29, 90, 59, 0.34);
-      background: linear-gradient(180deg, #eef8f2, #e8f4ec);
-    }
-
-    #timeline .phase.done::before {
-      background: var(--forest);
-    }
-
-    #timeline .phase.current {
-      border-color: rgba(215, 182, 105, 0.68);
-      background: linear-gradient(180deg, #fff8ea, #fff2d9);
-    }
-
-    #timeline .phase.current::before {
-      background: var(--gold);
-    }
-
-    #timeline .pill {
-      display: inline-block;
-      margin-bottom: 8px;
-      border-radius: 999px;
-      padding: 3px 8px;
-      font-size: 0.76rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-
-    #timeline .pill.done {
-      background: rgba(29, 90, 59, 0.12);
-      color: var(--forest);
-    }
-
-    #timeline .pill.next {
-      background: rgba(215, 182, 105, 0.22);
-      color: #7b5d1d;
-    }
-
-    #timeline .phase h3 {
-      margin-bottom: 6px;
-      font-size: 0.98rem;
-      line-height: 1.25;
-    }
-
-    #timeline .phase p {
-      margin-bottom: 0;
-      color: #304039;
-      font-size: 0.92rem;
-    }
-
-    #timeline .accordion-body {
-      overflow-x: auto;
-    }
-
-    #timeline .accordion {
-      --bs-accordion-active-color: #000000;
-      --bs-accordion-active-bg: rgba(29, 90, 59, 0.12);
-      --bs-accordion-btn-focus-box-shadow: none;
-    }
-
-    @media (max-width: 860px) {
-      .nav {
-        align-items: flex-start;
-        flex-direction: column;
-        justify-content: center;
-        min-height: 92px;
-        gap: 6px;
-      }
-
-      .nav-links {
-        width: 100%;
-        overflow-x: auto;
-        padding-bottom: 4px;
-      }
-
-      .hero,
-      .hero-inner {
-        min-height: 72vh;
-      }
-
-      .section-heading {
-        align-items: start;
-        flex-direction: column;
-      }
-
-      .overview-grid,
-      .outcomes-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 620px) {
-      .nav,
-      main section,
-      .hero-inner {
-        width: min(100% - 28px, 1120px);
-      }
-
-      .hero {
-        background-position: 64% center;
-      }
-
-      .hero-inner {
-        padding-top: 42px;
-        padding-bottom: 78px;
-      }
-
-      .hero-meta span {
-        width: 100%;
-      }
-
-      main {
-        margin-top: -22px;
-      }
-
-      main section {
-        padding: 40px 0;
-      }
-
-      .fact-grid,
-      .member-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .member-card {
-        grid-template-columns: 74px 1fr;
-      }
-
-      .member-card img {
-        width: 74px;
-        height: 74px;
-      }
-
-    }
-  </style>
+  <link rel="stylesheet" href="assets/css/site.css">
+  <link rel="stylesheet" href="assets/css/index.css">
 </head>
-<body>
+<body class="index-page">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   <header class="site-header">
     <nav class="nav" aria-label="Primary navigation">
       <a class="brand" href="#top" aria-label="The Green Algorithms home">
-        <img class="brand-logo" src="pdf_images/curtin-logo.jpg" alt="curtin logo">
+        <img class="brand-logo" src="pdf_images/curtin-logo.jpg" alt="Curtin University" width="602" height="101">
         <!-- <span class="brand-mark">T1</span> -->
         <!-- <span>The Green Algorithms</span> -->
       </a>
@@ -648,12 +40,12 @@
           <span>Dynamic optimisation</span>
           <span>Curriculum integration</span>
         </div>
-            <img class="nav-logo-right" src="pdf_images/sdgs_priority.png" alt="sdgs">
+            <img class="nav-logo-right" src="pdf_images/sdgs_priority.png" alt="Priority United Nations Sustainable Development Goals" width="464" height="86">
       </div>
     </div>
   </section>
 
-  <main>
+  <main id="main-content" tabindex="-1">
     <section id="overview" aria-labelledby="overview-title">
       <div class="section-heading">
         <h2 id="overview-title">Project Information</h2>
@@ -710,28 +102,28 @@
 
       <div class="member-grid">
         <article class="member-card">
-          <img src="pdf_images/Image5.jpg" alt="Portrait of Sam Wi">
+          <img src="pdf_images/Image5.jpg" alt="Portrait of Sam Wi" width="952" height="934" loading="lazy">
           <div>
             <h3>Dr Sam Wiwatanapataphee</h3>
             <p>Project Investigator</p>
           </div>
         </article>
         <article class="member-card">
-          <img src="pdf_images/Image6.jpg" alt="Portrait of Ying Li">
+          <img src="pdf_images/Image6.jpg" alt="Portrait of Ying Li" width="952" height="934" loading="lazy">
           <div>
             <h3>Dr Ying Li</h3>
             <p>Project Investigator</p>
           </div>
         </article>
         <article class="member-card">
-          <img src="pdf_images/fabiana-tessele-profile.png" alt="Portrait of Dr Fabiana Tessele">
+          <img src="pdf_images/fabiana-tessele-profile.png" alt="Portrait of Dr Fabiana Tessele" width="1080" height="1080" loading="lazy">
           <div>
             <h3>Dr Fabiana Tessele</h3>
             <p>Project Mentor</p>
           </div>
         </article>
         <article class="member-card">
-          <img src="pdf_images/chris-buhlmann-profile.png" alt="Portrait of Chris Buhlmann">
+          <img src="pdf_images/chris-buhlmann-profile.png" alt="Portrait of Chris Buhlmann" width="1080" height="1080" loading="lazy">
           <div>
             <h3>Chris Buhlmann</h3>
             <p>Project Mentor</p>
@@ -746,7 +138,7 @@
         <p class="section-kicker"></p>
       </div>
 
-      <div class="timeline-wrap" aria-label="Horizontal timeline container">
+      <div class="timeline-wrap" role="region" tabindex="0" aria-label="Project timeline (scroll horizontally)">
         <div class="timeline">
           <article class="phase done">
             <span class="pill done">Completed</span>
@@ -789,8 +181,8 @@
         <p class="section-kicker">The showcase poster summarises the framework, curriculum integration, priority SDGs, and delivery phases.</p>
       </div>
       <iframe src="pdf_images/poster.pdf" 
-        width="100%" height="900px" style="border:none;"></iframe>
-      <!-- <a href="pdf_images/poster.pdf" target="_blank">Download PDF</a> -->
+        class="poster-frame" title="Project showcase poster" loading="lazy"></iframe>
+      <p><a class="resource-link" href="pdf_images/poster.pdf" target="_blank" rel="noopener noreferrer">Open poster PDF in a new tab</a></p>
     </section>
   </main>
 
