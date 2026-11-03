@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Powering T&amp;L with Waste-to-Energy Systems</title>
   <meta name="description" content="A dynamic optimisation and machine learning framework for sustainable waste-to-energy teaching and learning.">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
   <style>
     :root {
       --ink: #10221b;
@@ -363,79 +365,10 @@
       font-weight: 700;
     }
 
-    .timeline {
-      position: relative;
-      display: grid;
-      gap: 16px;
-    }
-
-    .timeline::before {
-      content: "";
-      position: absolute;
-      top: 20px;
-      bottom: 20px;
-      left: 19px;
-      width: 2px;
-      background: var(--line);
-    }
-
-    .timeline-item {
-      position: relative;
-      display: grid;
-      grid-template-columns: 88px 1fr;
-      gap: 18px;
-      padding: 18px 18px 18px 62px;
-      box-shadow: none;
-    }
-
-    .timeline-item::before {
-      content: "";
-      position: absolute;
-      top: 21px;
-      left: 12px;
-      width: 16px;
-      height: 16px;
-      border-radius: 100%;
-      background: var(--white);
-      border: 5px solid var(--forest);
-    }
-
     .date {
       color: var(--forest);
       font-weight: 900;
       white-space: nowrap;
-    }
-
-    .timeline-item h3 {
-      margin-bottom: 4px;
-      font-size: 1.04rem;
-    }
-
-    .timeline-item p {
-      margin-bottom: 0;
-      color: var(--muted);
-    }
-
-    .outcomes-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .outcome-card {
-      padding: 22px;
-      box-shadow: none;
-    }
-
-    .outcome-card h3 {
-      margin-bottom: 10px;
-      color: var(--forest);
-      font-size: 1.1rem;
-    }
-
-    .outcome-card p {
-      margin-bottom: 0;
-      color: var(--muted);
     }
 
     .sdg-strip {
@@ -498,6 +431,115 @@
 
     footer strong {
       color: var(--forest);
+    }
+
+    #timeline .timeline-wrap {
+      position: relative;
+      overflow-x: auto;
+      padding: 10px 0 16px;
+    }
+
+    #timeline .timeline {
+      position: relative;
+      min-width: 980px;
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 14px;
+      padding-top: 22px;
+    }
+
+    #timeline .timeline::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 10px;
+      height: 3px;
+      background: linear-gradient(90deg, rgba(29, 90, 59, 0.26), rgba(25, 122, 120, 0.24));
+      border-radius: 999px;
+    }
+
+    #timeline .phase {
+      position: relative;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px;
+      background: #fbfdf9;
+      min-height: 170px;
+    }
+
+    #timeline .phase::before {
+      content: "";
+      position: absolute;
+      top: -18px;
+      left: 12px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #b8c8bf;
+      border: 2px solid #f8faf6;
+      box-shadow: 0 0 0 1px var(--line);
+    }
+
+    #timeline .phase.done {
+      border-color: rgba(29, 90, 59, 0.34);
+      background: linear-gradient(180deg, #eef8f2, #e8f4ec);
+    }
+
+    #timeline .phase.done::before {
+      background: var(--forest);
+    }
+
+    #timeline .phase.current {
+      border-color: rgba(215, 182, 105, 0.68);
+      background: linear-gradient(180deg, #fff8ea, #fff2d9);
+    }
+
+    #timeline .phase.current::before {
+      background: var(--gold);
+    }
+
+    #timeline .pill {
+      display: inline-block;
+      margin-bottom: 8px;
+      border-radius: 999px;
+      padding: 3px 8px;
+      font-size: 0.76rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    #timeline .pill.done {
+      background: rgba(29, 90, 59, 0.12);
+      color: var(--forest);
+    }
+
+    #timeline .pill.next {
+      background: rgba(215, 182, 105, 0.22);
+      color: #7b5d1d;
+    }
+
+    #timeline .phase h3 {
+      margin-bottom: 6px;
+      font-size: 0.98rem;
+      line-height: 1.25;
+    }
+
+    #timeline .phase p {
+      margin-bottom: 0;
+      color: #304039;
+      font-size: 0.92rem;
+    }
+
+    #timeline .accordion-body {
+      overflow-x: auto;
+    }
+
+    #timeline .accordion {
+      --bs-accordion-active-color: #000000;
+      --bs-accordion-active-bg: rgba(29, 90, 59, 0.12);
+      --bs-accordion-btn-focus-box-shadow: none;
     }
 
     @media (max-width: 860px) {
@@ -573,19 +615,6 @@
         height: 74px;
       }
 
-      .timeline::before {
-        left: 14px;
-      }
-
-      .timeline-item {
-        grid-template-columns: 1fr;
-        gap: 4px;
-        padding-left: 50px;
-      }
-
-      .timeline-item::before {
-        left: 7px;
-      }
     }
   </style>
 </head>
@@ -601,8 +630,8 @@
         <a href="#overview">Project</a>
         <a href="#team">Team</a>
         <a href="#timeline">Timeline</a>
-        <a href="progress.html">Progress</a>
-        <a href="#outcomes">Outcomes</a>
+        <a href="progress.html">Outcomes</a>
+        <!-- <a href="#outcomes">Outcomes</a> -->
       </div>
     </nav>
   </header>
@@ -627,7 +656,7 @@
   <main>
     <section id="overview" aria-labelledby="overview-title">
       <div class="section-heading">
-        <h2 id="overview-title">Project Basic Information</h2>
+        <h2 id="overview-title">Project Information</h2>
         <p class="section-kicker">The project turns biogas hub design into an applied teaching and learning framework for sustainable systems modelling.</p>
       </div>
 
@@ -711,95 +740,57 @@
       </div>
     </section>
 
-    <section id="timeline" aria-labelledby="timeline-title">
+    <section id="timeline" aria-labelledby="status-title">
       <div class="section-heading">
-        <h2 id="timeline-title">Timeline</h2>
-        <p class="section-kicker">The work moves from discovery and data engineering through model development, teaching design, and showcase delivery.</p>
+        <h2 id="status-title">Project Timeline</h2>
+        <p class="section-kicker"></p>
       </div>
 
-      <div class="timeline">
-        <article class="timeline-item">
-          <div class="date">12 May</div>
-          <div>
-            <h3>Phase 1 · Data Collection and Exploration</h3>
-            <p>Context review, industry analysis, and project scoping.</p>
-          </div>
-        </article>
-        <article class="timeline-item">
-          <div class="date">1 June</div>
-          <div>
-            <h3>Phase 2 · Data Engineering</h3>
-            <p>Synthetic data generation framework for scalable experimentation. <a href="progress.html"><strong>View current implementation progress</strong></a>.</p>
-          </div>
-        </article>
-        <article class="timeline-item">
-          <div class="date">1 July</div>
-          <div>
-            <h3>Phase 3 · Machine Learning Framework</h3>
-            <p>Predictive modelling for biogas yield, resource demand, and Case Study 1.</p>
-          </div>
-        </article>
-        <article class="timeline-item">
-          <div class="date">1 Aug</div>
-          <div>
-            <h3>Phase 4 · Notebook Design</h3>
-            <p>Teaching notebooks and guided learning materials.</p>
-          </div>
-        </article>
-        <article class="timeline-item">
-          <div class="date">1 Sep</div>
-          <div>
-            <h3>Phase 5 · Optimisation Framework</h3>
-            <p>Hub design, feedstock allocation, transport optimisation, and Case Study 2.</p>
-          </div>
-        </article>
-        <article class="timeline-item">
-          <div class="date">1 Oct</div>
-          <div>
-            <h3>Phase 6 · Dynamic Dashboard Design</h3>
-            <p>Interactive dashboard concepts for model outputs, trade-offs, and scenarios.</p>
-          </div>
-        </article>
-        <article class="timeline-item">
-          <div class="date">27 Oct</div>
-          <div>
-            <h3>Final Showcase and Recognition Event</h3>
-            <p>Presentation of project outputs and sustainability education outcomes.</p>
-          </div>
-        </article>
+      <div class="timeline-wrap" aria-label="Horizontal timeline container">
+        <div class="timeline">
+          <article class="phase done">
+            <span class="pill done">Completed</span>
+            <h3>Phase 1: Data Collection and Exploration</h3>
+            <p>Industry context review, sustainability challenges, data exploration, and project scoping.</p>
+          </article>
+          <article class="phase done">
+            <span class="pill done">Completed</span>
+            <h3>Phase 2: Data Engineering</h3>
+            <p>Development and release of a synthetic data generation framework, including linked datasets, validation tools, and documentation.</p>
+          </article>
+          <article class="phase done">
+            <span class="pill done">Completed</span>
+            <h3>Phase 3: Machine Learning Framework</h3>
+            <p>Development of predictive models for biogas yield and resource demand, alongside the design of student projects.</p>
+          </article>
+          <article class="phase done">
+            <span class="pill done">Completed</span>
+            <h3>Phase 4: Assignments & Projects Design</h3>
+            <p>Development and implementation of industry-informed assignments and projects using the developed frameworks.</p>
+          </article>
+          <article class="phase done">
+            <span class="pill done">Completed</span>
+            <h3>Phase 5: Optimisation Framework</h3>
+            <p>Development of optimisation models for resource allocation and process efficiency, alongside the design of student projects.</p>
+          </article>
+          <article class="phase done">
+            <span class="pill done">Completed</span>
+            <h3>Phase 6: Evaluation of Curriculum Integration</h3>
+            <p>Evaluation of curriculum integration, student learning outcomes, and opportunities for future improvements.</p>
+          </article>
+        </div>
       </div>
+
     </section>
-
-    <!-- <section id="outcomes" aria-labelledby="outcomes-title">
-      <div class="section-heading">
-        <h2 id="outcomes-title">Outcomes</h2>
-        <p class="section-kicker">The expected outputs support active learning, project-based assessment, and cross-disciplinary sustainability education.</p>
-      </div>
-
-      <div class="outcomes-grid">
-        <article class="outcome-card">
-          <h3>Biogas Optimisation Case Study</h3>
-          <p>A practical case study where students analyse regional waste-to-energy systems and evaluate cost, emissions, logistics, and resource trade-offs.</p>
-        </article>
-        <article class="outcome-card">
-          <h3>Computational Learning Tools</h3>
-          <p>Simplified Excel, Python, notebook, and dashboard resources for techno-economic analysis, machine learning, and optimisation exercises.</p>
-        </article>
-        <article class="outcome-card">
-          <h3>Project-Based Assessment</h3>
-          <p>Assessment activities where students design a regional biogas hub, compare centralised and decentralised systems, and test decisions under uncertainty.</p>
-        </article>
-      </div>
-    </section> -->
 
     <section aria-labelledby="poster-title">
       <div class="section-heading">
-        <h2 id="poster-title">Project Poster</h2>
+        <h2 id="poster-title">Poster</h2>
         <p class="section-kicker">The showcase poster summarises the framework, curriculum integration, priority SDGs, and delivery phases.</p>
       </div>
-      <figure class="poster">
-        <img src="pdf_images/Image7.png" alt="Project poster for Powering T&L with Waste-to-Energy Systems">
-      </figure>
+      <iframe src="pdf_images/poster.pdf" 
+        width="100%" height="900px" style="border:none;"></iframe>
+      <!-- <a href="pdf_images/poster.pdf" target="_blank">Download PDF</a> -->
     </section>
   </main>
 

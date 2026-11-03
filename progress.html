@@ -347,6 +347,17 @@
       background: #fbfdf9;
     }
 
+    .testimonial-avatar {
+      display: block;
+      width: 100px;
+      height: 100px;
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 50%;
+      background: rgba(29, 90, 59, 0.1);
+      font-size: 4rem;
+    }
+
     .card h3,
     .source h3 {
       margin-bottom: 8px;
@@ -374,6 +385,767 @@
       --bs-accordion-btn-focus-box-shadow: none; 
     }
 
+    /* =========================================
+    MACHINE LEARNING FRAMEWORK
+    ========================================= */
+
+    .ml-section {
+      --ml-text: #183047;
+      --ml-muted: #617184;
+      --ml-border: #dfe7ef;
+      --ml-accent: #087f8c;
+
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 24px;
+
+      font-family: Inter, Arial, sans-serif;
+      color: var(--ml-text);
+    }
+
+    /* HEADER */
+
+    .ml-header {
+      text-align: center;
+      margin-bottom: 45px;
+    }
+
+    .ml-eyebrow {
+      color: var(--ml-accent);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .ml-header h2 {
+      font-size: clamp(26px, 4vw, 38px);
+      margin: 12px 0;
+    }
+
+    .ml-header p {
+      max-width: 720px;
+      margin: auto;
+      color: var(--ml-muted);
+      line-height: 1.7;
+    }
+
+    /* =========================================
+      PIPELINE
+    ========================================= */
+
+    .ml-pipeline {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 12px;
+      position: relative;
+      margin-bottom: 28px;
+    }
+
+    .ml-stage {
+      position: relative;
+
+      min-width: 0;
+      min-height: 155px;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      padding: 18px 10px;
+
+      border: 2px solid transparent;
+      border-radius: 14px;
+
+      background: var(--stage-bg);
+
+      color: var(--ml-text);
+      text-align: center;
+
+      cursor: pointer;
+
+      transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+    }
+
+    .ml-stage:hover {
+      transform: translateY(-5px);
+    }
+
+    .ml-stage.active {
+      border-color: var(--stage-color);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.09);
+    }
+
+    .ml-stage:focus-visible {
+      outline: 3px solid var(--ml-accent);
+      outline-offset: 3px;
+    }
+
+    /* Stage number */
+
+    .ml-number {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--stage-color);
+      margin-bottom: 10px;
+    }
+
+    /* Icon */
+
+    .ml-icon {
+      width: 42px;
+      height: 42px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin-bottom: 12px;
+
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.65);
+
+      font-size: 25px;
+    }
+
+    /* Stage title */
+
+    .ml-stage-title {
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    /* Connecting arrows */
+
+    .ml-stage:not(:last-child)::after {
+      content: "→";
+
+      position: absolute;
+      right: -14px;
+      top: 50%;
+      transform: translateY(-50%);
+
+      font-size: 19px;
+      font-weight: bold;
+      color: #8190a0;
+
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* Stage colours */
+
+    .ml-stage[data-stage="0"] {
+      --stage-bg: #e3efff;
+      --stage-color: #2878c7;
+    }
+
+    .ml-stage[data-stage="1"] {
+      --stage-bg: #e2f3e5;
+      --stage-color: #31934b;
+    }
+
+    .ml-stage[data-stage="2"] {
+      --stage-bg: #fff0dc;
+      --stage-color: #c8871d;
+    }
+
+    .ml-stage[data-stage="3"] {
+      --stage-bg: #e9e9fa;
+      --stage-color: #6b63bd;
+    }
+
+    .ml-stage[data-stage="4"] {
+      --stage-bg: #ffe5e5;
+      --stage-color: #cf6262;
+    }
+
+    .ml-stage[data-stage="5"] {
+      --stage-bg: #efe5f7;
+      --stage-color: #9864bd;
+    }
+
+    /* =========================================
+      DETAIL PANEL
+    ========================================= */
+
+    .ml-detail {
+      background: #ffffff;
+
+      border: 1px solid var(--ml-border);
+      border-radius: 18px;
+
+      padding: 32px;
+
+      box-shadow: 0 12px 35px rgba(20, 40, 60, 0.05);
+
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Coloured top border */
+
+    .ml-detail::before {
+      content: "";
+
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+
+      height: 5px;
+      background: var(--detail-color, #2878c7);
+    }
+
+    .ml-detail-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+
+      margin-bottom: 20px;
+    }
+
+    .ml-detail-icon {
+      width: 58px;
+      height: 58px;
+
+      flex-shrink: 0;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 14px;
+      background: var(--detail-bg, #e3efff);
+
+      font-size: 30px;
+    }
+
+    .ml-detail-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--ml-accent);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .ml-detail-title {
+      font-size: 25px;
+      margin: 5px 0 0;
+    }
+
+    .ml-description {
+      color: #526477;
+      line-height: 1.8;
+      margin-bottom: 25px;
+    }
+
+    /* =========================================
+      INFORMATION CARDS
+    ========================================= */
+
+    .ml-info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .ml-info-card {
+      padding: 20px;
+
+      border: 1px solid var(--ml-border);
+      border-radius: 12px;
+
+      background: #f8fafc;
+    }
+
+    .ml-info-card h4 {
+      margin: 0 0 10px;
+      font-size: 15px;
+    }
+
+    .ml-info-card p {
+      margin: 0;
+
+      font-size: 13px;
+      color: var(--ml-muted);
+      line-height: 1.65;
+    }
+
+    /* =========================================
+      FOOTER NAVIGATION
+    ========================================= */
+
+    .ml-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      gap: 16px;
+      margin-top: 28px;
+    }
+
+    .ml-progress {
+      font-size: 13px;
+      color: var(--ml-muted);
+    }
+
+    .ml-nav-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .ml-nav-btn {
+      padding: 11px 20px;
+
+      border: 1px solid var(--ml-border);
+      border-radius: 9px;
+
+      background: white;
+      color: var(--ml-text);
+
+      font-size: 13px;
+      font-weight: 600;
+
+      cursor: pointer;
+    }
+
+    .ml-nav-btn.primary {
+      background: var(--ml-accent);
+      color: white;
+      border-color: var(--ml-accent);
+    }
+
+    .ml-nav-btn:hover:not(:disabled) {
+      filter: brightness(0.94);
+    }
+
+    .ml-nav-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    .ml-nav-btn:focus-visible {
+      outline: 3px solid var(--ml-accent);
+      outline-offset: 3px;
+    }
+
+    /* PHASE 4 */
+
+    #assignments-progress {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .phase-intro {
+      max-width: 850px;
+      line-height: 1.7;
+      color: #526477;
+      margin-bottom: 35px;
+    }
+
+    /* DASHBOARD */
+
+    .engagement-dashboard {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      gap: 24px;
+      margin-bottom: 65px;
+    }
+
+    .engagement-summary {
+      background: #104d66;
+      color: white;
+      border-radius: 14px;
+      padding: 35px 22px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .engagement-total {
+      text-align: center;
+    }
+
+    .engagement-number {
+      display: block;
+      font-size: 65px;
+      font-weight: 800;
+    }
+
+    .engagement-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: #80e2b9;
+    }
+
+    .engagement-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 35px;
+      text-align: center;
+    }
+
+    .engagement-stats strong {
+      display: block;
+      font-size: 26px;
+    }
+
+    .engagement-stats span {
+      display: block;
+      font-size: 11px;
+      margin-top: 5px;
+    }
+
+    .engagement-breakdown h3 {
+      color: #006e8b;
+      font-size: 16px;
+      margin: 0 0 12px;
+    }
+
+    .engagement-unit {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+
+      background: #eaf2f5;
+      padding: 15px;
+      border-radius: 12px;
+
+      margin-bottom: 12px;
+    }
+
+    .engagement-unit.green {
+      background: #edf5ed;
+    }
+
+    .unit-count {
+      width: 62px;
+      height: 62px;
+      flex-shrink: 0;
+
+      border-radius: 50%;
+      background: #087b9b;
+      color: white;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .green .unit-count {
+      background: #21823b;
+    }
+
+    .engagement-unit h4 {
+      margin: 0 0 4px;
+      font-size: 16px;
+    }
+
+    .engagement-unit p {
+      margin: 0 0 6px;
+      font-size: 14px;
+    }
+
+    .engagement-unit small {
+      color: #617184;
+    }
+
+    .engagement-breakdown .project-heading {
+      color: #7b258b;
+      margin-top: 22px;
+    }
+
+    .project-engagement {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .project-engagement > div {
+      background: #f3eaf5;
+      border-radius: 10px;
+      padding: 14px 10px;
+      text-align: center;
+    }
+
+    .project-engagement strong {
+      display: block;
+      font-size: 25px;
+      color: #7b258b;
+    }
+
+    .project-engagement span {
+      display: block;
+      font-size: 12px;
+      margin-top: 6px;
+    }
+
+    /* ASSIGNMENT SHOWCASE */
+
+    .showcase-heading {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .showcase-heading h3 {
+      font-size: 26px;
+      margin-bottom: 10px;
+    }
+
+    .showcase-heading p {
+      color: #617184;
+      line-height: 1.7;
+    }
+
+    .assignment-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 25px;
+    }
+
+    .assignment-card {
+      border: 1px solid #e0e8ef;
+      border-radius: 16px;
+      overflow: hidden;
+      background: white;
+
+      transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+    }
+
+    .assignment-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+    }
+
+    .assignment-preview {
+      height: 280px;
+      background: #f1f5f9;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      overflow: hidden;
+    }
+
+    .assignment-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .assignment-content {
+      padding: 25px;
+    }
+
+    .assignment-code {
+      display: inline-block;
+      color: #087b9b;
+      font-weight: 700;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+
+    .assignment-content h4 {
+      font-size: 20px;
+      margin: 0 0 12px;
+      line-height: 1.4;
+    }
+
+    .assignment-content p {
+      color: #617184;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .assignment-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .assignment-meta span {
+      background: #edf4f7;
+      padding: 7px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .assignment-button {
+      background: #087b9b;
+      color: white;
+
+      border: none;
+      border-radius: 8px;
+
+      padding: 12px 20px;
+      font-weight: 600;
+
+      cursor: pointer;
+    }
+
+    .assignment-button:hover {
+      background: #075f78;
+    }
+
+    /* PDF MODAL */
+
+    .assignment-modal {
+      width: min(95%, 1000px);
+      max-width: 1000px;
+      height: 85vh;
+
+      padding: 0;
+      border: none;
+      border-radius: 14px;
+
+      overflow: hidden;
+    }
+
+    .assignment-modal[open] {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .assignment-modal::backdrop {
+      background: rgba(0, 0, 0, 0.65);
+    }
+
+    .modal-header,
+    .modal-footer {
+      padding: 15px 20px;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      background: white;
+    }
+
+    .modal-header button {
+      border: none;
+      background: transparent;
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    .assignment-modal iframe {
+      width: 100%;
+      flex: 1;
+      min-height: 0;
+      border: none;
+    }
+
+    .modal-footer a {
+      color: #087b9b;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+
+    /* =========================================
+      ANIMATION
+    ========================================= */
+
+    .ml-fade {
+      animation: mlFade 0.35s ease;
+    }
+
+    @keyframes mlFade {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* =========================================
+      PHASE 5: OPTIMISATION FRAMEWORK
+    ========================================= */
+
+    .optimisation-pipeline .ml-stage[data-opt-stage="0"] {
+      --stage-bg: #e3efff;
+      --stage-color: #2878c7;
+    }
+
+    .optimisation-pipeline .ml-stage[data-opt-stage="1"] {
+      --stage-bg: #e2f3e5;
+      --stage-color: #31934b;
+    }
+
+    .optimisation-pipeline .ml-stage[data-opt-stage="2"] {
+      --stage-bg: #fff0dc;
+      --stage-color: #c8871d;
+    }
+
+    .optimisation-pipeline .ml-stage[data-opt-stage="3"] {
+      --stage-bg: #e9e9fa;
+      --stage-color: #6b63bd;
+    }
+
+    .optimisation-pipeline .ml-stage[data-opt-stage="4"] {
+      --stage-bg: #ffe5e5;
+      --stage-color: #cf6262;
+    }
+
+    .optimisation-pipeline .ml-stage[data-opt-stage="5"] {
+      --stage-bg: #efe5f7;
+      --stage-color: #9864bd;
+    }
+
+    /* More compact than Phase 3 */
+
+    .opt-detail {
+      padding: 26px 30px;
+    }
+
+    .opt-detail .ml-detail-header {
+      margin-bottom: 12px;
+    }
+
+    .opt-detail .ml-description {
+      margin-bottom: 18px;
+    }
+
+    /* Key concept tags */
+
+    .opt-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .opt-tag {
+      padding: 8px 14px;
+
+      background: #f0f5f8;
+      border: 1px solid #e0e8ef;
+      border-radius: 20px;
+
+      color: #31516b;
+
+      font-size: 12px;
+      font-weight: 600;
+    }
 
     @keyframes fill {
       from { width: 0; }
@@ -403,6 +1175,26 @@
         font-size: 0.88rem;
         gap: 10px;
       }
+
+      .ml-pipeline {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .ml-stage:nth-child(3)::after {
+        display: none;
+      }
+
+      .ml-info-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      
+      .engagement-dashboard {
+        grid-template-columns: 1fr;
+      }
+
+      .assignment-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     @media (max-width: 620px) {
@@ -420,48 +1212,121 @@
       .hero {
         padding-top: 34px;
       }
+
+      .ml-section {
+        padding: 40px 16px;
+      }
+
+      .ml-pipeline {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .ml-stage {
+        min-height: 130px;
+      }
+
+      .ml-stage:nth-child(2)::after,
+      .ml-stage:nth-child(4)::after {
+        display: none;
+      }
+
+      .ml-stage:nth-child(3)::after {
+        display: block;
+      }
+
+      .ml-info-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .ml-detail {
+        padding: 24px 18px;
+      }
+
+      .ml-detail-title {
+        font-size: 21px;
+      }
+
+      .ml-navigation {
+        flex-wrap: wrap;
+      }
+
+      .project-engagement {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .engagement-stats {
+        gap: 6px;
+      }
+
+      .assignment-preview {
+        height: 230px;
+      }
+
+      .opt-detail {
+        padding: 22px 18px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .ml-stage {
+        transition: none;
+      }
+
+      .ml-fade {
+        animation: none;
+      }
+
+      .assignment-card {
+        transition: none;
+      }
     }
   </style>
 </head>
 <body>
   <header class="topbar">
     <div class="topbar-inner">
-      <div class="brand">Biogas Hub Progress</div>
+      <div class="brand">Powering T&amp;L with Waste-to-Energy Systems</div>
       <nav class="top-links" aria-label="Progress navigation">
         <a href="index.html">Main Page</a>
-        <a href="#status">Timeline</a>
+        <a href="#timeline">Timeline</a>
         <a href="#data-progress">Phase 1</a>
         <a href="#engineering-progress">Phase 2</a>
+        <a href="#ml-progress">Phase 3</a>
+        <a href="#assignments-progress">Phase 4</a>
+        <a href="#optimisation-progress">Phase 5</a>
+        <a href="#evaluation-progress">Phase 6</a>
       </nav>
     </div>
   </header>
 
   <section class="hero" aria-label="Progress summary">
     <div class="hero-inner">
-      <p class="eyebrow">Update · 08 Jul 2026</p>
-      <h1>Phase 2: Synthetic Data Framework Complete</h1>
-      <p class="hero-lead">Synthetic data generation, validation, and release documentation are complete. The project now moves to planned Phase 3 machine learning and later optimisation work.</p>
+      <p class="eyebrow">Update · 02 Nov 2026</p>
+      <h1>Project Outcomes</h1>
+      <!-- <p class="hero-lead">The project has successfully delivered a synthetic data framework, predictive modelling, and optimisation for sustainable biogas hub design, alongside curriculum integration and student projects.</p> -->
       <div class="hero-cards">
         <article class="hero-card">
           <strong>100%</strong>
-          <span>Phase 2 completion: public synthetic data framework delivered and validated.</span>
+          <span>Project Progress</span>
           <div class="progress-track" role="img" aria-label="Progress bar showing 100 percent complete">
             <div class="progress-value"></div>
           </div>
         </article>
         <article class="hero-card">
           <strong>Planned Next Focus</strong>
-          <span>Phase 3 predictive modelling and downstream Phase 4/5 teaching notebook and optimisation scaffolding.</span>
+          <span>Scaling beyond student projects and assignments.</span>
         </article>
       </div>
     </div>
   </section>
 
+  
+
   <main>
+
     <section id="status" aria-labelledby="status-title">
       <div class="section-head">
         <h2 id="status-title">Project Timeline</h2>
-        <p class="section-kicker">All Phase 1/2 release tasks are complete. Public synthetic generation and validation are ready for planned ML and optimisation phases.</p>
       </div>
 
       <div class="timeline-wrap" aria-label="Horizontal timeline container">
@@ -469,195 +1334,36 @@
           <article class="phase done">
             <span class="pill done">Completed</span>
             <h3>Phase 1: Data Collection and Exploration</h3>
-            <p>Context review, industry analysis, and project scoping.</p>
+            <p>Industry context review, sustainability challenges, data exploration, and project scoping.</p>
           </article>
           <article class="phase done">
             <span class="pill done">Completed</span>
             <h3>Phase 2: Data Engineering</h3>
-            <p>Public synthetic data package release with linked tables, CLI, validation checks, and release docs.</p>
+            <p>Development and release of a synthetic data generation framework, including linked datasets, validation tools, and documentation.</p>
           </article>
-          <article class="phase current">
-            <span class="pill next">Ongoing</span>
+          <article class="phase done">
+            <span class="pill done">Completed</span>
             <h3>Phase 3: Machine Learning Framework</h3>
-            <p>Predictive modelling for biogas yield and resource demand using the released synthetic scenario tables.</p>
+            <p>Development of predictive models for biogas yield and resource demand, alongside the design of student projects.</p>
           </article>
-          <article class="phase current">
-            <span class="pill next">Ongoing</span>
-            <h3>Phase 4: Notebook Design</h3>
-            <p>Teaching notebooks and guided learning materials for validation, uncertainty, and model interpretation.</p>
+          <article class="phase done">
+            <span class="pill done">Completed</span>
+            <h3>Phase 4: Assignments & Projects Design</h3>
+            <p>Development and implementation of industry-informed assignments and projects using the developed frameworks.</p>
           </article>
-          <article class="phase">
-            <span class="pill next">Planned</span>
+          <article class="phase done">
+            <span class="pill done">Completed</span>
             <h3>Phase 5: Optimisation Framework</h3>
-            <p>Hub design, feedstock allocation, logistics optimisation, and integration smoke tests for case study workflows.</p>
+            <p>Development of optimisation models for resource allocation and process efficiency, alongside the design of student projects.</p>
           </article>
-          <article class="phase">
-            <span class="pill next">Planned</span>
-            <h3>Phase 6: Dynamic Dashboard Design</h3>
-            <p>Interactive dashboard concepts for model outputs, trade-offs, and scenarios.</p>
+          <article class="phase done">
+            <span class="pill done">Completed</span>
+            <h3>Phase 6: Evaluation of Curriculum Integration</h3>
+            <p>Evaluation of curriculum integration, student learning outcomes, and opportunities for future improvements.</p>
           </article>
         </div>
       </div>
-
-    <div class="accordion" id="accordionExample">
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="headingOne">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            <b>Phase 1: Data Collection and Exploration Progress Map (100%)</b>
-          </button>
-        </h2>
-        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
-          <div class="accordion-body">
-            <div class="timeline" style="grid-template-columns: repeat(5, minmax(0, 1fr));">
-        <article class="phase done">
-          <span class="pill done">Completed</span>
-          <h3>Task 1</h3>
-          <p>Contextual analysis and literature review of relevant studies and data sources. Establish the project operating model, decision questions, course integration needs, and technical architecture.</p>
-        </article>
-        <article class="phase done">
-          <span class="pill done">Completed</span>
-          <h3>Task 2</h3>
-          <p>Catalogue all TEA workbook sheets, input cells, assumptions, formulas, scenarios, NPV outputs, and sensitivity-analysis outputs. Extract these into machine-readable tables.</p>
-        </article>
-        <article class="phase done">
-          <span class="pill done">Completed</span>
-          <h3>Task 3</h3>
-          <p>Recreate the functionalities of the TEA workbook. Implement a first TEA benchmark calculation in Python to reproduce selected workbook outputs.</p>
-        </article>
-        <article class="phase done">
-          <span class="pill done">Completed</span>
-          <h3>Task 4</h3>
-          <p>Audit public dataset: missingness, duplicates, outliers, unit variants, substrate names, pretreatment labels, reactor types, temperature, retention time, and yield units.</p>
-        </article>
-        <article class="phase done">
-          <span class="pill done">Completed</span>
-          <h3>Task 5</h3>
-          <p>Build a unit-conversion layer for methane yield, for example mapping mL/g VS, L/kg VS, m3/kg VS, and Nm3/kg VS to a common canonical unit where scientifically valid.</p>
-        </article>
-      </div>
-          </div>
-        </div>
-      </div>
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="headingTwo">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-            <b>Phase 2: Data Engineering Framework Progress Map (100%)</b>
-          </button>
-        </h2>
-        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample" style="">
-          <div class="accordion-body">
-            <div class="timeline" style="grid-template-columns: repeat(5, minmax(0, 1fr));">
-        <article class="phase done">
-          <span class="pill done">Completed</span>
-          <h3>Task 1</h3>
-          <p>Defined schema, table relationships, and constraints for linked synthetic scenario data.</p>
-        </article>
-        <article class="phase done">
-          <span class="pill done">Completed</span>
-          <h3>Task 2</h3>
-          <p>Implemented public CLI workflow: <strong>biogas-hub generate</strong> and <strong>biogas-hub validate</strong>.</p>
-        </article>
-        <article class="phase done">
-          <span class="pill done">Completed</span>
-          <h3>Task 3</h3>
-          <p>Delivered linked synthetic outputs: methane, feedstock, facility, logistics, market, scenarios, and metadata.</p>
-        </article>
-        <article class="phase done">
-          <span class="pill done">Completed</span>
-          <h3>Task 4</h3>
-          <p>Added validation checks for schema, missingness, bounds, cross-table links, plausibility, and confidentiality.</p>
-        </article>
-        <article class="phase done">
-          <span class="pill done">Completed</span>
-          <h3>Task 5</h3>
-          <p>Published notebook, tests, release documentation, and checklist-backed public packaging workflow.</p>
-        </article>
-      </div>
-          </div>
-        </div>
-      </div>
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="headingThree">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-            <b>Phase 3: Machine Learning Framework Progress Map (30%)</b>
-          </button>
-        </h2>
-        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample" style="">
-          <div class="accordion-body">
-            <div class="timeline" style="grid-template-columns: repeat(5, minmax(0, 1fr));">
-        <article class="phase current">
-          <span class="pill next">Ongoing</span>
-          <h3>Task 1</h3>
-          <p>Establish baseline models: global mean, grouped mean by substrate/pretreatment, linear regression, and simple decision trees.</p>
-        </article>
-        <article class="phase current">
-          <span class="pill next">Ongoing</span>
-          <h3>Task 2</h3>
-          <p>Engineer features from substrate taxonomy, pretreatment, temperature, retention time, reactor type, feedstock composition proxies, and TEA scenario inputs.</p>
-        </article>
-        <article class="phase">
-          <span class="pill next">Planned</span>
-          <h3>Task 3</h3>
-          <p>Train benchmark models: random forest, gradient boosting, regularised regression, and optional Gaussian process or Bayesian models where dataset size permits.</p>
-        </article>
-        <article class="phase">
-          <span class="pill next">Planned</span>
-          <h3>Task 4</h3>
-          <p>Evaluate models using both predictive and decision-aware metrics. Evaluate impact on optimisation decision and regret under scenario testing.</p>
-        </article>
-        <article class="phase">
-          <span class="pill next">Planned</span>
-          <h3>Task 5</h3>
-          <p>Implement explainability: feature importance, partial dependence, SHAP or equivalent, and model cards for teaching.</p>
-        </article>
-      </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="headingFour">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-            <b>Phase 4: Notebook Design Progress Map (50%)</b>
-          </button>
-        </h2>
-        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample" style="">
-          <div class="accordion-body">
-            <div class="timeline" style="grid-template-columns: repeat(5, minmax(0, 1fr));">
-        <article class="phase done">
-          <span class="pill done">Completed</span>
-          <h3>Task 1</h3>
-          <p>Synthetic data generation and validation. </p>
-        </article>
-        <article class="phase done">
-          <span class="pill done">Completed</span>
-          <h3>Task 2</h3>
-          <p>Data analysis of synthetic datasets and validation results.</p>
-        </article>
-        <article class="phase current">
-          <span class="pill next">Ongoing</span>
-          <h3>Task 3</h3>
-          <p>Machine learning model development and training.</p>
-        </article>
-        <article class="phase">
-          <span class="pill next">Planned</span>
-          <h3>Task 4</h3>
-          <p>Optimisation framework integration and scenario testing.</p>
-        </article>
-        <article class="phase">
-          <span class="pill next">Planned</span>
-          <h3>Task 5</h3>
-          <p>Connect all components into one repeatable workflow and validate end-to-end performance.</p>
-        </article>
-      </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
     </section>
-
     <section id="data-progress" aria-labelledby="data-progress-title">
       <div class="section-head">
         <h3 id="data-progress-title">Phase 1: Data Collection and Exploration</h3>
@@ -851,7 +1557,7 @@
                                 │
                                 ▼
                     ┌──────────────────────────┐
-                    │ validation_summary()     │
+                    │ 5. validation_summary()  │
                     │ • schema                 │
                     │ • constraints            │
                     │ • missing values         │
@@ -949,38 +1655,1432 @@
 
     </section>
 
-
-
-    <section id="gaps" aria-labelledby="gaps-title">
+    <section id="ml-progress" aria-labelledby="ml-progress-title">
       <div class="section-head">
-        <h2 id="gaps-title">What Is Done vs What Is Next</h2>
-        <p class="section-kicker">Phase 1/2 MVP release is complete. Predictive modelling and optimisation remain planned phases.</p>
+        <h2 id="ml-progress-title">Phase 3: ML Framework</h2>
+        <p class="section-kicker">Development of predictive models for biogas yield and resource demand, alongside the design of student projects.</p>
       </div>
+      <p>Phase 3 focuses on developing machine learning frameworks to predict biogas production and resource utilisation, while integrating industry-relevant sustainability challenges into student research projects. Building on the synthetic data framework established in Phase 2, postgraduate students investigated predictive modelling for regional biogas hub planning in Western Australia. Using synthetic datasets informed by industry techno-economic assessments and real anaerobic digester data, students developed and evaluated multiple machine learning models. For example, Random Forest, XGBoost, and Long Short-Term Memory (LSTM) networks. These models aimed to predict methane yield, electricity generation, and carbon emission reductions based on feedstock characteristics and operational parameters. Students conducted exploratory data analysis, feature engineering, model optimisation, and comparative performance evaluation, gaining practical experience in applying artificial intelligence to sustainability challenges. The project establishes a predictive foundation for subsequent optimisation activities, demonstrating how industry-informed research can enhance experiential learning and support data-driven decision-making in renewable energy and waste management.</p>
+  <!-- SIX-STAGE PIPELINE -->
+   <br>
+   <h4>Machine Learning Pipeline</h4>
+   <br>
+    <div class="ml-pipeline" aria-label="Machine learning pipeline">
+      <button class="ml-stage active"
+              type="button"
+              data-stage="0"
+              aria-pressed="true">
+        <span class="ml-number">STEP 01</span>
+        <span class="ml-icon" aria-hidden="true">🗄️</span>
+        <span class="ml-stage-title">Data Collection</span>
+      </button>
+      <button class="ml-stage"
+              type="button"
+              data-stage="1"
+              aria-pressed="false">
+        <span class="ml-number">STEP 02</span>
+        <span class="ml-icon" aria-hidden="true">🧬</span>
+        <span class="ml-stage-title">Synthetic Data Generation</span>
+      </button>
+      <button class="ml-stage"
+              type="button"
+              data-stage="2"
+              aria-pressed="false">
+        <span class="ml-number">STEP 03</span>
+        <span class="ml-icon" aria-hidden="true">⚙️</span>
+        <span class="ml-stage-title">Data Preparation</span>
+      </button>
+      <button class="ml-stage"
+              type="button"
+              data-stage="3"
+              aria-pressed="false">
+        <span class="ml-number">STEP 04</span>
+        <span class="ml-icon" aria-hidden="true">🧠</span>
+        <span class="ml-stage-title">Model Training</span>
+      </button>
+      <button class="ml-stage"
+              type="button"
+              data-stage="4"
+              aria-pressed="false">
+        <span class="ml-number">STEP 05</span>
+        <span class="ml-icon" aria-hidden="true">📊</span>
+        <span class="ml-stage-title">Predictions</span>
+      </button>
+      <button class="ml-stage"
+              type="button"
+              data-stage="5"
+              aria-pressed="false">
+        <span class="ml-number">STEP 06</span>
+        <span class="ml-icon" aria-hidden="true">🎯</span>
+        <span class="ml-stage-title">Model Evaluation</span>
+      </button>
+    </div>
+
+    <!-- DYNAMIC INFORMATION PANEL -->
+    <div class="ml-detail" id="mlDetail">
+      <div class="ml-detail-header">
+        <div class="ml-detail-icon" id="mlDetailIcon">
+          🗄️
+        </div>
+        <div>
+          <div class="ml-detail-label" id="mlDetailLabel">
+            Stage 01
+          </div>
+          <h3 class="ml-detail-title" id="mlDetailTitle">
+            Data Collection
+          </h3>
+        </div>
+      </div>
+
+      <div id="mlDynamicContent" aria-live="polite">
+        <!-- Content generated by JavaScript -->
+      </div>
+
+      <!-- NAVIGATION -->
+      <div class="ml-navigation">
+        <div class="ml-progress" id="mlProgress">
+          Stage 1 of 6
+        </div>
+        <div class="ml-nav-buttons">
+          <button class="ml-nav-btn"
+                  id="mlPrev"
+                  type="button"
+                  disabled>
+            ← Previous
+          </button>
+
+          <button class="ml-nav-btn primary"
+                  id="mlNext"
+                  type="button">
+            Next →
+          </button>
+        </div>
+      </div>
+    </div>
+    </section>
+
+    <section id="assignments-progress"
+            aria-labelledby="assignments-progress-title">
+
+      <div class="section-head">
+        <h2 id="assignments-progress-title">
+          Phase 4: Assignments & Projects Design
+        </h2>
+      </div>
+
+      <p class="phase-intro">
+        During Semester 2, 2026, we developed and implemented industry-informed assignments and student research projects that integrated real-world sustainability challenges into the teaching of computing, artificial intelligence, and applied mathematics.
+      </p>
+
+      <!-- STUDENT ENGAGEMENT -->
+
+      <div class="engagement-dashboard">
+        <!-- Overall impact -->
+        <div class="engagement-summary">
+          <div class="engagement-total">
+            <span class="engagement-number">638</span>
+            <span class="engagement-label">
+              STUDENTS ENGAGED
+            </span>
+            <br>
+            <span class="engagement-label">Semester 2, 2026</span>
+            <br>
+            <br>
+            <span style="font-style: italic; font-size: small;">Authentic sustainability problems moved from research into live teaching.</span>
+          </div>
+          <div class="engagement-stats">
+            <div>
+              <strong>2</strong>
+              <span>Teaching Units</span>
+            </div>
+            <div>
+              <strong>3</strong>
+              <span>Project Units</span>
+            </div>
+            <div>
+              <strong>4</strong>
+              <span>Campuses</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Engagement breakdown -->
+        <div class="engagement-breakdown">
+          <h3>Broad Reach</h3>
+          <div class="engagement-unit">
+            <div class="unit-count">528</div>
+
+            <div>
+              <h4>
+                COMP1002/5008 Data Structures and Algorithms
+              </h4>
+
+              <small>
+                Final Assignment · 426 Undergraduate + 102 Postgraduate · 4 Campuses
+              </small>
+            </div>
+
+          </div>
+
+          <div class="engagement-unit green">
+
+            <div class="unit-count">103</div>
+
+            <div>
+              <h4>COMP6009 Search and Logic Approaches in Machine Learning</h4>
+
+              <small>
+                Final Assignment · Postgraduate · 3 Campuses
+              </small>
+            </div>
+
+          </div>
+
+          <h3 class="project-heading">
+            Project-Based Engagement
+          </h3>
+
+          <div class="project-engagement">
+
+            <div>
+              <strong>3</strong>
+              <span>COMP6019 Predictive Analytics Project</span>
+            </div>
+
+            <div>
+              <strong>2</strong>
+              <span>MATH6004 Industrial Engineering Masters Project</span>
+            </div>
+
+            <div>
+              <strong>1</strong>
+              <span>MATH3004 Industrial Project</span>
+            </div>
+
+            <div>
+              <strong>1</strong>
+              <span>EECMS 2026/2027 Summer Scholarship</span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- ASSIGNMENT SHOWCASE -->
+
+      <div class="assignment-showcase">
+
+        <div class="showcase-heading">
+
+          <h3>Industry-Informed Assignments</h3>
+
+          <p>
+            Explore how real-world biogas and sustainability
+            challenges were incorporated into student assessments.
+          </p>
+
+        </div>
+
+
+        <div class="assignment-grid">
+
+          <!-- Assignment 1 -->
+
+          <article class="assignment-card">
+
+            <div class="assignment-preview">
+
+              <img
+                src="pdf_images/COMP1002_cover.png"
+                alt="COMP1002/5008 assignment cover"
+                loading="lazy"
+              >
+
+            </div>
+
+            <div class="assignment-content">
+
+              <span class="assignment-code">
+                COMP1002/5008 Data Structures and Algorithms
+              </span>
+
+              <h4>
+                Biogas Feedstock Collection Network: Data Structures and Algorithms for Sustainable Waste 
+Management
+              </h4>
+
+              <p>
+                An assignment exploring the design and implementation of a backend Biogas Feedstock Collection Network that manages farms information, represents transportation connections, prioritises feedstock collection requests, 
+and produces collection performance reports.
+              </p>
+
+              <div class="assignment-meta">
+                <span>528 students</span>
+                <span>4 campuses</span>
+              </div>
+
+              <button
+                type="button"
+                class="assignment-button"
+                data-pdf="pdf_images/COMP1002_Final_Assignment_Biogas_Feedstock_Collection_Network_cover_page.pdf"
+              >
+                View Assignment Cover Page ↗
+              </button>
+
+            </div>
+
+          </article>
+
+
+          <!-- Assignment 2 -->
+
+          <article class="assignment-card">
+
+            <div class="assignment-preview">
+
+              <img
+                src="pdf_images/COMP6009_cover.png"
+                alt="COMP6009 assignment cover"
+                loading="lazy"
+              >
+
+            </div>
+
+            <div class="assignment-content">
+
+              <span class="assignment-code">
+                COMP6009 Search and Logic Approaches in Machine Learning
+              </span>
+
+              <h4>
+                Biogas Plant Intelligent Monitoring
+                and Decision System for Biogas Plant Operations
+              </h4>
+              <br>
+              <p>
+                An assignment requiring the development of an intelligent monitoring and decision-support system for biogas plant operations under uncertain conditions to manage and respond to varying operational scenarios effectively.
+              </p>
+
+              <div class="assignment-meta">
+                <span>103 students</span>
+                <span>3 campuses</span>
+              </div>
+
+              <button
+                type="button"
+                class="assignment-button"
+                data-pdf="pdf_images/COMP6009_Assignment_Part_B_cover_page.pdf"
+              >
+                View Assignment Cover Page ↗
+              </button>
+
+            </div>
+
+          </article>
+
+        </div>
+
+      </div>
+
+      <!-- PROJECTS SHOWCASE -->
+
+      <div class="assignment-showcase">
+        <div class="showcase-heading">
+          <br>
+          <br>
+          <h3>Student Projects Showcase</h3>
+          <p>
+            Discover the innovative projects created by students
+            in response to real-world biogas and sustainability challenges.
+          </p>
+        </div>
+
+        <div class="assignment-grid">
+
+          <!-- Project 1 -->
+           <article class="assignment-card">
+
+            <div class="assignment-preview">
+
+              <img
+                src="pdf_images/project2.png"
+                alt="MATH3004 assignment cover"
+                loading="lazy"
+              >
+
+            </div>
+
+            <div class="assignment-content">
+
+              <span class="assignment-code">
+                MATH3004 Industrial Project
+              </span>
+
+              <h4>
+                Techno-economic Assessment and Statistical Data Analysis of Anaerobic Red Meat Industry in Western Australia
+              </h4>
+
+              <p>
+                A project assessing the techno-economic aspects and performing sensitivity and uncertainty analysis of the anaerobic digestion in the red meat industry in Western Australia.
+              </p>
+
+              <div class="assignment-meta">
+                <span>1 undergraduate student</span>
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <!-- Project 2 -->
+          <article class="assignment-card">
+            <div class="assignment-preview">
+              <img
+                src="pdf_images/project1.png"
+                alt="COMP6019 Predictive Analytics Project"
+                loading="lazy"
+              >
+            </div>
+            <div class="assignment-content">
+              <span class="assignment-code">
+                COMP6019 Predictive Analytics Project
+              </span>
+
+              <h4>
+                Synthetic Data and Machine Learning for Regional Biogas Hub Plannng in Western Australia
+              </h4>
+
+              <p>
+                A project exploring synthetic data framework and predictive models for methane yield, electricity generation, and carbon emission reduction.
+              </p>
+
+              <div class="assignment-meta">
+                <span>3 postgraduate students</span>
+              </div>
+
+            </div>
+
+          </article>
+
+        </div>
+
+        <div class="assignment-grid">
+
+          <!-- Project 3 -->
+           <article class="assignment-card">
+
+            <div class="assignment-preview">
+
+              <img
+                src="pdf_images/project4.png"
+                alt="MATH6004 assignment cover 1"
+                loading="lazy"
+              >
+
+            </div>
+
+            <div class="assignment-content">
+
+              <span class="assignment-code">
+                MATH6004 Industrial Engineering Masters Project
+              </span>
+
+              <h4>
+                Transforming Waste into Energy: Optimising Biogas Supply Chains for Western Australia's Red Meat Industry
+              </h4>
+
+              <p>
+                This project develops a mixed-integer linear programming (MILP) model for a WA anaerobic digestion hub that optimises feedstock selection, supplier contracts, transport, and water use, reducing annual electricity production costs while meeting the energy target.
+              </p>
+
+              <div class="assignment-meta">
+                <span>1 postgraduate student</span>
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <!-- Project 4 -->
+          <article class="assignment-card">
+            <div class="assignment-preview">
+              <img
+                src="pdf_images/project3.png"
+                alt="MATH6004 assignment cover 2"
+                loading="lazy"
+              >
+            </div>
+            <div class="assignment-content">
+              <span class="assignment-code">
+                MATH6004 Industrial Engineering Masters Project
+              </span>
+
+              <h4>
+                Optimisation of a Livestock-Based Biogas Supply Chain Network for Sustainable Renewable Energy Production
+              </h4>
+
+              <p>
+                This project develops a MILP model to optimise livestock biogas networks in California’s Central Valley, demonstrating that shared hub-and-spoke anaerobic digestion systems can increase annual net surplus compared with stand-alone facilities.
+              </p>
+
+              <div class="assignment-meta">
+                <span>1 postgraduate student</span>
+              </div>
+
+            </div>
+
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- PDF MODAL -->
+
+    <dialog id="assignmentModal" class="assignment-modal">
+
+      <div class="modal-header">
+
+        <strong>Assignment Preview</strong>
+
+        <button
+          type="button"
+          id="closeAssignmentModal"
+          aria-label="Close assignment preview"
+        >
+          ✕
+        </button>
+
+      </div>
+
+      <iframe
+        id="assignmentFrame"
+        title="Assignment PDF preview"
+      ></iframe>
+
+      <div class="modal-footer">
+
+        <a
+          id="openAssignmentPDF"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Open PDF in New Tab ↗
+        </a>
+
+      </div>
+
+    </dialog>
+
+    <section id="optimisation-progress"
+        class="ml-section"
+        aria-labelledby="optimisation-title">
+
+      <div class="section-head">
+        <h2 id="assignments-progress-title">
+          Phase 5: Optimisation Framework
+        </h2>
+      </div>
+        <p>
+          Phase 5 focuses on developing a transferable, data-driven optimisation framework for regional biogas hub planning and operation. Building on the synthetic data and machine learning frameworks established in earlier phases, the proposed approach integrates spatial feedstock networks, predictive modelling, and techno-economic analysis to support sustainable decision-making. The framework aims to optimise biogas hub locations, facility capacities, feedstock allocation, and operational strategies while accounting for uncertainties in feedstock availability, process performance, and economic conditions. Through scenario analysis and stress testing, the framework will evaluate trade-offs between economic viability, environmental performance, and operational resilience. Applications in data-rich US and data-limited Australian contexts will further investigate the transferability of the modelling approach, providing a foundation for evidence-based planning and more resilient waste-to-energy systems.
+        </p>
+
+      </div>
+
+      <!-- SIX-STAGE PIPELINE -->
+
+      <br>
+      <h3>Optimisation Framework Pipeline</h3>
+      <br>
+
+      <div class="ml-pipeline optimisation-pipeline"
+          aria-label="Optimisation framework pipeline">
+
+        <button class="ml-stage active"
+                type="button"
+                data-opt-stage="0"
+                aria-pressed="true">
+
+          <span class="ml-number">STEP 01</span>
+          <span class="ml-icon" aria-hidden="true">🗄️</span>
+          <span class="ml-stage-title">Data Integration</span>
+
+        </button>
+
+        <button class="ml-stage"
+                type="button"
+                data-opt-stage="1"
+                aria-pressed="false">
+
+          <span class="ml-number">STEP 02</span>
+          <span class="ml-icon" aria-hidden="true">🗺️</span>
+          <span class="ml-stage-title">Regional System</span>
+
+        </button>
+
+        <button class="ml-stage"
+                type="button"
+                data-opt-stage="2"
+                aria-pressed="false">
+
+          <span class="ml-number">STEP 03</span>
+          <span class="ml-icon" aria-hidden="true">🧠</span>
+          <span class="ml-stage-title">Process Prediction</span>
+
+        </button>
+
+        <button class="ml-stage"
+                type="button"
+                data-opt-stage="3"
+                aria-pressed="false">
+
+          <span class="ml-number">STEP 04</span>
+          <span class="ml-icon" aria-hidden="true">📈</span>
+          <span class="ml-stage-title">Techno-Economic Modelling</span>
+
+        </button>
+
+        <button class="ml-stage"
+                type="button"
+                data-opt-stage="4"
+                aria-pressed="false">
+
+          <span class="ml-number">STEP 05</span>
+          <span class="ml-icon" aria-hidden="true">⚙️</span>
+          <span class="ml-stage-title">Risk-Aware Optimisation</span>
+
+        </button>
+
+        <button class="ml-stage"
+                type="button"
+                data-opt-stage="5"
+                aria-pressed="false">
+
+          <span class="ml-number">STEP 06</span>
+          <span class="ml-icon" aria-hidden="true">🎯</span>
+          <span class="ml-stage-title">Evaluation</span>
+
+        </button>
+
+      </div>
+
+      <!-- COMPACT DYNAMIC PANEL -->
+
+      <div class="ml-detail opt-detail" id="optDetail">
+
+        <div class="ml-detail-header">
+
+          <div class="ml-detail-icon" id="optDetailIcon">
+            🗄️
+          </div>
+
+          <div>
+
+            <div class="ml-detail-label" id="optDetailLabel">
+              Stage 01
+            </div>
+
+            <h3 class="ml-detail-title" id="optDetailTitle">
+              Data Integration
+            </h3>
+
+          </div>
+
+        </div>
+
+        <p class="ml-description"
+          id="optDescription"
+          aria-live="polite">
+        </p>
+
+        <div class="opt-tags" id="optTags"></div>
+
+        <div class="ml-navigation">
+
+          <div class="ml-progress" id="optProgress">
+            Stage 1 of 6
+          </div>
+
+          <div class="ml-nav-buttons">
+
+            <button class="ml-nav-btn"
+                    id="optPrev"
+                    type="button"
+                    disabled>
+              ← Previous
+            </button>
+
+            <button class="ml-nav-btn primary"
+                    id="optNext"
+                    type="button">
+              Next →
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <section id="evaluation-progress" aria-labelledby="evaluation-progress-title">
+      <div class="section-head">
+        <h2 id="evaluation-progress-title">Phase 6: Evaluation of Curriculum Integration</h2>
+      </div>
+      <p>Collecting feedback across campuses from staffs and students to assess the effectiveness of curriculum integration and identify areas for improvement.</p>
       <div class="cards">
         <article class="card">
-          <h3>Implemented (Phase 1/2 public release complete)</h3>
-          <ul>
-            <li>Unified public CLI commands for synthetic generation and validation.</li>
-            <li>Linked relational-style synthetic tables keyed by scenario_id for downstream joins.</li>
-            <li>Course-safe configuration and reproducible row/seed runtime overrides.</li>
-            <li>Validation reporting in Markdown and JSON with metadata status transitions.</li>
-            <li>Confidentiality and release safeguards that avoid dependence on internal TEA extracts.</li>
-            <li>Public validation notebook operating only on generated CSV outputs.</li>
-            <li>Release test coverage for schema, constraints, CLI, units, and confidentiality guards.</li>
-          </ul>
+          <span class="testimonial-avatar" aria-hidden="true">&nbsp;👱‍♂️</span>
+          <blockquote>
+            “This is indeed a good initiative since students are experiencing a real-world development scenario.”
+          </blockquote>
+          <p><cite>Lecturer, COMP1002/5008, Curtin Mauritius</cite></p>
         </article>
+
         <article class="card">
-          <h3>Planned next work (Phase 3 onward)</h3>
-          <ul>
-            <li>Biogas yield prediction model using the released synthetic dataset.</li>
-            <li>Resource demand forecasting pipeline and uncertainty experiments.</li>
-            <li>Case Study 1 model development, evaluation, and benchmarking.</li>
-            <li>Phase 4/5 notebook and optimisation framework integration work.</li>
-          </ul>
+          <span class="testimonial-avatar" aria-hidden="true">&nbsp;👩‍🦱</span>
+          <blockquote>
+            “I like the idea of restricting them for a standard, actual data set so that students get exposed to work around proper data. It changes the monotonous nature of previous semester assessments.”
+          </blockquote>
+          <p><cite>Lecturer, COMP1002/5008, Curtin Colombo</cite></p>
+        </article>
+
+        <article class="card">
+          <span class="testimonial-avatar" aria-hidden="true">&nbsp;👩‍🦰</span>
+          <blockquote>
+            “Incorporating a real-world scenario and dataset is an interesting approach, as it makes the assignment more practical and relevant to the students,”
+          </blockquote>
+          <p><cite>Lecturer, COMP1002/5008, Curtin Malaysia</cite></p>
+        </article>
+
+        <article class="card">
+          <span class="testimonial-avatar" aria-hidden="true">&nbsp;👨🏼</span>
+          <blockquote>
+            “The design and framing are excellent. The anaerobic digestion scenario at the Western Australian meat-processing facility offers an authentic, high-impact context for sustainability, clearly demonstrating how AI applies to real-world environmental engineering and resource recovery.”
+          </blockquote>
+          <p><cite>Lecturer, COMP6009, Curtin Dubai</cite></p>
         </article>
       </div>
     </section>
 
   </main>
+
+<script>
+/* =========================================
+   PIPELINE DATA
+========================================= */
+
+const mlStages = [
+
+  {
+    title: "Data Collection",
+    icon: "🗄️",
+    color: "#2878c7",
+    background: "#e3efff",
+
+    description:
+      "The project combines Western Australian red meat industry " +
+      "techno-economic assessment (TEA) parameters with real " +
+      "anaerobic digester observations to establish a " +
+      "data-informed foundation for predictive modelling.",
+
+    cards: [
+      {
+        title: "WA Industry TEA",
+        text:
+          "Feedstock characteristics, waste quantities, " +
+          "volatile solids content, and energy conversion parameters."
+      },
+      {
+        title: "US Digester Database",
+        text:
+          "Operational records from two anaerobic digesters, " +
+          "providing real feedstock and methane-yield observations."
+      },
+      {
+        title: "104 Reactor Observations",
+        text:
+          "Cleaned observations used to estimate the relationship " +
+          "between organic loading rate, feed concentration, " +
+          "and methane yield."
+      }
+    ]
+  },
+
+  {
+    title: "Synthetic Data Generation",
+    icon: "🧬",
+    color: "#31934b",
+    background: "#e2f3e5",
+
+    description:
+      "A synthetic dataset was generated to address the limited " +
+      "availability of large-scale Western Australian operational " +
+      "data. The generation process combines industry-informed " +
+      "feedstock parameters with relationships derived from " +
+      "real anaerobic digester observations.",
+
+    cards: [
+      {
+        title: "800 Simulated Facilities",
+        text:
+          "Generate 800 synthetic facility observations with " +
+          "variations in feedstock quantities and operating conditions."
+      },
+      {
+        title: "Feedstock Variation",
+        text:
+          "Scale WA feedstock quantities and sample organic " +
+          "loading rate (OLR) and diluted feed volatile solids (VS%)."
+      },
+      {
+        title: "Operational Outcomes",
+        text:
+          "Generate methane yield, electricity generation, " +
+          "and carbon emission reduction values for each facility."
+      }
+    ]
+  },
+
+  {
+    title: "Data Preparation",
+    icon: "⚙️",
+    color: "#c8871d",
+    background: "#fff0dc",
+
+    description:
+      "The synthetic dataset undergoes preprocessing and " +
+      "exploratory analysis to ensure that the observations " +
+      "are suitable for machine learning model development.",
+
+    cards: [
+      {
+        title: "Data Quality",
+        text:
+          "Check missing values, identify outliers, and examine " +
+          "the distributions of operational variables."
+      },
+      {
+        title: "Feature Engineering",
+        text:
+          "Prepare numerical and categorical variables through " +
+          "scaling, encoding, and feature construction."
+      },
+      {
+        title: "Dataset Splitting",
+        text:
+          "Divide observations into 70% training, " +
+          "15% validation, and 15% testing datasets."
+      }
+    ]
+  },
+
+  {
+    title: "Machine Learning Model Training",
+    icon: "🧠",
+    color: "#6b63bd",
+    background: "#e9e9fa",
+
+    description:
+      "Three machine learning architectures were developed " +
+      "and compared to predict biogas-related operational " +
+      "outcomes. A linear regression baseline was also " +
+      "included to assess whether more complex algorithms " +
+      "provide meaningful improvements.",
+
+    cards: [
+      {
+        title: "Random Forest",
+        text:
+          "An ensemble of decision trees designed to capture " +
+          "nonlinear relationships between feedstock " +
+          "characteristics and operational outcomes."
+      },
+      {
+        title: "XGBoost",
+        text:
+          "A gradient-boosting algorithm that sequentially " +
+          "improves decision trees to reduce prediction errors."
+      },
+      {
+        title: "LSTM Neural Network",
+        text:
+          "A recurrent neural network evaluated to investigate " +
+          "whether sequence-oriented modelling offers benefits " +
+          "for the synthetic facility dataset."
+      },
+      {
+        title: "Linear Regression Baseline",
+        text:
+          "A simpler benchmark model used to evaluate whether " +
+          "the additional complexity of the three machine " +
+          "learning architectures improves prediction accuracy."
+      }
+    ]
+  },
+
+  {
+    title: "Predictions",
+    icon: "📊",
+    color: "#cf6262",
+    background: "#ffe5e5",
+
+    description:
+      "The trained models generate predictions for three " +
+      "operational outcomes relevant to renewable energy " +
+      "production and sustainability planning.",
+
+    cards: [
+      {
+        title: "Methane Yield",
+        text:
+          "Estimate methane production potential based on " +
+          "feedstock characteristics and operating conditions."
+      },
+      {
+        title: "Electricity Generation",
+        text:
+          "Predict electricity generation associated with " +
+          "methane production and the amount of organic " +
+          "material processed."
+      },
+      {
+        title: "Carbon Emission Reduction",
+        text:
+          "Estimate avoided emissions associated with " +
+          "renewable electricity generation using " +
+          "the assumed grid emission factor."
+      }
+    ]
+  },
+
+  {
+    title: "Model Evaluation",
+    icon: "🎯",
+    color: "#9864bd",
+    background: "#efe5f7",
+
+    description:
+      "Model performance is assessed using regression metrics " +
+      "and comparative analysis. The evaluation examines " +
+      "prediction accuracy, error distributions, and the " +
+      "limitations of learning from synthetic data.",
+
+    cards: [
+      {
+        title: "Mean Absolute Error (MAE)",
+        text:
+          "Measures the average absolute difference between " +
+          "predicted and observed values."
+      },
+      {
+        title: "Root Mean Squared Error (RMSE)",
+        text:
+          "Measures prediction error while assigning " +
+          "greater penalties to larger deviations."
+      },
+      {
+        title: "Coefficient of Determination (R²)",
+        text:
+          "Measures the proportion of variation in " +
+          "the target variable explained by the model."
+      },
+      {
+        title: "Comparative Analysis",
+        text:
+          "Compare Random Forest, XGBoost, LSTM, and " +
+          "linear regression to identify strengths, " +
+          "limitations, and opportunities for improvement."
+      }
+    ]
+  }
+
+];
+
+
+/* =========================================
+   ELEMENT REFERENCES
+========================================= */
+
+const mlButtons = document.querySelectorAll(".ml-stage");
+
+const mlDetail = document.getElementById("mlDetail");
+const mlDetailIcon = document.getElementById("mlDetailIcon");
+const mlDetailLabel = document.getElementById("mlDetailLabel");
+const mlDetailTitle = document.getElementById("mlDetailTitle");
+
+const mlDynamicContent =
+  document.getElementById("mlDynamicContent");
+
+const mlProgress = document.getElementById("mlProgress");
+
+const mlPrev = document.getElementById("mlPrev");
+const mlNext = document.getElementById("mlNext");
+
+let currentMLStage = 0;
+
+
+/* =========================================
+   RENDER STAGE
+========================================= */
+
+function renderMLStage(index) {
+
+  if (index < 0 || index >= mlStages.length) {
+    return;
+  }
+  currentMLStage = index;
+  const stage = mlStages[index];
+
+  /* Update selected stage */
+  mlButtons.forEach((button, buttonIndex) => {
+    const isActive = buttonIndex === index;
+    button.classList.toggle("active", isActive);
+    button.setAttribute(
+      "aria-pressed",
+      String(isActive)
+    );
+
+  });
+
+  /* Update panel colours */
+
+  mlDetail.style.setProperty(
+    "--detail-color",
+    stage.color
+  );
+
+  mlDetail.style.setProperty(
+    "--detail-bg",
+    stage.background
+  );
+
+  /* Update heading */
+
+  mlDetailIcon.textContent = stage.icon;
+
+  mlDetailLabel.textContent =
+    `Stage ${String(index + 1).padStart(2, "0")}`;
+
+  mlDetailTitle.textContent = stage.title;
+
+  /* Generate information cards safely */
+
+  mlDynamicContent.replaceChildren();
+
+  const description = document.createElement("p");
+  description.className = "ml-description";
+  description.textContent = stage.description;
+
+  const grid = document.createElement("div");
+  grid.className = "ml-info-grid";
+
+  stage.cards.forEach(card => {
+
+    const cardElement = document.createElement("div");
+    cardElement.className = "ml-info-card";
+
+    const heading = document.createElement("h4");
+    heading.textContent = card.title;
+
+    const paragraph = document.createElement("p");
+    paragraph.textContent = card.text;
+
+    cardElement.append(heading, paragraph);
+    grid.appendChild(cardElement);
+
+  });
+
+  mlDynamicContent.append(description, grid);
+
+  /* Animate updated content */
+  mlDynamicContent.classList.remove("ml-fade");
+  void mlDynamicContent.offsetWidth;
+  mlDynamicContent.classList.add("ml-fade");
+
+  /* Update navigation */
+  mlProgress.textContent =
+    `Stage ${index + 1} of ${mlStages.length}`;
+
+  mlPrev.disabled = index === 0;
+  mlNext.disabled = index === mlStages.length - 1;
+
+}
+
+
+/* =========================================
+   STAGE CLICK HANDLERS
+========================================= */
+
+mlButtons.forEach(button => {
+
+  button.addEventListener("click", () => {
+
+    const index = Number(button.dataset.stage);
+
+    renderMLStage(index);
+
+  });
+
+});
+
+
+/* =========================================
+   PREVIOUS / NEXT
+========================================= */
+
+mlPrev.addEventListener("click", () => {
+
+  renderMLStage(currentMLStage - 1);
+
+});
+
+mlNext.addEventListener("click", () => {
+
+  renderMLStage(currentMLStage + 1);
+
+});
+
+
+/* =========================================
+   INITIALISE
+========================================= */
+
+renderMLStage(0);
+
+const assignmentModal =
+  document.getElementById("assignmentModal");
+
+const assignmentFrame =
+  document.getElementById("assignmentFrame");
+
+const openAssignmentPDF =
+  document.getElementById("openAssignmentPDF");
+
+const closeAssignmentModal =
+  document.getElementById("closeAssignmentModal");
+
+
+document.querySelectorAll(".assignment-button")
+  .forEach(button => {
+
+    button.addEventListener("click", () => {
+
+      const pdfPath = button.dataset.pdf;
+
+      assignmentFrame.src = pdfPath;
+
+      openAssignmentPDF.href = pdfPath;
+
+      assignmentModal.showModal();
+
+    });
+
+  });
+
+
+closeAssignmentModal.addEventListener("click", () => {
+  assignmentModal.close();
+});
+
+
+assignmentModal.addEventListener("close", () => {
+  assignmentFrame.removeAttribute("src");
+});
+
+
+assignmentModal.addEventListener("click", event => {
+  if (event.target === assignmentModal) {
+    assignmentModal.close();
+  }
+});
+
+/* =========================================
+   OPTIMISATION PIPELINE DATA
+========================================= */
+
+const optimisationStages = [
+
+  {
+    title: "Data Integration",
+    icon: "🗄️",
+    color: "#2878c7",
+    background: "#e3efff",
+
+    description:
+      "Integrate spatial, feedstock, experimental and " +
+      "techno-economic datasets to establish a consistent " +
+      "foundation for regional biogas hub modelling.",
+
+    tags: [
+      "Spatial Data",
+      "Digester Data",
+      "Techno-Economic Data"
+    ]
+  },
+
+  {
+    title: "Regional System",
+    icon: "🗺️",
+    color: "#31934b",
+    background: "#e2f3e5",
+
+    description:
+      "Develop realistic synthetic regional systems representing " +
+      "feedstock suppliers, candidate biogas hubs, transport " +
+      "networks and operating conditions.",
+
+    tags: [
+      "Feedstock Supply",
+      "Facility Locations",
+      "Transport Networks"
+    ]
+  },
+
+  {
+    title: "Process Prediction",
+    icon: "🧠",
+    color: "#c8871d",
+    background: "#fff0dc",
+
+    description:
+      "Incorporate predictive models to estimate methane yield " +
+      "and biogas production from feedstock composition " +
+      "and anaerobic digester operating conditions.",
+
+    tags: [
+      "Machine Learning",
+      "Methane Yield",
+      "Process Performance"
+    ]
+  },
+
+  {
+    title: "Techno-Economic Modelling",
+    icon: "📈",
+    color: "#6b63bd",
+    background: "#e9e9fa",
+
+    description:
+      "Translate predicted process performance into energy " +
+      "production, investment requirements, operating costs " +
+      "and financial indicators to evaluate economic viability.",
+
+    tags: [
+      "CAPEX & OPEX",
+      "Energy Revenue",
+      "Net Present Value"
+    ]
+  },
+
+  {
+    title: "Risk-Aware Optimisation",
+    icon: "⚙️",
+    color: "#cf6262",
+    background: "#ffe5e5",
+
+    description:
+      "Identify economically viable and resilient biogas hub " +
+      "configurations by optimising facility locations, " +
+      "capacities, feedstock allocation and operations " +
+      "under uncertain conditions.",
+
+    tags: [
+      "Hub Location",
+      "Feedstock Allocation",
+      "Uncertainty & Risk"
+    ]
+  },
+
+  {
+    title: "Evaluation",
+    icon: "🎯",
+    color: "#9864bd",
+    background: "#efe5f7",
+
+    description:
+      "Evaluate economic, environmental and operational " +
+      "performance through scenario analysis and stress " +
+      "testing, including comparisons between Australian " +
+      "and US regional systems.",
+
+    tags: [
+      "Economic Performance",
+      "Environmental Impact",
+      "Risk & Resilience"
+    ]
+  }
+
+];
+
+
+/* =========================================
+   ELEMENT REFERENCES
+========================================= */
+
+const optSection =
+  document.getElementById("optimisation-progress");
+
+const optButtons =
+  optSection.querySelectorAll("[data-opt-stage]");
+
+const optDetail =
+  document.getElementById("optDetail");
+
+const optDetailIcon =
+  document.getElementById("optDetailIcon");
+
+const optDetailLabel =
+  document.getElementById("optDetailLabel");
+
+const optDetailTitle =
+  document.getElementById("optDetailTitle");
+
+const optDescription =
+  document.getElementById("optDescription");
+
+const optTags =
+  document.getElementById("optTags");
+
+const optProgress =
+  document.getElementById("optProgress");
+
+const optPrev =
+  document.getElementById("optPrev");
+
+const optNext =
+  document.getElementById("optNext");
+
+let currentOptStage = 0;
+
+
+/* =========================================
+   RENDER SELECTED STAGE
+========================================= */
+
+function renderOptStage(index) {
+
+  if (index < 0 || index >= optimisationStages.length) {
+    return;
+  }
+
+  currentOptStage = index;
+
+  const stage = optimisationStages[index];
+
+  /* Highlight active stage */
+
+  optButtons.forEach((button, buttonIndex) => {
+
+    const active = buttonIndex === index;
+
+    button.classList.toggle("active", active);
+
+    button.setAttribute(
+      "aria-pressed",
+      String(active)
+    );
+
+  });
+
+  /* Update colours */
+
+  optDetail.style.setProperty(
+    "--detail-color",
+    stage.color
+  );
+
+  optDetail.style.setProperty(
+    "--detail-bg",
+    stage.background
+  );
+
+  /* Update heading */
+
+  optDetailIcon.textContent = stage.icon;
+
+  optDetailLabel.textContent =
+    `Stage ${String(index + 1).padStart(2, "0")}`;
+
+  optDetailTitle.textContent = stage.title;
+
+  /* Update description */
+
+  optDescription.textContent = stage.description;
+
+  /* Update tags */
+
+  optTags.replaceChildren();
+
+  stage.tags.forEach(tag => {
+
+    const element = document.createElement("span");
+
+    element.className = "opt-tag";
+    element.textContent = tag;
+
+    optTags.appendChild(element);
+
+  });
+
+  /* Update navigation */
+
+  optProgress.textContent =
+    `Stage ${index + 1} of ${optimisationStages.length}`;
+
+  optPrev.disabled = index === 0;
+
+  optNext.disabled =
+    index === optimisationStages.length - 1;
+
+}
+
+
+/* =========================================
+   EVENT LISTENERS
+========================================= */
+
+optButtons.forEach(button => {
+
+  button.addEventListener("click", () => {
+
+    renderOptStage(Number(button.dataset.optStage));
+
+  });
+
+});
+
+
+optPrev.addEventListener("click", () => {
+
+  renderOptStage(currentOptStage - 1);
+
+});
+
+
+optNext.addEventListener("click", () => {
+
+  renderOptStage(currentOptStage + 1);
+
+});
+
+
+/* =========================================
+   INITIALISE
+========================================= */
+
+renderOptStage(0);
+
+
+</script>
 </body>
 </html>
